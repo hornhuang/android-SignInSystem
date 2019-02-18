@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.joker.signinsystem.LandingRegistration.MainActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffde4037">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="   手机号登录"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#00000000">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/phone_icon"/>
+
+        <EditText
+            android:id="@+id/phone_number"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:hint="请输入你的手机号码"
+            android:inputType="phone"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#00000000">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="23dp"
+            android:layout_height="25dp"
+            android:src="@drawable/lock_icon"/>
+
+        <EditText
+            android:id="@+id/verification_code"
+            android:layout_width="230dp"
+            android:layout_height="50dp"
+            android:hint="请输入你的验证码"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/button_send_verification_code"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#00000000"
+            android:text="获取验证码"
+            android:textColor="#ffde4037"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#00000000">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_login"
+        android:text="登    录"
+        android:textSize="16sp"
+        android:textColor="#ffffffff"
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:background="@drawable/shape_button"
+        android:layout_gravity="center"/>
+
+</LinearLayout>
