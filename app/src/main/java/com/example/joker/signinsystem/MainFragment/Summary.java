@@ -50,11 +50,8 @@ public class Summary extends Fragment{
         @Override
         public void handleMessage(Message msg) {
             if((Integer)msg.obj==0){
-                 List<Map<String, Object>> list=getData();
-
+                List<Map<String, Object>> list=getData();
                 listView.setAdapter(new ListViewAdapter(getActivity(), list));
-
-
             }
             super.handleMessage(msg);
         }
