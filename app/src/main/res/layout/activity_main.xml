@@ -15,40 +15,36 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?actionBarSize"
             android:background="#ffde4037"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:layout_weight="0.01">
 
-
-
-            <ImageButton
-                android:id="@+id/search"
-                android:layout_width="217.5dp"
-                android:layout_height="30dp"
-
-                android:foregroundGravity="right"
-                />
-
-
-            <TextView
-                android:layout_width="35dp"
-                android:layout_height="2dp" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.SearchView
+                    android:id="@+id/search"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:foregroundGravity="right" />
 
                 <ImageButton
                     android:id="@+id/toolbar_code"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:src="#ff444444"
-                    android:background="#00000000"/>
-            </RelativeLayout>
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="?actionBarSize"
+                    android:background="@color/smssdk_transparent"
+                    android:padding="10dp"
+                    android:src="@drawable/qr_code"
+                    android:scaleType="fitXY"/>
+
+            </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
 

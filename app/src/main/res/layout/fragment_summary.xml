@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/smssdk_gray_press"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button01"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="20sp"/>
+    <!--<Button-->
+        <!--android:id="@+id/button01"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/app_name"-->
+        <!--android:textSize="20sp"/>-->
 
     <!-- ... XML CODE -->
     <ListView
@@ -19,4 +21,4 @@
         android:layout_height="fill_parent">
     </ListView>
 
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
