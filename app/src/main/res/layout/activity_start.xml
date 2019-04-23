@@ -7,31 +7,32 @@
     tools:context="com.example.joker.signinsystem.LandingRegistration.StartActivity"
     android:background="@drawable/boat">
 
-    <pl.droidsonroids.gif.GifImageView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
-        android:src="@drawable/main_1st" />
+        android:src="@drawable/start_background" />
 
     <TextView
         android:id="@+id/tv_regist"
         android:layout_width="115dp"
         android:layout_height="30dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:background="#00000000"
-        android:text="   没有账户？/注册"
-        android:textColor="#ff000000" />
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="没有账户？/注册"
+        android:textColor="@color/smssdk_lv_item_divider" />
+
     <TextView
         android:id="@+id/tv_forget"
         android:layout_width="115dp"
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
-        android:background="#00000000"
-        android:text="   忘记密码？/找回"
-        android:textColor="#ff000000"/>
+        android:gravity="center"
+        android:text="忘记密码？/找回"
+        android:textColor="@color/smssdk_lv_item_divider" />
 
     <Button
         android:id="@+id/login"

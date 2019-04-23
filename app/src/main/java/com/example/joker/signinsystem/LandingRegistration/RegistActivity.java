@@ -28,6 +28,7 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_regist);
+
         Bmob.initialize(this, "bd4814e57ed9c8f00aa0d119c5676cf9");
         et_regist_user= (EditText)findViewById(R.id.et_regist_user);
         et_regist_password= (EditText) findViewById(R.id.et_regist_password);
