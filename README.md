@@ -12,12 +12,12 @@ Android SignIn System
 
 ## Credits
 
-* [Eleven Music Player](https://github.com/CyanogenMod/android_packages_apps_Eleven)
-* [TimelyTextView](https://github.com/adnan-SM/TimelyTextView)
-* [MultiViewPager](https://github.com/Pixplicity/MultiViewPager)
-* [PlayPauseButton](https://github.com/recruit-lifestyle/PlayPauseButton)
-* [CircularSeekBar](https://github.com/devadvance/circularseekbar)
-* [Nammu](https://github.com/tajchert/Nammu)
+* [okHttp](https://github.com/square/okhttp)
+* [Bmob](https://www.bmob.cn)
+* [GifView](https://github.com/Cutta/GifView)
+* [espresso](https://github.com/TonnyL/Espresso)
+* [circleimageview](https://github.com/hdodenhof/CircleImageView)
+* [glide](https://github.com/bumptech/glide)
 
 ## License
 
@@ -26,5 +26,3 @@ Android SignIn System
 >实现本项目，主要用于我们协会成员进行签到，由于各种原因不能把最终版本发上来，本版本属于上古版本，这里对此深表歉意。
 
 >本版本主要功能：1.基于Bomob实现注册、登录。 2.实现用户列表查看。3.短信验证码登录服务。4.基于wifi识别的签到。5.基于指纹识别的确认签到。
-
-## License
