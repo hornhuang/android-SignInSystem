@@ -15,9 +15,14 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -40,20 +45,10 @@ public class Personal extends Fragment {
     private WifiManager wifiManager=null ;
     private WifiInfo wifiInfo=null;
     private Button begin;
+    Toolbar toolbar = null;
     private String mac ="00:6b:8e:f6:99:d8";
     private boolean flag = false;
     private BiometricPromptManager mManager;
-
-//    Handler handler2=new Handler(){
-//        @Override
-//        public void handleMessage(Message msg) {
-//            if(msg.what==1){
-//                begin.setText("计时开始:"+msg.obj);
-//            }else if(msg.what==2){
-//                begin.setText(""+msg.obj);
-//            }
-//        }
-//    };
 
     private BroadcastReceiver mwifiBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -82,7 +77,8 @@ public class Personal extends Fragment {
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        setHasOptionsMenu(true);
+        wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
          View view = inflater.inflate(R.layout.fragment_personal,container,false);
 
          IntentFilter myIntentFilter = new IntentFilter();
@@ -94,10 +90,12 @@ public class Personal extends Fragment {
          begin.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-
                 start();
              }
          });
+
+        toolbar = view.findViewById(R.id.toolbar);
+        initToolbar(toolbar, "签到", false);
         return view;
     }
 
@@ -153,4 +151,25 @@ public class Personal extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
+    /**
+     * Fragment中初始化Toolbar
+     * @param toolbar
+     * @param title 标题
+     * @param isDisplayHomeAsUp 是否显示返回箭头
+     */
+    public void initToolbar(Toolbar toolbar, String title, boolean isDisplayHomeAsUp) {
+        AppCompatActivity appCompatActivity= (AppCompatActivity) getActivity();
+        appCompatActivity.setSupportActionBar(toolbar);
+        ActionBar actionBar = appCompatActivity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(title);
+            actionBar.setDisplayHomeAsUpEnabled(isDisplayHomeAsUp);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.toolbar_popmenu,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 }

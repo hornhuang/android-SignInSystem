@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 
 import com.example.joker.signinsystem.R;
+import com.example.joker.signinsystem.baseclasses.User;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;

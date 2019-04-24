@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.joker.signinsystem.MainActivity;
 import com.example.joker.signinsystem.R;
+import com.example.joker.signinsystem.baseclasses.User;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
@@ -82,6 +83,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(StartActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                             Intent intent_main = new Intent(StartActivity.this, MainActivity.class);
                             startActivity(intent_main);
+                            finish();
                             //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
                             //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
                         }else{

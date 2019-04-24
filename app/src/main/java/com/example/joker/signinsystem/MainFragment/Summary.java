@@ -1,31 +1,23 @@
 package com.example.joker.signinsystem.MainFragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.joker.signinsystem.LandingRegistration.User;
+import com.example.joker.signinsystem.baseclasses.User;
 import com.example.joker.signinsystem.R;
-import com.example.joker.signinsystem.Summary.ListViewAdapter;
+import com.example.joker.signinsystem.Summary.SummaryRecyclerAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
@@ -36,18 +28,16 @@ import cn.bmob.v3.listener.FindListener;
 public class Summary extends Fragment{
 
     private List<User> userList = new ArrayList<>();
-    private List<Map<String, Object>> list;
     private int n ;
     public static String APPID = "bd4814e57ed9c8f00aa0d119c5676cf9";
-    private ListView listView;
+    private RecyclerView mUserListViews;
     private SwipeRefreshLayout mRefreshLayout;
 
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             if((Integer)msg.obj==0){
-                List<Map<String, Object>> list=getData();
-                listView.setAdapter(new ListViewAdapter(getActivity(), list));
+                mUserListViews.setAdapter(new SummaryRecyclerAdapter(userList));
                 mRefreshLayout.setRefreshing(false);
             }
         }
@@ -64,14 +54,16 @@ public class Summary extends Fragment{
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                List<Map<String, Object>> list=getData();
-                listView.setAdapter(new ListViewAdapter(getActivity(), list));
+                List<User> list=getData();
+                mUserListViews.setAdapter(new SummaryRecyclerAdapter(userList));
                 chnage();
             }
         });
 
         // 初始化加载信息
-        listView = (ListView)view.findViewById(R.id.listview);
+        mUserListViews = (RecyclerView) view.findViewById(R.id.listview);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        mUserListViews.setLayoutManager(manager);
 //        mRefreshLayout.setRefreshing(true);
         chnage();
 
@@ -87,7 +79,7 @@ public class Summary extends Fragment{
             @Override
             public void run() {
                 getData();
-                while ( list.size() == 0 ){
+                while ( userList.size() == 0 ){
 
                 }
                 Message message = handler.obtainMessage();
@@ -99,8 +91,8 @@ public class Summary extends Fragment{
 
 
 
-    public List<Map<String, Object>> getData(){
-        list = new ArrayList<>();
+    public List<User> getData(){
+        userList = new ArrayList<>();
         BmobQuery<User> bmobQuery = new BmobQuery<User>();
         bmobQuery.findObjects(new FindListener<User>() {
 
@@ -120,14 +112,14 @@ public class Summary extends Fragment{
 
         });
 
-        for (int i = 0; i < n; i++) {
-            Map<String, Object> map=new HashMap<String, Object>();
-//            map.put("image", R.drawable.thumb);
-            map.put("title", userList.get(i).getUsername());
-            map.put("info", userList.get(i) .getMobilePhoneNumber());
-            list.add(map);
-        }
-        return list;
+//        for (int i = 0; i < n; i++) {
+//            User user = new HashMap<String, Object>();
+////            map.put("image", R.drawable.thumb);
+//            map.put("title", userList.get(i).getUsername());
+//            map.put("info", userList.get(i) .getMobilePhoneNumber());
+//            userList.add(map);
+//        }
+        return userList;
     }
 
 
