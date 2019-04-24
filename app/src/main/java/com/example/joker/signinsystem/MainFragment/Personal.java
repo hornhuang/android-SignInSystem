@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,6 +31,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.joker.signinsystem.LandingRegistration.StartActivity;
+import com.example.joker.signinsystem.MainActivity;
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.Thread.CountTimeThread;
 import com.jude.rollviewpager.RollPagerView;
@@ -37,6 +40,11 @@ import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.nestia.biometriclib.BiometricPromptManager;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +53,7 @@ public class Personal extends Fragment {
     private WifiManager wifiManager=null ;
     private WifiInfo wifiInfo=null;
     private Button begin;
-    Toolbar toolbar = null;
+    private Toolbar toolbar = null;
     private String mac ="00:6b:8e:f6:99:d8";
     private boolean flag = false;
     private BiometricPromptManager mManager;
@@ -171,5 +179,54 @@ public class Personal extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_popmenu,menu);
         super.onCreateOptionsMenu(menu, inflater);
+
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.chat:
+
+                Toast.makeText(getActivity(),"尚未推出敬请期待",Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.logOut:
+                saveCode();
+                startActivity(new Intent(getActivity(), StartActivity.class));
+                getActivity().finish();
+                break;
+
+            default:
+                break;
+
+        }
+        return true;
+    }
+
+    /*
+ 保存密码操作
+  */
+    private void saveCode(){
+        String objectId = "";
+        FileOutputStream out = null;
+        BufferedWriter writer = null;
+        try {
+            out = getActivity().openFileOutput("data", Context.MODE_PRIVATE);
+            writer = new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(objectId);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (writer != null){
+                    writer.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/change_user1"
-        android:title="切换账号"
+        android:id="@+id/chat"
+        android:title="讨论区"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/change_user"
-        android:title="切换账号"
+        android:id="@+id/logOut"
+        android:title="退出登录"
         app:showAsAction="never" />
 
 </menu>

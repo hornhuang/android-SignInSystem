@@ -63,6 +63,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         tv_regist.setOnClickListener(StartActivity.this);
         bt_login.setOnClickListener(StartActivity.this);
         bt_mobile_login.setOnClickListener(StartActivity.this);
+        radioButton.setOnClickListener(this);
         loadCode();
     }
 
@@ -114,6 +115,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 });
 
                 break;
+            case R.id.radio_button:
+                Toast.makeText(StartActivity.this, radioButton.isSelected()+"", Toast.LENGTH_SHORT).show();
+
+                break;
         }
     }
 
@@ -144,38 +149,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         }
-        if (!context.equals(new StringBuffer())){
-            Toast.makeText(this, "欢迎回来～",Toast.LENGTH_SHORT).show();
+        if (!context.toString().equals((""))){
+            Toast.makeText(this, "欢迎回来" + context + "～",Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
-//        UserLogInIfo user = null;
-//        FileInputStream in = null;
-//        ObjectInputStream objIn = null;
-//        try {
-//            in = openFileInput("data");
-//            objIn=new ObjectInputStream(in);
-//            user = (UserLogInIfo) objIn.readObject();
-//            Toast.makeText(StartActivity.this, user+"", Toast.LENGTH_SHORT).show();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (objIn != null){
-//                try {
-//                    objIn.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//        if (user != null){
-//            et_login_user.setText(user.getAccount());
-//            et_login_password.setText(user.getPassword());
-//        }
     }
 
     /*
@@ -204,33 +182,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     e.printStackTrace();
                 }
             }
-//            UserLogInIfo user = new UserLogInIfo(et_login_user.getText().toString(),
-//                    et_login_password.getText().toString().trim());
-//            FileOutputStream outputStream = null;
-//            BufferedWriter writer = null;
-//            ObjectOutputStream oos = null;
-//            try {
-//                outputStream = openFileOutput("data", Context.MODE_PRIVATE);
-//                //创建 ObjectOutputStream 输出流
-//                oos = new ObjectOutputStream(outputStream);
-////                writer = new BufferedWriter(new OutputStreamWriter(outputStream));
-////                writer.write(user);
-//                oos.writeObject(user);
-//                oos.flush();
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } finally {
-//                try {
-//                    if (oos != null){
-//                        oos.close();
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
         }
     }
 
