@@ -116,8 +116,14 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
                 break;
             case R.id.radio_button:
-                Toast.makeText(StartActivity.this, radioButton.isSelected()+"", Toast.LENGTH_SHORT).show();
-
+                if (radioButton.isSelected()){
+                    radioButton.setSelected(false);
+                    radioButton.setChecked(false);
+                }else {
+                    radioButton.setSelected(true);
+                    radioButton.setChecked(true);
+                }
+//                Toast.makeText(StartActivity.this, radioButton.isSelected()+"", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -161,7 +167,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
      */
     private void saveCode(){
         Toast.makeText(this, radioButton.isSelected()+"", Toast.LENGTH_SHORT).show();
-        if (!radioButton.isSelected()){
+        if (radioButton.isSelected()){
             String objectId = et_login_user.getText().toString();
             FileOutputStream out = null;
             BufferedWriter writer = null;
