@@ -47,8 +47,6 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_anchor="@id/toolbar"
-            app:layout_anchorGravity="bottom"
             android:id="@+id/refreshLayout">
 
             <android.support.v7.widget.RecyclerView

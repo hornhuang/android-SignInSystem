@@ -51,6 +51,7 @@
             android:layout_above="@+id/et_regist_telephone"
             android:layout_centerHorizontal="true"
             android:hint="组别"
+            android:theme="@style/BottomNavigationTheme"
             android:textColorHint="@color/smssdk_gray"
             tools:layout_editor_absoluteX="81dp"
             tools:layout_editor_absoluteY="226dp" />
@@ -62,6 +63,7 @@
             android:layout_above="@+id/et_regist_password"
             android:layout_centerHorizontal="true"
             android:hint="电话"
+            android:theme="@style/BottomNavigationTheme"
             android:textColorHint="@color/smssdk_gray"
             tools:layout_editor_absoluteX="81dp"
             tools:layout_editor_absoluteY="226dp" />
@@ -73,6 +75,7 @@
             android:layout_above="@+id/et_regist_fullname"
             android:layout_centerHorizontal="true"
             android:hint="用户名"
+            android:theme="@style/BottomNavigationTheme"
             android:textColorHint="@color/smssdk_gray"
             tools:layout_editor_absoluteX="81dp"
             tools:layout_editor_absoluteY="226dp" />
@@ -84,6 +87,7 @@
             android:layout_above="@+id/et_regist_group"
             android:layout_centerHorizontal="true"
             android:hint="姓名"
+            android:theme="@style/BottomNavigationTheme"
             android:textColorHint="@color/smssdk_gray"
             tools:layout_editor_absoluteX="81dp"
             tools:layout_editor_absoluteY="226dp" />
@@ -96,6 +100,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="183dp"
             android:hint="密码"
+            android:theme="@style/BottomNavigationTheme"
             android:textColorHint="@color/smssdk_gray"
             tools:layout_editor_absoluteX="82dp"
             tools:layout_editor_absoluteY="157dp" />
