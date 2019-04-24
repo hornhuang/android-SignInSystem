@@ -25,13 +25,14 @@
         android:text="没有账户？/注册"
         android:textColor="@color/smssdk_lv_item_divider" />
 
-    <TextView
-        android:id="@+id/tv_forget"
+    <RadioButton
+        android:id="@+id/radio_button"
         android:layout_width="115dp"
         android:layout_height="30dp"
+        android:gravity="center_vertical"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:text="忘记密码？/找回"
+        android:layout_weight="1"
+        android:text="记住密码?"
         android:textColor="@color/smssdk_lv_item_divider" />
 
     <Button
