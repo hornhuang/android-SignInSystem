@@ -11,34 +11,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="125dp"
-        android:orientation="horizontal">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_image"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_margin="15sp"
-            android:src="@color/smssdk_gray"/>
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15sp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_image"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="15sp"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp"/>
 
             <TextView
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="7sp"
                 android:textSize="25sp"/>
 
-            <TextView
-                android:id="@+id/user_motto"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:textSize="18sp" />
-
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/user_motto"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textSize="13sp"
+            android:layout_margin="5dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="17dp"/>
 
     </LinearLayout>
 
@@ -55,16 +60,19 @@
 
         <ImageView
             android:layout_width="35dp"
-            android:layout_height="35dp" />
+            android:layout_height="35dp"
+            android:padding="3dp"
+            android:src="@drawable/theme"
+            android:scaleType="fitXY"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="10sp"
+            android:layout_marginStart="10sp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/side_functions_theme"
-            android:textSize="20sp"/>
+            android:textSize="17sp"/>
 
     </LinearLayout>
 

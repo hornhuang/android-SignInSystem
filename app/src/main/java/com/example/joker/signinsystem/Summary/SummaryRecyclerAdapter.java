@@ -68,15 +68,26 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder userViewHolder, int i) {
-        User user = userList.get(i);
+        final User user = userList.get(i);
         // userViewHolder.head_icon =
-        userViewHolder.user_name.setText(user.getName());
+        userViewHolder.user_name.setText(user.getFullname());
         userViewHolder.user_group.setText(user.getGroup());
-        userViewHolder.user_motto.setText(user.getMotto());
+
+        if (user.getMotto() == null){// 判断座右铭是否存在
+            userViewHolder.user_motto.setText("该同学很懒，啥也没留下");
+        }else {
+            userViewHolder.user_motto.setText(user.getMotto());
+        }
+        if (user.getHeadIcon() == null){
+            userViewHolder.head_icon.setImageResource(R.mipmap.app_icon);
+        }else {
+            userViewHolder.head_icon.setImageBitmap(user.getHeadIcon());
+        }
+
         userViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "You Click Items~", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "You Click " + user.getName(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -85,68 +96,5 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
     public int getItemCount() {
         return userList.size();
     }
-
-//    private List<Map<String, Object>> data;
-//    private LayoutInflater layoutInflater;
-//    private Context context;
-//    public SummaryRecyclerAdapter(Context context, List<Map<String, Object>> data){
-//        this.context=context;
-//        this.data=data;
-//        this.layoutInflater=LayoutInflater.from(context);
-//    }
-//
-//    /**
-//     * 组件集合，对应list.xml中的控件
-//     * @author Administrator
-//     */
-//    public final class Zujian{
-//        public ImageView image;
-//        public TextView title;
-//        public Button view;
-//        public TextView info;
-//    }
-//
-//    @Override
-//    public int getCount() {
-//        return data.size();
-//    }
-//
-//    /**
-//     * 获得某一位置的数据
-//     */
-//    @Override
-//    public Object getItem(int position) {
-//        return data.get(position);
-//    }
-//
-//    /**
-//     * 获得唯一标识
-//     */
-//    @Override
-//    public long getItemId(int position) {
-//        return position;
-//    }
-//
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        Zujian zujian=null;
-//        if(convertView==null){
-//            zujian=new Zujian();
-//            //获得组件，实例化组件
-//            convertView=layoutInflater.inflate(R.layout.home_listview, null);
-//            zujian.image=(ImageView)convertView.findViewById(R.id.image);
-//            zujian.title=(TextView)convertView.findViewById(R.id.title);
-//            zujian.view=(Button)convertView.findViewById(R.id.view);
-//            zujian.info=(TextView)convertView.findViewById(R.id.info);
-//            convertView.setTag(zujian);
-//        }else{
-//            zujian=(Zujian)convertView.getTag();
-//        }
-//        //绑定数据
-////        zujian.image.setBackgroundResource((Integer)data.get(position).get("image"));
-//        zujian.title.setText((String)data.get(position).get("title"));
-//        zujian.info.setText((String)data.get(position).get("info"));
-//        return convertView;
-//    }
 
 }

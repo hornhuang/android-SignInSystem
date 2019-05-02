@@ -31,19 +31,17 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_regist);
 
         Bmob.initialize(this, "bd4814e57ed9c8f00aa0d119c5676cf9");
+
         et_regist_user= (EditText)findViewById(R.id.et_regist_user);
         et_regist_password= (EditText) findViewById(R.id.et_regist_password);
         et_regist_fullname = (EditText) findViewById(R.id.et_regist_fullname);
         et_regist_group= (EditText) findViewById(R.id.et_regist_group);
         et_regist_telephone = (EditText) findViewById(R.id.et_regist_telephone);
-        bt_regist_save= (Button) findViewById(R.id.bt_regist_save);
+        bt_regist_save= (Button) findViewById(R.id.bt_regist_save);// 组册按钮
         bt_regist_cancel= (Button) findViewById(R.id.bt_regist_cancel);
+
         bt_regist_save.setOnClickListener(this);
         bt_regist_cancel.setOnClickListener(this);
-
-
-
-
 
     }
 

@@ -45,7 +45,6 @@ public class Summary extends Fragment{
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view= inflater.inflate(R.layout.fragment_summary , container, false);
-//        thread.start();
         //第二：默认初始化
         Bmob.initialize(getActivity(),APPID);
 
@@ -65,12 +64,10 @@ public class Summary extends Fragment{
         mUserListViews = (RecyclerView) view.findViewById(R.id.listview);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mUserListViews.setLayoutManager(manager);
-//        mRefreshLayout.setRefreshing(true);
         chnage();
 
         return view;
     }
-
 
     /*
     定义一个Handler，定义延时执行的行为
@@ -90,8 +87,6 @@ public class Summary extends Fragment{
         }.start();
     }
 
-
-
     public List<User> getData(){
         userList = new ArrayList<>();
         BmobQuery<User> bmobQuery = new BmobQuery<User>();
@@ -108,14 +103,6 @@ public class Summary extends Fragment{
             }
 
         });
-
-//        for (int i = 0; i < n; i++) {
-//            User user = new HashMap<String, Object>();
-////            map.put("image", R.drawable.thumb);
-//            map.put("title", userList.get(i).getUsername());
-//            map.put("info", userList.get(i) .getMobilePhoneNumber());
-//            userList.add(map);
-//        }
         return userList;
     }
 

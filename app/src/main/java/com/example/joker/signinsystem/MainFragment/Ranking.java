@@ -173,7 +173,7 @@ public class Ranking extends Fragment {
         XAxis xAxis = bc.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // 位于底部
         xAxis.setDrawGridLines(false); // 不绘制X轴网格线
-        xAxis.setAxisMinimum(-0.3f); // 最小值-0.3f，为了使左侧留出点空间
+        xAxis.setAxisMinimum(0f); // 最小值-0.3f，为了使左侧留出点空间
         xAxis.setGranularity(0.75f); // 间隔尺寸1
         xAxis.setTextSize(14f); // 文本大小14
 //        xAxis.setTypeface(Typeface.DEFAULT_BOLD); // 加粗字体
@@ -196,37 +196,37 @@ public class Ranking extends Fragment {
         yVals1.add(new BarEntry(6f, 587));
         yVals1.add(new BarEntry(7f, 387));
 
-        final List<BarEntry> yVals2 = new ArrayList<>();
-        yVals2.add(new BarEntry(1f, 245));
-        yVals2.add(new BarEntry(2f, 520));
-        yVals2.add(new BarEntry(3f, 504));
-        yVals2.add(new BarEntry(4f, 517));
-        yVals2.add(new BarEntry(5f, 186));
-        yVals2.add(new BarEntry(6f, 286));
-        yVals2.add(new BarEntry(7f, 686));
+//        final List<BarEntry> yVals2 = new ArrayList<>();
+//        yVals2.add(new BarEntry(1f, 245));
+//        yVals2.add(new BarEntry(2f, 520));
+//        yVals2.add(new BarEntry(3f, 504));
+//        yVals2.add(new BarEntry(4f, 517));
+//        yVals2.add(new BarEntry(5f, 186));
+//        yVals2.add(new BarEntry(6f, 286));
+//        yVals2.add(new BarEntry(7f, 686));
 
-        BarDataSet barDataSet1 = new BarDataSet(yVals1, "有违章");
-        barDataSet1.setValueTextColor(Color.RED);
-        barDataSet1.setColor(Color.GREEN);
+        BarDataSet barDataSet1 = new BarDataSet(yVals1, "自习时间");
+        barDataSet1.setValueTextColor(getResources().getColor(R.color.colorPrimary));
+        barDataSet1.setColor(getResources().getColor(R.color.colorPrimary));
         barDataSet1.setValueTextSize(14f);
-        IValueFormatter iValueFormatter = new IValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-                return new DecimalFormat("##.0").format(value / (yVals2.get((int) entry.getX()).getY() + value) * 100) + "%";
-            }
-        };
+//        IValueFormatter iValueFormatter = new IValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+//                return new DecimalFormat("##.0").format(value / (yVals2.get((int) entry.getX()).getY() + value) * 100) + "%";
+//            }
+//        };
 //        barDataSet1.setValueFormatter((ValueFormatter)iValueFormatter);
 
-        BarDataSet barDataSet2 = new BarDataSet(yVals2, "无违章");
-        barDataSet2.setColor(Color.BLUE);
-        barDataSet2.setDrawValues(false);
+//        BarDataSet barDataSet2 = new BarDataSet(yVals2, "无违章");
+//        barDataSet2.setColor(R.color.dodgerblue);
+//        barDataSet2.setDrawValues(false);
 
         List<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add(barDataSet1);
-        dataSets.add(barDataSet2);
+//        dataSets.add(barDataSet2);
 
         BarData bardata = new BarData(dataSets);
-        bardata.setBarWidth(0.4f);
+        bardata.setBarWidth(0.5f);
 
         bc.setData(bardata);
     }

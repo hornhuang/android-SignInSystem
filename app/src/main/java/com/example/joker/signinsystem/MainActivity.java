@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.joker.signinsystem.MainFragment.Personal;
 import com.example.joker.signinsystem.MainFragment.Ranking;
 import com.example.joker.signinsystem.MainFragment.Summary;
+import com.example.joker.signinsystem.activities.StartActivity;
 import com.example.joker.signinsystem.baseclasses.User;
 
 import java.io.BufferedReader;
@@ -92,11 +93,21 @@ public class MainActivity extends AppCompatActivity {
                     TextView userName = findViewById(R.id.user_name);
                     TextView userMotto = findViewById(R.id.user_motto);
 
-                    imageView.setImageBitmap(object.getHeadIcon());
-                    userName.setText(object.getUsername() + "");//
-                    userMotto.setText(object.getMotto());
+                    userName.setText(object.getFullname());//
+                    if (object.getHeadIcon() == null){
+                        imageView.setImageResource(R.mipmap.app_icon);
+                    }else {
+                        imageView.setImageBitmap(object.getHeadIcon());
+                    }
+                    if (object.getMotto() == null){
+                        userMotto.setText("该同学很懒，啥也没留下");
+                    }else {
+                        userMotto.setText(object.getMotto());
+                    }
                 } else {
-                    Toast.makeText(MainActivity.this, "查询失败：" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "登录过期，请重新登录" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this, StartActivity.class));
+                    finish();
                 }
             }
         });
@@ -111,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         BufferedReader reader = null;
         StringBuffer context = new StringBuffer();
         try {
-            in = openFileInput("data");
+            in = openFileInput("userdata");
             reader = new BufferedReader(new InputStreamReader(in));
             String line = "";
             while ((line = reader.readLine()) != null){
