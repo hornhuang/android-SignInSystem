@@ -1,4 +1,4 @@
-package com.example.joker.signinsystem.LandingRegistration;
+package com.example.joker.signinsystem.activities;
 
 import android.content.Intent;
 import android.os.Handler;

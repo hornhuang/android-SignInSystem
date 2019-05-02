@@ -8,5 +8,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main">MainActivity</string>>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!--首页侧拉框-->
+    <string name="side_functions_theme">选择主题</string>
+
+    <!--底部分类-->
+    <string name="fragment_signIn">签到</string>
+    <string name="fragment_survey">概况</string>
+    <string name="fragment_ranking">排行</string>
+
 </resources>

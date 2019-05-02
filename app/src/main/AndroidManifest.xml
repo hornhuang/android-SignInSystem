@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.joker.signinsystem">
     <!-- 允许联网 -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
@@ -22,29 +23,31 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".LandingRegistration.BmobApplication"
+        android:name=".activities.BmobApplication"
         android:allowBackup="true"
+        android:appComponentFactory="任意字符"
         android:icon="@mipmap/app_icon"
         android:label="亿签"
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".LandingRegistration.RegetPassword"></activity>
+        android:theme="@style/AppTheme"
+        tools:replace="android:appComponentFactory">
+        <activity android:name=".activities.ChatActivity"></activity>
+        <activity android:name=".activities.RegetPassword" />
         <activity
-            android:name=".LandingRegistration.StartActivity"
-            android:label="Sign in system">
+            android:name=".activities.StartActivity"
+            android:label="亿签">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LandingRegistration.RegistActivity" />
-        <activity android:name=".LandingRegistration.MobileLoad" />
+        <activity android:name=".activities.RegistActivity" />
+        <activity android:name=".activities.MobileLoad" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main">
-        </activity>
+            android:label="@string/title_activity_main"></activity>
     </application>
 
 </manifest>

@@ -51,6 +51,7 @@ public class Summary extends Fragment{
 
         // 下拉刷新
         mRefreshLayout = view.findViewById(R.id.refreshLayout);
+        mRefreshLayout.setProgressViewOffset(false, 200, 400);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -99,11 +100,7 @@ public class Summary extends Fragment{
             @Override
             public void done(List<User> list, BmobException e) {
                 if (e == null) {
-                    n = list.size();
-                    System.out.println(n);
-                    for (int i = 0; i < n; i++) {
-                        userList.add(list.get(i)) ;
-                    }
+                    userList = list;
                 }
                 else {
                     Toast.makeText(getActivity(),e.getErrorCode(), Toast.LENGTH_SHORT).show();

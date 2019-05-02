@@ -1,8 +1,9 @@
-package com.example.joker.signinsystem.LandingRegistration;
+package com.example.joker.signinsystem.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -18,14 +19,11 @@ import com.example.joker.signinsystem.baseclasses.User;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
 
@@ -41,12 +39,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private Button bt_login;
     private Button bt_mobile_login;
     private RadioButton radioButton;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +61,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         bt_login.setOnClickListener(StartActivity.this);
         bt_mobile_login.setOnClickListener(StartActivity.this);
         radioButton.setOnClickListener(this);
-        loadCode();
+
+        radioButton.isSelected();
+        loadUserCode();
     }
 
 
@@ -81,7 +80,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent_mobile);
                 break;
             case R.id.login:
-                String user_num = et_login_user.getText().toString();
+                final String user_num = et_login_user.getText().toString();
                 String user_password = et_login_password.getText().toString().trim();
                 // 非空验证
                 if (user_num.isEmpty() || user_password.isEmpty()) {
@@ -98,22 +97,28 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void done(BmobUser bmobUser, BmobException e) {
                         if(e==null){
-                            Toast.makeText(StartActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                            Intent intent_main = new Intent(StartActivity.this, MainActivity.class);
-                            startActivity(intent_main);
-                            saveCode();
-                            finish();
+                            try {
+                                Toast.makeText(StartActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                                User user = BmobUser.getCurrentUser(User.class);
+                                saveCode(user.getObjectId());
+                                if (radioButton.isSelected()){
+                                    saveUserCode(user.getObjectId());
+                                }else {
+                                    saveUserCode("");
+                                }
+                                finish();
+                                startActivity(new Intent(StartActivity.this, MainActivity.class));
+                            }catch (Exception e2){
+                                Log.d("TAG", e2.getMessage());
+                            }
+
                             //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
                             //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
                         }else{
                             Toast.makeText(StartActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
-
-                            //loge(e);
-
                         }
                     }
                 });
-
                 break;
             case R.id.radio_button:
                 if (radioButton.isSelected()){
@@ -123,20 +128,46 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     radioButton.setSelected(true);
                     radioButton.setChecked(true);
                 }
-//                Toast.makeText(StartActivity.this, radioButton.isSelected()+"", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
 
     /*
-    读取密码操作
+    保存密码操作
+    由于其他活动读取用户信息
      */
-    private void loadCode(){
+    private void saveCode(String objectId){
+        FileOutputStream out = null;
+        BufferedWriter writer = null;
+        try {
+            out = openFileOutput("data", Context.MODE_PRIVATE);
+            writer = new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(objectId);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (writer != null){
+                    writer.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /*
+    读取密码操作
+    判断是否保存密码
+     */
+    private void loadUserCode(){
         FileInputStream in = null;
         BufferedReader reader = null;
         StringBuffer context = new StringBuffer();
         try {
-            in = openFileInput("data");
+            in = openFileInput("userdata");
             reader = new BufferedReader(new InputStreamReader(in));
             String line = "";
             while ((line = reader.readLine()) != null){
@@ -156,7 +187,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             }
         }
         if (!context.toString().equals((""))){
-            Toast.makeText(this, "欢迎回来" + context + "～",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "欢迎回来 ～",Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
@@ -164,29 +195,26 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     /*
     保存密码操作
+    判断是否保存密码
      */
-    private void saveCode(){
-        Toast.makeText(this, radioButton.isSelected()+"", Toast.LENGTH_SHORT).show();
-        if (radioButton.isSelected()){
-            String objectId = et_login_user.getText().toString();
-            FileOutputStream out = null;
-            BufferedWriter writer = null;
+    private void saveUserCode(String objectId){
+        FileOutputStream out = null;
+        BufferedWriter writer = null;
+        try {
+            out = openFileOutput("userdata", Context.MODE_PRIVATE);
+            writer = new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(objectId);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
             try {
-                out = openFileOutput("data", Context.MODE_PRIVATE);
-                writer = new BufferedWriter(new OutputStreamWriter(out));
-                writer.write(objectId);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                if (writer != null){
+                    writer.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                try {
-                    if (writer != null){
-                        writer.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         }
     }

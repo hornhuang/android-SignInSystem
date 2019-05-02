@@ -4,14 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,17 +24,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.joker.signinsystem.LandingRegistration.StartActivity;
-import com.example.joker.signinsystem.MainActivity;
+import com.example.joker.signinsystem.activities.StartActivity;
 import com.example.joker.signinsystem.R;
-import com.example.joker.signinsystem.Thread.CountTimeThread;
-import com.jude.rollviewpager.RollPagerView;
-import com.jude.rollviewpager.adapter.StaticPagerAdapter;
-import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.nestia.biometriclib.BiometricPromptManager;
 
 import java.io.BufferedWriter;
@@ -45,8 +35,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Personal extends Fragment {
 
@@ -211,7 +199,7 @@ public class Personal extends Fragment {
         FileOutputStream out = null;
         BufferedWriter writer = null;
         try {
-            out = getActivity().openFileOutput("data", Context.MODE_PRIVATE);
+            out = getActivity().openFileOutput("userdata", Context.MODE_PRIVATE);
             writer = new BufferedWriter(new OutputStreamWriter(out));
             writer.write(objectId);
         } catch (FileNotFoundException e) {

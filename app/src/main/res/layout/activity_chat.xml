@@ -4,12 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.joker.signinsystem.activities.RegetPassword">
-
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/find_password"
-        android:scaleType="fitXY"/>
+    tools:context="com.example.joker.signinsystem.activities.ChatActivity">
 
 </android.support.constraint.ConstraintLayout>
