@@ -64,32 +64,28 @@ public class Personal extends Fragment {
     private boolean isRunning = false;//是否已经开始计时
     private int time; // 开始签到时的时间
     private BiometricPromptManager.OnBiometricIdentifyCallback biometricIdentifyCallback;
+    private Handler handler;
     private Thread thread = new Thread(){
         @Override
         public void run() {
             while (true){
+                handler.post(runnable);
                 try {
                     sleep(60000);// 没一分钟看下事件
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 time ++;
-                Message msg = new Message();
-                msg.what = 0x0;
-                handler.handleMessage(msg);
                 if (time >= 60){//
                     biometricIdentifyCallback.onCancel();
                 }
             }
         }
     };
-    private Handler handler = new Handler(){
+    private Runnable runnable = new Runnable() {
         @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == 0x0){
-                begin.setText("已打卡： " + time + " 分钟");
-            }
+        public void run() {
+            mTips.setText("已打卡： " + time + " 分钟");
         }
     };
 
@@ -122,6 +118,8 @@ public class Personal extends Fragment {
         wifiManager = (WifiManager) Objects.requireNonNull(getActivity()).getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         View view = inflater.inflate(R.layout.fragment_personal,container,false);
 
+        iniViews(view);
+
         user = ((MainActivity) getActivity()).getUser();
         matchYesterDayFlag();
 
@@ -149,6 +147,8 @@ public class Personal extends Fragment {
 
     private void iniViews(View view){
         mTips = view.findViewById(R.id.person_tips);
+
+        handler = new Handler();
 
     }
 

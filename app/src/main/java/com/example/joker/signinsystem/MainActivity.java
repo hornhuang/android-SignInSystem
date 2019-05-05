@@ -29,6 +29,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.joker.signinsystem.activities.BaseActivity;
 import com.example.joker.signinsystem.fragments.Personal;
 import com.example.joker.signinsystem.fragments.Ranking;
 import com.example.joker.signinsystem.fragments.Summary;
@@ -54,7 +55,7 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity {
 
     public static String APPID = "bd4814e57ed9c8f00aa0d119c5676cf9";
     private User user;// 获取登录成功后的本地用户信息

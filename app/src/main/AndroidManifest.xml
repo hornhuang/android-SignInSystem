@@ -26,7 +26,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".activities.BmobApplication"
         android:allowBackup="true"
         android:appComponentFactory="任意字符"
         android:icon="@mipmap/app_icon"
@@ -34,6 +33,7 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:networkSecurityConfig="@xml/network_security_config"
         tools:replace="android:appComponentFactory">
         <activity android:name=".activities.ChangeUserIfo"></activity>
         <activity android:name=".activities.ChatActivity" />

@@ -59,7 +59,7 @@ public class Summary extends Fragment{
             @Override
             public void onRefresh() {
                 mUserListViews.setAdapter(new SummaryRecyclerAdapter(userList));
-                chnage();
+                getData();
             }
         });
 
@@ -67,27 +67,9 @@ public class Summary extends Fragment{
         mUserListViews = (RecyclerView) view.findViewById(R.id.listview);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mUserListViews.setLayoutManager(manager);
-        chnage();
+        getData();
 
         return view;
-    }
-
-    /*
-    定义一个Handler，定义延时执行的行为
-    */
-    public  void chnage(){
-        new Thread(){
-            @Override
-            public void run() {
-                getData();
-                while ( userList.size() == 0 ){
-
-                }
-                Message message = handler.obtainMessage();
-               message.obj = 0;
-               handler.sendMessage(message);
-            }
-        }.start();
     }
 
     /*
@@ -101,7 +83,10 @@ public class Summary extends Fragment{
             @Override
             public void done(List<User> list, BmobException e) {
                 if (e == null) {
-                    userList = list;
+                    userList = sort(list);
+                    Message message = handler.obtainMessage();
+                    message.obj = 0;
+                    handler.sendMessage(message);
                 }
                 else {
                     Toast.makeText(getActivity(),e.getErrorCode(), Toast.LENGTH_SHORT).show();
@@ -111,7 +96,23 @@ public class Summary extends Fragment{
         });
         return userList;
     }
-    
+
+    /*
+    对 List 进行排序
+     */
+    private List<User> sort(List<User> mList){
+        for (int i = 0 ; i < mList.size() ; i ++ ){
+            for (int j = 1 ; j < mList.size() ; j++){
+                if (mList.get(j).getmTotalTime() > mList.get(j - 1).getmTotalTime()){
+                    User u = mList.get(j);
+                    mList.set(j, mList.get(j-1));
+                    mList.set(j-1, u);
+                }
+            }
+        }
+        return mList;
+    }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
