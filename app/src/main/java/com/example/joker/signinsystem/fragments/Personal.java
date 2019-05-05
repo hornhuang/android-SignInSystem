@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joker.signinsystem.MainActivity;
@@ -49,11 +50,14 @@ import cn.bmob.v3.listener.UpdateListener;
 public class Personal extends Fragment {
 
     private User user ;
+    private Button begin;
+    private TextView mTips;
     private WifiManager wifiManager=null ;
     private WifiInfo wifiInfo=null;
-    private Button begin;
     private Toolbar toolbar = null;
-    private String mac ="00:6b:8e:f6:99:d8";
+    private String mac213 ="00:6b:8e:f6:99:d8";
+    private String mac201 ="00:6b:8e:f6:99:d8";
+    private String mac201newThinker ="8CF228271AFC";
     private boolean flag = false;
     private BiometricPromptManager mManager;
 
@@ -70,6 +74,9 @@ public class Personal extends Fragment {
                     e.printStackTrace();
                 }
                 time ++;
+                Message msg = new Message();
+                msg.what = 0x0;
+                handler.handleMessage(msg);
                 if (time >= 60){//
                     biometricIdentifyCallback.onCancel();
                 }
@@ -81,9 +88,7 @@ public class Personal extends Fragment {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 0x0){
-                Time t=new Time(); // or Time t=new Time("GMT+8"); 加上Time Zone资料。
-                t.setToNow();
-//                begin.setText("开始计时"+"\n"+t.hour+":"+t.minute+":"+t.second);
+                begin.setText("已打卡： " + time + " 分钟");
             }
         }
     };
@@ -91,7 +96,6 @@ public class Personal extends Fragment {
     private BroadcastReceiver mwifiBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("ss","ff");
             ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
             NetworkInfo wifiInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -143,6 +147,11 @@ public class Personal extends Fragment {
         return view;
     }
 
+    private void iniViews(View view){
+        mTips = view.findViewById(R.id.person_tips);
+
+    }
+
     private void matchYesterDayFlag(){
         if (MyDate.getWeekOfDate() != user.getmYesturdayFlag()){
             switch (user.getmYesturdayFlag()){
@@ -179,9 +188,8 @@ public class Personal extends Fragment {
         wifiInfo  = wifiManager.getConnectionInfo();
         if(wifiInfo.getBSSID()==null){
             Toast.makeText(getActivity(),"请打开 w+ifi",Toast.LENGTH_SHORT).show();
-        }else if(!wifiInfo.getBSSID().equals(mac)){// 与实验室 wifi ID 进行匹配
-            Toast.makeText(getActivity(),"请连接实验室 wifi",Toast.LENGTH_SHORT).show();
-        }else if(wifiInfo.getBSSID().equals(mac)){
+        }else if(wifiInfo.getBSSID().equals(mac213)||wifiInfo.getBSSID().equals(mac213)||wifiInfo.getBSSID().equals(mac213)||
+                wifiInfo.getBSSID().equals(mac201)|| wifiInfo.getBSSID().equals(mac201newThinker)){
             if (mManager.isBiometricPromptEnable()) {
                 biometricIdentifyCallback = new BiometricPromptManager.OnBiometricIdentifyCallback() {
                     @Override
@@ -225,6 +233,8 @@ public class Personal extends Fragment {
             }
             flag = true;
 
+        }else {// 与实验室 wifi ID 进行匹配 213
+            Toast.makeText(getActivity(),"请连接实验室 wifi",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -326,8 +336,8 @@ public class Personal extends Fragment {
     }
 
     /*
- 保存密码操作
-  */
+     保存密码操作
+     */
     private void saveCode(){
         String objectId = "";
         FileOutputStream out = null;
@@ -357,5 +367,23 @@ public class Personal extends Fragment {
         if (isRunning){
             biometricIdentifyCallback.onCancel();
         }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {   // 不在最前端显示 相当于调用了onPause();
+            return;
+        }else{  // 在最前端显示 相当于调用了onResume();
+            //网络数据刷新
+        }
+    }
+
+    /*
+    get()  &  set()
+     */
+
+    public TextView getmTips() {
+        return mTips;
     }
 }

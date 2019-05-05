@@ -51,7 +51,10 @@
         <activity android:name=".activities.MobileLoad" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main" />
+            android:label="@string/title_activity_main" >
+
+
+        </activity>
     </application>
 
 </manifest>

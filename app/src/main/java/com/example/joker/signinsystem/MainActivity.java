@@ -61,18 +61,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CircleImageView mUserimageView;
     private TextView mUserName;
     private TextView mUserMotto;
-    //从相册获得图片
-    private Bitmap bitmap;
-    //图片路径
-    private String path ;
+    private Bitmap bitmap;//从相册获得图片
+    private BottomNavigationView navigation;
+    FragmentManager fragmentManager;
+    private String path ;//图片路径
+    private Fragment mContent = new Fragment();// 记录下当前碎片 由于替换
+
+    private Fragment mPerson;
+    private Fragment mRanking;
+    private Fragment mSummary;
+    private FragmentTransaction transaction;
 
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
+            super.handleMessage(msg);
             if((Integer)msg.obj==0){
                 mUserimageView.setImageBitmap(bitmap);
+            }if (msg.what == 0x0){
+                ((Personal)mPerson).getmTips().setText("");
             }
-            super.handleMessage(msg);
         }
     };
 
@@ -83,25 +91,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    replaceFragment(new Personal());
+                    switchContent(mPerson);
                     return true;
                 case R.id.navigation_dashboard:
-                    replaceFragment(new Ranking());
+                    switchContent(mRanking);
                     return true;
                 case R.id.navigation_ranking:
-                    replaceFragment(new Summary());
+                    switchContent(mSummary);
                     return true;
             }
             return false;
         }
     };
-
-    private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment,fragment);
-        transaction.commit();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Bmob.initialize(this, APPID);
 
         //底部选择碎片切换
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         //Toolbar代替ActionBar
@@ -126,9 +127,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (e == null) {
                     user = BmobUser.getCurrentUser(User.class);
                     iniSideView();
-
-                    //先用首页碎片替换碎片
-                    replaceFragment(new Personal());
                     //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
                 } else {
                     Toast.makeText(MainActivity.this, "登录过期，请重新登录" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -150,6 +148,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mUserName.setOnClickListener(this);
         mUserMotto.setOnClickListener(this);
 
+        mPerson = new Personal();
+        mRanking = new Ranking();
+        mSummary = new Summary();
+        fragmentManager = getSupportFragmentManager();
+        mContent = mRanking;
+        navigation.setSelectedItemId(R.id.navigation_home);
+
+        new Thread(){
+            @Override
+            public void run() {
+                while (user == null){
+                    try {
+                        sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        };
+
         mUserName.setText(user.getName());//
         if (user.getImageFile() == null){
             mUserimageView.setImageResource(R.mipmap.app_icon);
@@ -161,6 +180,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else {
             mUserMotto.setText(user.getMotto());
         }
+    }
+
+    /**
+     * 修改显示的内容 不会重新加载
+     * to 下一个fragment
+     * mContent 当前的fragment
+     */
+    private void switchContent(Fragment to) {
+        if (mContent != to) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            if (!to.isAdded()) { // 判断是否被add过
+                // 隐藏当前的fragment，将 下一个fragment 添加进去
+                transaction.hide(mContent).add(R.id.fragment, to).commit();
+            } else {
+                // 隐藏当前的fragment，显示下一个fragment
+                transaction.hide(mContent).show(to).commit();
+            }
+            mContent = to;
+        }
+
     }
 
     @Override
