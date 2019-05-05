@@ -148,6 +148,8 @@ public class MainActivity extends BaseActivity {
         mSummary = new Summary();
         fragmentManager = getSupportFragmentManager();
         mContent = mRanking;
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.fragment, mContent).commit();
         navigation.setSelectedItemId(R.id.navigation_home);
 
         new Thread(){

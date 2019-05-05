@@ -26,6 +26,11 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
+/**开始界面 负责选择功能
+ * 登录、注册、短信验证码登录
+ *
+ * @author fishinwater
+ */
 public class StartActivity extends AppCompatActivity implements View.OnClickListener{
 
     /*
@@ -36,6 +41,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private Button bt_login;
     private Button bt_mobile_login;
     private RadioButton radioButton;
+    private Boolean isClick = false; // 登录按钮是否已经点击
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -88,7 +94,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent_mobile);
                 break;
             case R.id.login:
-                logIn();
+                if (!isClick){// 避免重复点击
+                    isClick = true;
+                    logIn();
+                }
                 break;
             case R.id.radio_button:
                 if (radioButton.isSelected()){
