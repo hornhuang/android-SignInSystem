@@ -29,6 +29,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         数据成员
          */
         private ImageView head_icon;
+        private ImageView rank_icon;
         private TextView user_name;
         private TextView user_group;
         private TextView user_motto;
@@ -38,8 +39,9 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
          */
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
-            head_icon = itemView.findViewById(R.id.head_image);
-            user_name = itemView.findViewById(R.id.user_name);
+            head_icon  = itemView.findViewById(R.id.head_image);
+            rank_icon  = itemView.findViewById(R.id.rank);
+            user_name  = itemView.findViewById(R.id.user_name);
             user_group = itemView.findViewById(R.id.user_group);
             user_motto = itemView.findViewById(R.id.user_motto);
         }
@@ -55,8 +57,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         View view = LayoutInflater.from(viewGroup.getContext()).
                 inflate(R.layout.home_listview, viewGroup, false);
         context = viewGroup.getContext();
-        UserViewHolder holder = new UserViewHolder(view);
-        return holder;
+        return new UserViewHolder(view);
     }
 
     @Override
@@ -65,6 +66,9 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         // userViewHolder.head_icon =
         userViewHolder.user_name.setText(user.getFullname());
         userViewHolder.user_group.setText(user.getGroup());
+        if (i<3){
+            switchMedal(userViewHolder, i);
+        }
 
         if (user.getMotto() == null){// 判断座右铭是否存在
             userViewHolder.user_motto.setText("该同学很懒，啥也没留下");
@@ -88,6 +92,30 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
     @Override
     public int getItemCount() {
         return userList.size();
+    }
+
+    /*
+    排名前三名 加 金银铜 挂件
+     */
+    private void switchMedal(UserViewHolder userViewHolder, int rank){
+        switch (rank){
+            case 0:
+                userViewHolder.rank_icon.setImageResource(R.drawable.medal_gold);
+                break;
+
+            case 1:
+                userViewHolder.rank_icon.setImageResource(R.drawable.medal_silver);
+                break;
+
+            case 2:
+                userViewHolder.rank_icon.setImageResource(R.drawable.medal_bronze);
+                break;
+
+            default:
+
+                break;
+
+        }
     }
 
 }

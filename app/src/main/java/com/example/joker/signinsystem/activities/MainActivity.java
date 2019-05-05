@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity {
     private TextView mUserMotto;
     private Bitmap bitmap;//从相册获得图片
     private BottomNavigationView navigation;
-    FragmentManager fragmentManager;
+    private FragmentManager fragmentManager;
     private String path ;//图片路径
     private Fragment mContent = new Fragment();// 记录下当前碎片 由于替换
 
@@ -107,17 +107,15 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         //第二：默认初始化
         Bmob.initialize(this, APPID);
-
         //底部选择碎片切换
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
         //Toolbar代替ActionBar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        // 登录用户 获得当前用户
         String userId = SDKFileManager.getObjectId(this);
-        BmobQuery<User> bmobQuery = new BmobQuery<User>();
+        BmobQuery<User> bmobQuery = new BmobQuery<>();
         bmobQuery.getObject(userId, new QueryListener<User>() {
             @Override
             public void done(User object, BmobException e) {

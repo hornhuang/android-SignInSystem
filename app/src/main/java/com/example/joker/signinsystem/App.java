@@ -11,6 +11,8 @@ import android.app.Application;
  *
  * 实例化方法：在 MainFest 中
  * application 标签下加 android:name=".App"
+ *
+ * author：finshinwater
  * */
 public class App extends Application {
 
