@@ -1,5 +1,4 @@
 package com.example.joker.signinsystem.activities;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -18,20 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.joker.signinsystem.MainActivity;
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.User;
 import com.example.joker.signinsystem.utils.SDKFileManager;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Serializable;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;

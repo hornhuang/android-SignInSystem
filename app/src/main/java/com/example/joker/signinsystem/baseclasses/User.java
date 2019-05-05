@@ -30,6 +30,11 @@ public class User extends BmobUser {
     private int mTotalTime =0;     // 总在线时间
     private int mYesturdayFlag=0;  // 昨天 判断是否更新 如果不一样就把今天变为0 同时把 flag 换成今天 -- 如果今天不是昨天 就把昨天赋值为今天
 
+    private void summaryTotal(){
+        mTotalTime = mMondatTime + mTuesdayTime +
+                mWednesdayTime + mThursdayTime + mFridayTime + mSaturdayTime + mSundayTime ;
+    }
+
     /*
     get() & set() 方法
      */
@@ -90,6 +95,7 @@ public class User extends BmobUser {
 
     public void setmMondatTime(int mMondatTime) {
         this.mMondatTime = mMondatTime;
+        summaryTotal();
     }
 
     public int getmTuesdayTime() {
@@ -98,6 +104,7 @@ public class User extends BmobUser {
 
     public void setmTuesdayTime(int mTuesdayTime) {
         this.mTuesdayTime = mTuesdayTime;
+        summaryTotal();
     }
 
     public int getmWednesdayTime() {
@@ -106,6 +113,7 @@ public class User extends BmobUser {
 
     public void setmWednesdayTime(int mWednesdayTime) {
         this.mWednesdayTime = mWednesdayTime;
+        summaryTotal();
     }
 
     public int getmThursdayTime() {
@@ -114,6 +122,7 @@ public class User extends BmobUser {
 
     public void setmThursdayTime(int mThursdayTime) {
         this.mThursdayTime = mThursdayTime;
+        summaryTotal();
     }
 
     public int getmFridayTime() {
@@ -122,6 +131,7 @@ public class User extends BmobUser {
 
     public void setmFridayTime(int mFridayTime) {
         this.mFridayTime = mFridayTime;
+        summaryTotal();
     }
 
     public int getmSaturdayTime() {
@@ -130,6 +140,7 @@ public class User extends BmobUser {
 
     public void setmSaturdayTime(int mSaturdayTime) {
         this.mSaturdayTime = mSaturdayTime;
+        summaryTotal();
     }
 
     public int getmSundayTime() {
@@ -138,6 +149,7 @@ public class User extends BmobUser {
 
     public void setmSundayTime(int mSundayTime) {
         this.mSundayTime = mSundayTime;
+        summaryTotal();
     }
 
     public int getmTotalTime() {

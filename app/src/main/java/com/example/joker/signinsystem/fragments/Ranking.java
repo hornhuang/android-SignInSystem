@@ -12,10 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import com.example.joker.signinsystem.MainActivity;
+import com.example.joker.signinsystem.activities.MainActivity;
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.User;
-import com.example.joker.signinsystem.utils.MyDate;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;

@@ -1,11 +1,7 @@
 package com.example.joker.signinsystem.utils;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
-
-import com.example.joker.signinsystem.MainActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

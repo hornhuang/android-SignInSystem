@@ -1,4 +1,4 @@
-package com.example.joker.signinsystem;
+package com.example.joker.signinsystem.activities;
 
 import android.Manifest;
 import android.content.Context;
@@ -22,22 +22,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.joker.signinsystem.activities.BaseActivity;
+import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.fragments.Personal;
 import com.example.joker.signinsystem.fragments.Ranking;
 import com.example.joker.signinsystem.fragments.Summary;
-import com.example.joker.signinsystem.activities.ChangeUserIfo;
-import com.example.joker.signinsystem.activities.StartActivity;
 import com.example.joker.signinsystem.baseclasses.User;
 import com.example.joker.signinsystem.bmobmanager.AvatarLoader;
-import com.example.joker.signinsystem.utils.MyDate;
 import com.example.joker.signinsystem.utils.SDKFileManager;
 import com.example.joker.signinsystem.utils.Toasty;
 
