@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import java.io.File;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
 
 //
 public class User extends BmobUser {
@@ -18,8 +19,16 @@ public class User extends BmobUser {
     private String group;    // 组别
     private String motto;    // 座右铭
     private String telephone;// 电话
-    private Bitmap headIcon; // 用户头像
-    private File ImageUrl;   // 用户头像网址
+    private BmobFile ImageFile; // 用户头像网址
+    private int mMondatTime =0;    // 周一在线时间
+    private int mTuesdayTime =0;   // 周二在线时间
+    private int mWednesdayTime =0; // 周三在线时间
+    private int mThursdayTime =0;  // 周四在线时间
+    private int mFridayTime =0;    // 周五在线时间
+    private int mSaturdayTime =0;  // 周六在线时间
+    private int mSundayTime =0;    // 周日在线时间
+    private int mTotalTime =0;     // 总在线时间
+    private int mYesturdayFlag=0;  // 昨天 判断是否更新 如果不一样就把今天变为0 同时把 flag 换成今天 -- 如果今天不是昨天 就把昨天赋值为今天
 
     /*
     get() & set() 方法
@@ -59,20 +68,12 @@ public class User extends BmobUser {
         this.address = address;
     }
 
-    public Bitmap getHeadIcon() {
-        return headIcon;
+    public BmobFile getImageFile() {
+        return ImageFile;
     }
 
-    public void setHeadIcon(Bitmap headIcon) {
-        this.headIcon = headIcon;
-    }
-
-    public File getImageUrl() {
-        return ImageUrl;
-    }
-
-    public void setImageUrl(File imageUrl) {
-        ImageUrl = imageUrl;
+    public void setImageFile(BmobFile imageFile) {
+        ImageFile = imageFile;
     }
 
     public String getMotto() {
@@ -81,5 +82,77 @@ public class User extends BmobUser {
 
     public void setMotto(String motto) {
         this.motto = motto;
+    }
+
+    public int getmMondatTime() {
+        return mMondatTime;
+    }
+
+    public void setmMondatTime(int mMondatTime) {
+        this.mMondatTime = mMondatTime;
+    }
+
+    public int getmTuesdayTime() {
+        return mTuesdayTime;
+    }
+
+    public void setmTuesdayTime(int mTuesdayTime) {
+        this.mTuesdayTime = mTuesdayTime;
+    }
+
+    public int getmWednesdayTime() {
+        return mWednesdayTime;
+    }
+
+    public void setmWednesdayTime(int mWednesdayTime) {
+        this.mWednesdayTime = mWednesdayTime;
+    }
+
+    public int getmThursdayTime() {
+        return mThursdayTime;
+    }
+
+    public void setmThursdayTime(int mThursdayTime) {
+        this.mThursdayTime = mThursdayTime;
+    }
+
+    public int getmFridayTime() {
+        return mFridayTime;
+    }
+
+    public void setmFridayTime(int mFridayTime) {
+        this.mFridayTime = mFridayTime;
+    }
+
+    public int getmSaturdayTime() {
+        return mSaturdayTime;
+    }
+
+    public void setmSaturdayTime(int mSaturdayTime) {
+        this.mSaturdayTime = mSaturdayTime;
+    }
+
+    public int getmSundayTime() {
+        return mSundayTime;
+    }
+
+    public void setmSundayTime(int mSundayTime) {
+        this.mSundayTime = mSundayTime;
+    }
+
+    public int getmTotalTime() {
+        return mTotalTime;
+    }
+
+    public void setmTotalTime(int mTotalTime) {
+        this.mTotalTime = mTotalTime;
+    }
+
+    public int getmYesturdayFlag() {
+        return mYesturdayFlag;
+    }
+
+    public void setmYesturdayFlag(int mYesturdayFlag) {
+        this.mYesturdayFlag = mYesturdayFlag;
     }
 }

@@ -7,22 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.joker.signinsystem.MainFragment.Summary;
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.User;
-
-import org.w3c.dom.Text;
-import org.w3c.dom.UserDataHandler;
+import com.example.joker.signinsystem.bmobmanager.AvatarLoader;
 
 import java.util.List;
-import java.util.Map;
-import java.util.zip.Inflater;
 
 public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecyclerAdapter.UserViewHolder> {
     /*
@@ -78,10 +71,10 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         }else {
             userViewHolder.user_motto.setText(user.getMotto());
         }
-        if (user.getHeadIcon() == null){
+        if (user.getImageFile() == null){
             userViewHolder.head_icon.setImageResource(R.mipmap.app_icon);
         }else {
-            userViewHolder.head_icon.setImageBitmap(user.getHeadIcon());
+            new AvatarLoader(userViewHolder.head_icon, user).load();
         }
 
         userViewHolder.itemView.setOnClickListener(new View.OnClickListener() {

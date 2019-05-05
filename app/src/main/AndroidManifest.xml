@@ -21,6 +21,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--获取照片权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".activities.BmobApplication"
@@ -32,7 +35,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".activities.ChatActivity"></activity>
+        <activity android:name=".activities.ChangeUserIfo"></activity>
+        <activity android:name=".activities.ChatActivity" />
         <activity android:name=".activities.RegetPassword" />
         <activity
             android:name=".activities.StartActivity"
@@ -47,7 +51,7 @@
         <activity android:name=".activities.MobileLoad" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_main" />
     </application>
 
 </manifest>

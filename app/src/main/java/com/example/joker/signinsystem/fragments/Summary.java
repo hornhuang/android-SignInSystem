@@ -1,4 +1,4 @@
-package com.example.joker.signinsystem.MainFragment;
+package com.example.joker.signinsystem.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,11 +24,14 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-
+/**
+ * 排行榜
+ * 读取所有用户信息在 RecyclerView 中显示
+ * 用户通过点击每个 item 可以查看该用户细节柱状图
+ */
 public class Summary extends Fragment{
 
     private List<User> userList = new ArrayList<>();
-    private int n ;
     public static String APPID = "bd4814e57ed9c8f00aa0d119c5676cf9";
     private RecyclerView mUserListViews;
     private SwipeRefreshLayout mRefreshLayout;
@@ -43,6 +46,7 @@ public class Summary extends Fragment{
         }
     };
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view= inflater.inflate(R.layout.fragment_summary , container, false);
         //第二：默认初始化
@@ -54,7 +58,6 @@ public class Summary extends Fragment{
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                List<User> list=getData();
                 mUserListViews.setAdapter(new SummaryRecyclerAdapter(userList));
                 chnage();
             }
@@ -87,6 +90,9 @@ public class Summary extends Fragment{
         }.start();
     }
 
+    /*
+    从 Bmob 获得所有用户信息
+     */
     public List<User> getData(){
         userList = new ArrayList<>();
         BmobQuery<User> bmobQuery = new BmobQuery<User>();

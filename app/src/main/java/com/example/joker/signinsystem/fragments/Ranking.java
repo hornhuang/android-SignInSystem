@@ -1,45 +1,6 @@
-package com.example.joker.signinsystem.MainFragment;
-
-
-//import android.content.Context;
-//import android.graphics.Color;
-//import android.graphics.Paint;
-//import android.graphics.Typeface;
-//import android.os.Bundle;
-//import android.support.v4.app.Fragment;
-//import android.util.DisplayMetrics;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.view.WindowManager;
-//
-//import com.example.joker.signinsystem.R;
-//import com.github.mikephil.charting.charts.BarChart;
-//import com.github.mikephil.charting.components.AxisBase;
-//import com.github.mikephil.charting.components.Description;
-//import com.github.mikephil.charting.components.Legend;
-//import com.github.mikephil.charting.components.XAxis;
-//import com.github.mikephil.charting.components.YAxis;
-//import com.github.mikephil.charting.data.BarData;
-//import com.github.mikephil.charting.data.BarDataSet;
-//import com.github.mikephil.charting.data.BarEntry;
-//import com.github.mikephil.charting.data.Entry;
-//import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-//import com.github.mikephil.charting.formatter.IValueFormatter;
-//import com.github.mikephil.charting.highlight.Highlight;
-//import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-//import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-//import com.github.mikephil.charting.utils.ColorTemplate;
-//import com.github.mikephil.charting.utils.Utils;
-//import com.github.mikephil.charting.utils.ViewPortHandler;
-//
-//import java.text.DecimalFormat;
-//import java.util.ArrayList;
-//import java.util.List;
-
+package com.example.joker.signinsystem.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -51,7 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.example.joker.signinsystem.MainActivity;
 import com.example.joker.signinsystem.R;
+import com.example.joker.signinsystem.baseclasses.User;
+import com.example.joker.signinsystem.utils.MyDate;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -61,20 +25,16 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.Utils;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Ranking extends Fragment {
 
+    private User user;
     private BarChart bc;
     private SwipeRefreshLayout refreshLayout;
 
@@ -89,12 +49,13 @@ public class Ranking extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ranking, container, false);
+
+        user = ((MainActivity) getActivity()).getUser();
         initView(view);
         iniRefleshFunction();
         initData();
         return view;
     }
-
 
     private void initView(View view) {
         bc = (BarChart) view.findViewById(R.id.bar_chart);
@@ -186,15 +147,18 @@ public class Ranking extends Fragment {
 //        xAxis.setValueFormatter((ValueFormatter)iAxisValueFormatter);
     }
 
+    /*
+    重置途中数据
+     */
     private void setChartData() {
         final List<BarEntry> yVals1 = new ArrayList<>();
-        yVals1.add(new BarEntry(1f, 396));
-        yVals1.add(new BarEntry(2f, 1089));
-        yVals1.add(new BarEntry(3f, 963));
-        yVals1.add(new BarEntry(4f, 756));
-        yVals1.add(new BarEntry(5f, 287));
-        yVals1.add(new BarEntry(6f, 587));
-        yVals1.add(new BarEntry(7f, 387));
+        yVals1.add(new BarEntry(1f, user.getmMondatTime())   );
+        yVals1.add(new BarEntry(2f, user.getmTuesdayTime())  );
+        yVals1.add(new BarEntry(3f, user.getmWednesdayTime()));
+        yVals1.add(new BarEntry(4f, user.getmThursdayTime()) );
+        yVals1.add(new BarEntry(5f, user.getmFridayTime())   );
+        yVals1.add(new BarEntry(6f, user.getmSaturdayTime()) );
+        yVals1.add(new BarEntry(7f, user.getmSundayTime())   );
 
 //        final List<BarEntry> yVals2 = new ArrayList<>();
 //        yVals2.add(new BarEntry(1f, 245));
