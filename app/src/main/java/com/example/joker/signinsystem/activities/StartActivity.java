@@ -19,14 +19,12 @@ import android.widget.Toast;
 
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.User;
+import com.example.joker.signinsystem.utils.MyToast;
 import com.example.joker.signinsystem.utils.SDKFileManager;
-import com.example.joker.signinsystem.utils.Toasty;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
-import cn.bmob.v3.listener.SaveListener;
 
 /**开始界面 负责选择功能
  * 登录、注册、短信验证码登录
@@ -137,7 +135,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void done(User user, BmobException e) {
                 if (e == null) {
-                    Toasty.Toasty(StartActivity.this, "登录成功");
+                    MyToast.makeToast(StartActivity.this, "登录成功");
                     try {
                         user = BmobUser.getCurrentUser(User.class);
                         SDKFileManager.saveObjectId(user.getObjectId(), StartActivity.this);
@@ -152,7 +150,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                         Log.d("TAG", e2.getMessage());
                     }
                 } else {
-                    Toasty.Toasty(StartActivity.this, "登陆失败");
+                    MyToast.makeToast(StartActivity.this, "登陆失败");
                 }
             }
         });

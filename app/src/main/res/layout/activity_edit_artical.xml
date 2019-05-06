@@ -52,8 +52,7 @@
         <EditText
             android:id="@+id/edit_title"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="75dp"
             android:padding="10dp"
             android:background="@color/white"
             android:textSize="19sp"
@@ -70,8 +69,7 @@
         <EditText
             android:id="@+id/edit_content"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:padding="10dp"
             android:background="@color/white"
             android:textSize="17sp"

@@ -1,6 +1,10 @@
 package com.example.joker.signinsystem.baseclasses;
 
+import android.graphics.Bitmap;
+
 import java.util.UUID;
+
+import cn.bmob.v3.datatype.BmobFile;
 
 public class CommentsArticals {
 
@@ -8,6 +12,8 @@ public class CommentsArticals {
     private int commentImageId;
     private String commentText;
     private User linkUser;
+    private BmobFile comtentImageFile;
+    private Bitmap contentBitmap;
 
     public CommentsArticals(){
         mCommentId = UUID.randomUUID();

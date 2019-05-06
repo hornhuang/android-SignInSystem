@@ -32,12 +32,13 @@
         android:appComponentFactory="任意字符"
         android:icon="@mipmap/app_icon"
         android:label="亿签"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:networkSecurityConfig="@xml/network_security_config"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".forums.activities.EditArticalActivity"></activity>
+        <activity android:name=".forums.activities.MyArticalActivity"></activity>
+        <activity android:name=".forums.activities.EditArticalActivity" />
         <activity android:name=".forums.activities.ForumDetailActivity" />
         <activity android:name=".forums.activities.ForumActivity" />
         <activity
@@ -56,12 +57,10 @@
         <activity android:name=".activities.ChatActivity" />
         <activity android:name=".activities.RegetPassword" />
         <activity android:name=".activities.RegistActivity" />
-        <activity android:name=".activities.MobileLoad" />
-        <!--BmobProvider Bmob需要-->
+        <activity android:name=".activities.MobileLoad" /> <!-- BmobProvider Bmob需要 -->
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="com.example.sht.homework.BmobContentProvider">
-        </provider>
+            android:authorities="com.example.sht.homework.BmobContentProvider"></provider>
     </application>
 
 </manifest>

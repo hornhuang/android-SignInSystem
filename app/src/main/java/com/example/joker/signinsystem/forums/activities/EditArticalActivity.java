@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -22,11 +21,10 @@ import android.widget.Toast;
 
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.activities.BaseActivity;
-import com.example.joker.signinsystem.activities.MainActivity;
 import com.example.joker.signinsystem.baseclasses.Artical;
 import com.example.joker.signinsystem.baseclasses.User;
-import com.example.joker.signinsystem.utils.SDKFileManager;
-import com.example.joker.signinsystem.utils.Toasty;
+import com.example.joker.signinsystem.utils.MyLog;
+import com.example.joker.signinsystem.utils.MyToast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -100,24 +98,27 @@ public class EditArticalActivity extends BaseActivity {
 
     private void publish(){
         if (path.equals("")){
-            Toasty.Toasty(EditArticalActivity.this, "必须添加图片");
+            MyToast.makeToast(EditArticalActivity.this, "必须添加图片");
         }else {
-            artical = new Artical();
-            artical.setArticalTitleText(mEditTitle.getText().toString());
-            artical.setArticalContextText(mEditContent.getText().toString());
-            artical.setLinkUser(BmobUser.getCurrentUser(User.class));
-            artical.save(new SaveListener<String>() {
-                @Override
-                public void done(String s, BmobException e) {
-                    if (e == null){
-                        objectId = s;
-                        loadfile();
-                    }else {
-                        Toasty.Toasty(EditArticalActivity.this, "发布失败" + e.getMessage());
+            if (BmobUser.isLogin()){
+                artical = new Artical();
+                artical.setArticalTitleText(mEditTitle.getText().toString());
+                artical.setArticalContextText(mEditContent.getText().toString());
+                artical.setLinkUser(BmobUser.getCurrentUser(User.class));
+                artical.save(new SaveListener<String>() {
+                    @Override
+                    public void done(String s, BmobException e) {
+                        if (e == null){
+                            objectId = s;
+                            loadfile();
+                        }else {
+                            MyToast.makeToast(EditArticalActivity.this, "发布失败" + e.getMessage());
+                        }
                     }
-                }
-            });
-
+                });
+            }else {
+                MyToast.makeToast(EditArticalActivity.this, "请先登录");
+            }
         }
     }
 
@@ -133,16 +134,16 @@ public class EditArticalActivity extends BaseActivity {
                         @Override
                         public void done(BmobException e) {
                             if (e == null) {
-                                Toasty.Toasty(EditArticalActivity.this, "发布成功");
+                                MyToast.makeToast(EditArticalActivity.this, "发布成功");
                                 finish();
                             } else {
-                                Toasty.Toasty(EditArticalActivity.this, "发布失败" + e.getMessage());
+                                MyToast.makeToast(EditArticalActivity.this, "发布失败" + e.getMessage());
                             }
                         }
                     });
                     //bmobFile.getFileUrl()--返回的上传文件的完整地址
                 }else{
-                    Toasty.Toasty(EditArticalActivity.this, "发布失败" + e.getMessage());
+                    MyToast.makeToast(EditArticalActivity.this, "发布失败" + e.getMessage());
                 }
             }
 
@@ -171,7 +172,7 @@ public class EditArticalActivity extends BaseActivity {
     private File imageFactory(String picPath){
         BitmapFactory.Options o=new BitmapFactory.Options();
         Bitmap bitmap=BitmapFactory.decodeFile(picPath, o);
-        bitmap=Bitmap.createScaledBitmap(bitmap, 400, 400, false);
+        bitmap=Bitmap.createScaledBitmap(bitmap, 700, 400, false);
         File root= getExternalCacheDir();
         File pic=new File(root,objectId + ".jpg");
         try {

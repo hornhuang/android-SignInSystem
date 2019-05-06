@@ -78,10 +78,10 @@ public class ImageLoader extends Handler {
     }
 
     private void adjustViewHeight(){
-        ViewGroup.LayoutParams params=mImageView.getLayoutParams();
-        float ratio = (float) mBitmap.getHeight() / mBitmap.getWidth();
-        params.height = (int) (mImageView.getMeasuredWidth() * ratio);
-        params.width=mImageView.getMeasuredWidth();
+//        ViewGroup.LayoutParams params=mImageView.getLayoutParams();
+//        float ratio = (float) mBitmap.getHeight() / mBitmap.getWidth();
+//        params.height = (int) (mImageView.getMeasuredWidth() * ratio);
+//        params.width=mImageView.getMeasuredWidth();
         mImageView.setImageBitmap(mBitmap);
     }
 

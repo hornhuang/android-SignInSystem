@@ -27,28 +27,26 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joker.signinsystem.R;
+import com.example.joker.signinsystem.forums.activities.MyArticalActivity;
 import com.example.joker.signinsystem.fragments.Personal;
 import com.example.joker.signinsystem.fragments.Ranking;
 import com.example.joker.signinsystem.fragments.Summary;
 import com.example.joker.signinsystem.baseclasses.User;
 import com.example.joker.signinsystem.bmobmanager.AvatarLoader;
-import com.example.joker.signinsystem.utils.SDKFileManager;
-import com.example.joker.signinsystem.utils.Toasty;
+import com.example.joker.signinsystem.utils.MyToast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -59,6 +57,8 @@ public class MainActivity extends BaseActivity {
     private CircleImageView mUserimageView;
     private TextView mUserName;
     private TextView mUserMotto;
+    private LinearLayout mArticleLayout;
+
     private Bitmap bitmap;//从相册获得图片
     private BottomNavigationView navigation;
     private FragmentManager fragmentManager;
@@ -123,9 +123,11 @@ public class MainActivity extends BaseActivity {
         mUserimageView = findViewById(R.id.user_image);
         mUserName = findViewById(R.id.user_name);
         mUserMotto = findViewById(R.id.user_motto);
+        mArticleLayout = findViewById(R.id.my_article);
         mUserimageView.setOnClickListener(this);
         mUserName.setOnClickListener(this);
         mUserMotto.setOnClickListener(this);
+        mArticleLayout.setOnClickListener(this);
 
         mPerson = new Personal();
         mRanking = new Ranking();
@@ -196,6 +198,14 @@ public class MainActivity extends BaseActivity {
 
             case R.id.user_motto:
                 simple();
+                break;
+
+            case R.id.my_theme:
+                // do 。。。 ();
+                break;
+
+            case R.id.my_article:
+                MyArticalActivity.actionStart(MainActivity.this);
                 break;
 
             default:
@@ -375,15 +385,16 @@ public class MainActivity extends BaseActivity {
     /*
     数据库更新用户名
      */
-    private void changeUserName(String name){
+    private void changeUserName(final String name){
         user.setName(name);
         user.update(new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
                     Toast.makeText(MainActivity.this, "用户名更新成功", Toast.LENGTH_SHORT).show();
+                    mUserName.setText(name);
                 } else {
-                    Toasty.Toasty(MainActivity.this, "用户名更新成功");
+                    MyToast.makeToast(MainActivity.this, "用户名更新成功");
                 }
             }
         });
@@ -392,13 +403,14 @@ public class MainActivity extends BaseActivity {
     /*
     数据库更新座右铭
      */
-    private void changeMotto(String motto){
+    private void changeMotto(final String motto){
         user.setMotto(motto);
         user.update(new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
                     Toast.makeText(MainActivity.this, "座右铭更新成功", Toast.LENGTH_SHORT).show();
+                    mUserMotto.setText(motto);
                 } else {
 
                 }

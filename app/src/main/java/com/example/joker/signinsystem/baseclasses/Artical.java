@@ -1,5 +1,7 @@
 package com.example.joker.signinsystem.baseclasses;
 
+import android.graphics.Bitmap;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -11,6 +13,7 @@ public class Artical extends BmobObject {
     private UUID mId;//用于识别LostItem对象的Id,在构造方法中已经初始化
     private int articalImageId;
     private BmobFile articalImageFile;
+    private Bitmap articlePhoto;
     private String articalTitleText;
     private String articalContextText;
     private List<CommentsArticals> articalComments;
@@ -74,5 +77,13 @@ public class Artical extends BmobObject {
 
     public void setLinkUser(User linkUser) {
         this.linkUser = linkUser;
+    }
+
+    public Bitmap getArticlePhoto() {
+        return articlePhoto;
+    }
+
+    public void setArticlePhoto(Bitmap articlePhoto) {
+        this.articlePhoto = articlePhoto;
     }
 }

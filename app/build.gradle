@@ -111,4 +111,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
 
+//    implementation 'jp.wasabeef:recyclerview-animators:3.0.0'// recyclerview 动画
 }

@@ -1,7 +1,7 @@
 package com.example.joker.signinsystem.forums.adapters;
 
 import android.content.Context;
-import android.media.Image;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -15,15 +15,15 @@ import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.Artical;
 import com.example.joker.signinsystem.bmobmanager.AvatarLoader;
 import com.example.joker.signinsystem.forums.activities.ForumDetailActivity;
-import com.example.joker.signinsystem.utils.Toasty;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class ArticalAdapter extends RecyclerView.Adapter<ArticalAdapter.ViewHoulder> {
 
     private List<Artical> mList;
     private Context context;
+
+    private Bitmap bm=null;
 
     class ViewHoulder extends RecyclerView.ViewHolder {
 
@@ -53,15 +53,15 @@ public class ArticalAdapter extends RecyclerView.Adapter<ArticalAdapter.ViewHoul
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHoulder viewHoulder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHoulder viewHoulder, int i) {
         final Artical artical = mList.get(i);
         viewHoulder.mTitleText.setText(artical.getArticalTitleText());
         viewHoulder.mContentText.setText(artical.getArticalContextText());
-        new AvatarLoader(viewHoulder.mImage, artical.getArticalImageFile()).articalload();
+        viewHoulder.mImage.setImageBitmap(artical.getArticlePhoto());
         viewHoulder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ForumDetailActivity.actionStart((AppCompatActivity) context);
+                ForumDetailActivity.actionStart((AppCompatActivity) context, artical.getObjectId());
             }
         });
     }
@@ -71,5 +71,20 @@ public class ArticalAdapter extends RecyclerView.Adapter<ArticalAdapter.ViewHoul
         return mList.size();
     }
 
+//    /**
+//     * 增加数据
+//     */
+//    public void addData(int position, Artical artical) {
+//        mList.add(position, artical);
+//        notifyItemInserted(position);//注意这里
+//    }
+//
+//    /**
+//     * 移除数据
+//     */
+//    public void removeData(int position, Artical artical) {
+//        mList.remove(position);
+//        notifyItemRemoved(position);//注意这里
+//    }
 
 }

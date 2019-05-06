@@ -41,7 +41,7 @@ public class AvatarLoader extends ImageLoader{
         this.filePath = filePath;
     }
 
-    public void articalload(){
+    public void loadByFile(){
         if(filePath!=null) {
             setUrl(filePath.getUrl());
             AvatarLoader.super.load();

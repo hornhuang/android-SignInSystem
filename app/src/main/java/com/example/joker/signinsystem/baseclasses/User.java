@@ -20,6 +20,7 @@ public class User extends BmobUser {
     private String motto;    // 座右铭
     private String telephone;// 电话
     private BmobFile ImageFile; // 用户头像网址
+    private Bitmap headIcon;
     private int mMondatTime =0;    // 周一在线时间
     private int mTuesdayTime =0;   // 周二在线时间
     private int mWednesdayTime =0; // 周三在线时间
@@ -166,5 +167,13 @@ public class User extends BmobUser {
 
     public void setmYesturdayFlag(int mYesturdayFlag) {
         this.mYesturdayFlag = mYesturdayFlag;
+    }
+
+    public Bitmap getHeadIcon() {
+        return headIcon;
+    }
+
+    public void setHeadIcon(Bitmap headIcon) {
+        this.headIcon = headIcon;
     }
 }

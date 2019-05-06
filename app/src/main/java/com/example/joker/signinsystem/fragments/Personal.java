@@ -33,7 +33,7 @@ import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.User;
 import com.example.joker.signinsystem.forums.activities.ForumActivity;
 import com.example.joker.signinsystem.utils.MyDate;
-import com.example.joker.signinsystem.utils.Toasty;
+import com.example.joker.signinsystem.utils.MyToast;
 import com.nestia.biometriclib.BiometricPromptManager;
 
 import java.io.BufferedWriter;
@@ -247,31 +247,31 @@ public class Personal extends Fragment {
         switch (user.getmYesturdayFlag()){
             case 1:
                 user.setmMondatTime(user.getmMondatTime() + time);
-//                Toasty.Toasty((AppCompatActivity) getActivity(), "原先时间->" + user.getmMondatTime() + "; 增加时间->"+time);
+//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmMondatTime() + "; 增加时间->"+time);
                 break;
             case 2:
                 user.setmTuesdayTime(user.getmTuesdayTime() + time);
-//                Toasty.Toasty((AppCompatActivity) getActivity(), "原先时间->" + user.getmTuesdayTime() + "; 增加时间->"+time);
+//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmTuesdayTime() + "; 增加时间->"+time);
                 break;
             case 3:
                 user.setmWednesdayTime(user.getmWednesdayTime() + time);
-//                Toasty.Toasty((AppCompatActivity) getActivity(), "原先时间->" + user.getmWednesdayTime() + "; 增加时间->"+time);
+//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmWednesdayTime() + "; 增加时间->"+time);
                 break;
             case 4:
                 user.setmThursdayTime(user.getmThursdayTime() + time);
-//                Toasty.Toasty((AppCompatActivity) getActivity(), "原先时间->" + user.getmThursdayTime() + "; 增加时间->"+time);
+//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmThursdayTime() + "; 增加时间->"+time);
                 break;
             case 5:
                 user.setmFridayTime(user.getmFridayTime() + time);
-//                Toasty.Toasty((AppCompatActivity) getActivity(), "原先时间->" + user.getmFridayTime() + "; 增加时间->"+time);
+//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmFridayTime() + "; 增加时间->"+time);
                 break;
             case 6:
                 user.setmSaturdayTime(user.getmSaturdayTime() + time);
-//                Toasty.Toasty((AppCompatActivity) getActivity(), "原先时间->" + user.getmSaturdayTime() + "; 增加时间->" +time);
+//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmSaturdayTime() + "; 增加时间->" +time);
                 break;
             case 7:
                 user.setmSundayTime(user.getmSundayTime() + time);
-//                Toasty.Toasty((AppCompatActivity) getActivity(), "原先时间->" + user.getmSundayTime() + "; 增加时间->" +time);
+//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmSundayTime() + "; 增加时间->" +time);
                 break;
             default:
 
@@ -283,7 +283,7 @@ public class Personal extends Fragment {
                 if (e == null) {
                     Toast.makeText(getActivity(), "信息已更新", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toasty.Toasty((AppCompatActivity) getActivity(), "信息提交失败!");
+                    MyToast.makeToast((AppCompatActivity) getActivity(), "信息提交失败!");
                 }
             }
         });

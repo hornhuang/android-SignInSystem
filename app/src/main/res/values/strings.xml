@@ -12,6 +12,7 @@
 
     <!--首页侧拉框-->
     <string name="side_functions_theme">选择主题</string>
+    <string name="side_functions_my_article">我的动态</string>
 
     <!--底部分类-->
     <string name="fragment_signIn">签到</string>

@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -88,6 +89,10 @@ public class Summary extends Fragment{
     private void iniRecyclerView(){
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mUserListViews.setLayoutManager(manager);
+        DefaultItemAnimator defaultItemAnimator = new DefaultItemAnimator();
+        defaultItemAnimator.setAddDuration(1000);
+        defaultItemAnimator.setRemoveDuration(1000);
+        mUserListViews.setItemAnimator(defaultItemAnimator);
     }
 
     /*

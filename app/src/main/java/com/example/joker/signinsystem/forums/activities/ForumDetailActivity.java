@@ -15,6 +15,14 @@ import android.widget.TextView;
 
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.activities.BaseActivity;
+import com.example.joker.signinsystem.baseclasses.Artical;
+import com.example.joker.signinsystem.forums.articalutils.ArticalViewsManager;
+import com.example.joker.signinsystem.utils.MyToast;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ForumDetailActivity extends BaseActivity {
 
@@ -27,29 +35,41 @@ public class ForumDetailActivity extends BaseActivity {
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
 
-    ImageView mIvPlaceholder; // 大图片
+    private String objectId;
 
-    LinearLayout mLlTitleContainer; // Title的LinearLayout
+    private ImageView mIvPlaceholder; // 大图片--------------------
+    private TextView mArticalTitleText;// title
+    private TextView mArticalContentText;// 文章内容
 
-    FrameLayout mFlTitleContainer; // Title的FrameLayout
+    private LinearLayout mLlTitleContainer; // Title的LinearLayout
 
-    AppBarLayout mAblAppBar; // 整个可以滑动的AppBar
+    private FrameLayout mFlTitleContainer; // Title的FrameLayout
 
-    TextView mTvToolbarTitle; // 标题栏Title
+    private AppBarLayout mAblAppBar; // 整个可以滑动的AppBar
 
-    Toolbar mTbToolbar; // 工具栏
+    private CircleImageView mImToolbarWriterImage;
+    private TextView mTvToolbarTitle; // 标题栏Title--------------------- username
+    private TextView mTvToolbarMotto; // 作者座右铭
+
+    private Toolbar mTbToolbar; // 工具栏
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum_detail);
         mIvPlaceholder = (ImageView) findViewById(R.id.main_iv_placeholder);
+        mArticalTitleText = (TextView) findViewById(R.id.artical_title) ;
+        mArticalContentText = (TextView) findViewById(R.id.artical_context) ;
         mLlTitleContainer = (LinearLayout) findViewById(R.id.main_ll_title_container);
         mFlTitleContainer = (FrameLayout) findViewById(R.id.main_fl_title);
         mAblAppBar = (AppBarLayout) findViewById(R.id.main_abl_app_bar);
         mTvToolbarTitle = (TextView) findViewById(R.id.main_tv_toolbar_title);
+        mTvToolbarMotto = (TextView) findViewById(R.id.artical_writer_motto);
+        mImToolbarWriterImage = (CircleImageView) findViewById(R.id.small_photo);
         mTbToolbar = (Toolbar) findViewById(R.id.main_tb_toolbar);
         mTbToolbar.setTitle("");
+
+        objectId = getIntent().getStringExtra("objectId");
 
         // AppBar的监听
         mAblAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -62,14 +82,8 @@ public class ForumDetailActivity extends BaseActivity {
             }
         });
 
-//        findViewById(R.id.small_photo).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(ForumDetailActivity.this, SettingsActivity.class));
-//            }
-//        });
-
         initParallaxValues(); // 自动滑动效果
+        iniData(); // 导入真实信息
     }
 
     // 设置自动滑动的动画效果
@@ -128,10 +142,49 @@ public class ForumDetailActivity extends BaseActivity {
         v.startAnimation(alphaAnimation);
     }
 
+    private void iniData(){
+        BmobQuery<Artical> bmobQuery = new BmobQuery<Artical>();
+        bmobQuery.getObject(objectId, new QueryListener<Artical>() {
+            @Override
+            public void done(Artical object, BmobException e) {
+                if(e==null){
+                    ArticalViewsManager.iniViews(object, ForumDetailActivity.this);
+                }else{
+                    MyToast.makeToast(ForumDetailActivity.this,"失败,请检查网络：" + e.getMessage());
+                }
+            }
+        });
+    }
+
     // 跳转
-    public static void actionStart(AppCompatActivity activity){
+    public static void actionStart(AppCompatActivity activity, String objectId){
         Intent intent = new Intent(activity, ForumDetailActivity.class);
+        intent.putExtra("objectId", objectId);
         activity.startActivity(intent);
+    }
+
+    public ImageView getmIvPlaceholder() {
+        return mIvPlaceholder;
+    }
+
+    public TextView getmArticalTitleText() {
+        return mArticalTitleText;
+    }
+
+    public TextView getmArticalContentText() {
+        return mArticalContentText;
+    }
+
+    public CircleImageView getmImToolbarWriterImage() {
+        return mImToolbarWriterImage;
+    }
+
+    public TextView getmTvToolbarTitle() {
+        return mTvToolbarTitle;
+    }
+
+    public TextView getmTvToolbarMotto() {
+        return mTvToolbarMotto;
     }
 
 }

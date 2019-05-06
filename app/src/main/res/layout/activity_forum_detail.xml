@@ -41,6 +41,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/main_tv_toolbar_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -51,6 +52,7 @@
                         android:textSize="30sp" />
 
                     <TextView
+                        android:id="@+id/artical_writer_motto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -74,18 +76,32 @@
         app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
         <android.support.v7.widget.CardView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             app:cardBackgroundColor="@color/white"
             app:cardElevation="8dp"
             app:contentPadding="16dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="8dp"
-                android:text="@string/person_intro" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/artical_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/artical_context"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="8dp"
+                    android:text="@string/person_intro" />
+
+            </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -109,7 +125,6 @@
                 android:layout_height="@dimen/image_final_width" />
 
             <TextView
-                android:id="@+id/main_tv_toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
