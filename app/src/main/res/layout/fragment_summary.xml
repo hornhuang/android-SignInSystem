@@ -41,6 +41,7 @@
                         android:id="@+id/search"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
+                        android:theme="@style/SearchViewTheme"
                         materialdesign:defaultQueryHint="输入要查询的用户名"
                         android:layout_weight="1" />
 
