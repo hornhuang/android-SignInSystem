@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <paths>
+        <files-path
+            name="my_images"
+            path="." />
+        <!--<external-path path="" name="download"/>-->
+        <external-path path="/storage/emulated/0/form.apk" name="download"/>
+    </paths>
+</resources>

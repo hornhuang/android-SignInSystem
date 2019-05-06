@@ -55,7 +55,7 @@
                     android:gravity="center"
                     android:textSize="20sp"
                     android:textColor="@color/white"
-                    android:background="@color/smssdk_transparent"
+                    android:background="@color/grey"
                     android:text="完成"/>
 
             </LinearLayout>

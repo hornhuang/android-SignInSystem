@@ -1,4 +1,4 @@
-package com.example.joker.signinsystem.forums;
+package com.example.joker.signinsystem.forums.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

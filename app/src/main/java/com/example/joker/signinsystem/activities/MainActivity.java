@@ -9,12 +9,14 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -237,6 +239,7 @@ public class MainActivity extends BaseActivity {
     }
 
     /*定义一个Handler，定义延时执行的行为*/
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public void chnageImage(){
         final String picPath = path;
         final BmobFile bmobFile = new BmobFile(imageFactory(picPath));
@@ -283,11 +286,12 @@ public class MainActivity extends BaseActivity {
     /*
     压缩路径下的文件
      */
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     private File imageFactory(String picPath){
         BitmapFactory.Options o=new BitmapFactory.Options();
         Bitmap bitmap=BitmapFactory.decodeFile(picPath, o);
         bitmap=Bitmap.createScaledBitmap(bitmap, 400, 400, false);
-        File root= getExternalCacheDir();
+        File root = getExternalCacheDir();
         File pic=new File(root,"test.jpg");
         try {
             FileOutputStream fos=new FileOutputStream(pic);
@@ -338,6 +342,7 @@ public class MainActivity extends BaseActivity {
                 .show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

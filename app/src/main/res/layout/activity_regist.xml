@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.joker.signinsystem.activities.RegistActivity"
-    android:background="@color/smssdk_white">
+    android:background="@color/white">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_height="?actionBarSize"
                 android:gravity="center_vertical"
                 android:text="注册"
-                android:textColor="@color/smssdk_white"
+                android:textColor="@color/white"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
@@ -60,7 +60,7 @@
                     android:layout_height="?actionBarSize"
                     android:hint="组别"
                     android:theme="@style/BottomNavigationTheme"
-                    android:textColorHint="@color/smssdk_gray"
+                    android:textColorHint="@color/grey"
                     tools:layout_editor_absoluteX="81dp"
                     tools:layout_editor_absoluteY="226dp" />
 
@@ -70,7 +70,7 @@
                     android:layout_height="?actionBarSize"
                     android:hint="电话"
                     android:theme="@style/BottomNavigationTheme"
-                    android:textColorHint="@color/smssdk_gray"
+                    android:textColorHint="@color/grey"
                     tools:layout_editor_absoluteX="81dp"
                     tools:layout_editor_absoluteY="226dp" />
 
@@ -80,7 +80,7 @@
                     android:layout_height="?actionBarSize"
                     android:hint="用户名"
                     android:theme="@style/BottomNavigationTheme"
-                    android:textColorHint="@color/smssdk_gray"
+                    android:textColorHint="@color/grey"
                     tools:layout_editor_absoluteX="81dp"
                     tools:layout_editor_absoluteY="226dp" />
 
@@ -90,7 +90,7 @@
                     android:layout_height="?actionBarSize"
                     android:hint="姓名"
                     android:theme="@style/BottomNavigationTheme"
-                    android:textColorHint="@color/smssdk_gray"
+                    android:textColorHint="@color/grey"
                     tools:layout_editor_absoluteX="81dp"
                     tools:layout_editor_absoluteY="226dp" />
 
@@ -101,7 +101,7 @@
                     android:layout_marginBottom="183dp"
                     android:hint="密码"
                     android:theme="@style/BottomNavigationTheme"
-                    android:textColorHint="@color/smssdk_gray"
+                    android:textColorHint="@color/grey"
                     tools:layout_editor_absoluteX="82dp"
                     tools:layout_editor_absoluteY="157dp" />
 
@@ -130,7 +130,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_button"
                 android:text="保存"
-                android:textColor="@color/smssdk_white"
+                android:textColor="@color/white"
                 tools:layout_editor_absoluteX="81dp"
                 tools:layout_editor_absoluteY="306dp" />
 
@@ -142,7 +142,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_button"
                 android:text="取消"
-                android:textColor="@color/smssdk_white"
+                android:textColor="@color/white"
                 tools:layout_editor_absoluteX="215dp"
                 tools:layout_editor_absoluteY="306dp" />
 

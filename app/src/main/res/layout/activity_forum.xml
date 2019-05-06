@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.joker.signinsystem.forums.ForumActivity">
+    tools:context="com.example.joker.signinsystem.forums.activities.ForumActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,6 +51,7 @@
             </android.support.design.widget.AppBarLayout>
 
             <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/artical_swipe_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

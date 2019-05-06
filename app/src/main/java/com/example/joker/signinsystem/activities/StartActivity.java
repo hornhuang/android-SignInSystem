@@ -20,10 +20,12 @@ import android.widget.Toast;
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.User;
 import com.example.joker.signinsystem.utils.SDKFileManager;
+import com.example.joker.signinsystem.utils.Toasty;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 
 /**开始界面 负责选择功能
@@ -42,6 +44,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private Button bt_mobile_login;
     private RadioButton radioButton;
     private Boolean isClick = false; // 登录按钮是否已经点击
+    User user;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -55,13 +58,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         Bmob.initialize(this, "bd4814e57ed9c8f00aa0d119c5676cf9");
 
         iniViews();
-
-        radioButton.isSelected();
-        if (!SDKFileManager.getSavedCode(this).toString().equals("")){
-            Toast.makeText(this, "欢迎回来 ～",Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        }
+//
+//        if (!SDKFileManager.getSavedCode(this).toString().equals("")){
+//            Toast.makeText(this, "欢迎回来 ～",Toast.LENGTH_SHORT).show();
+//            startActivity(new Intent(this, MainActivity.class));
+//            finish();
+//        }
     }
 
     /*
@@ -74,6 +76,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         et_login_user = (EditText) findViewById(R.id.et_login_user);
         et_login_password = (EditText) findViewById(R.id.et_login_password);
         radioButton = (RadioButton) findViewById(R.id.radio_button);
+
         tv_regist.setOnClickListener(StartActivity.this);
         bt_login.setOnClickListener(StartActivity.this);
         bt_mobile_login.setOnClickListener(StartActivity.this);
@@ -115,25 +118,29 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     检查信息是否完整并登录
      */
     private void logIn(){
-        final String user_num = et_login_user.getText().toString();
+        String user_name = et_login_user.getText().toString();
         String user_password = et_login_password.getText().toString().trim();
         // 非空验证
-        if (user_num.isEmpty() || user_password.isEmpty()) {
+        if (user_name.isEmpty() || user_password.isEmpty()) {
             Toast.makeText(StartActivity.this, "账号或密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        User bu2 = new User();
-        bu2.setUsername(user_num);
-        bu2.setPassword(user_password);
-        // 使用BmobSDK提供的登录功能
+        loginByAccount(user_name, user_password); // 使用BmobSDK提供的登录功能
+    }
 
-        bu2.login(new SaveListener<BmobUser>() {
+    /**
+     * 账号密码登录
+     */
+    public void loginByAccount(String account, String password) {
+        //此处替换为你的用户名密码
+        BmobUser.loginByAccount(account, password, new LogInListener<User>() {
+
             @Override
-            public void done(BmobUser bmobUser, BmobException e) {
-                if(e==null){
+            public void done(User user, BmobException e) {
+                if (e == null) {
+                    Toasty.Toasty(StartActivity.this, "登录成功");
                     try {
-                        Toast.makeText(StartActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                        User user = BmobUser.getCurrentUser(User.class);
+                        user = BmobUser.getCurrentUser(User.class);
                         SDKFileManager.saveObjectId(user.getObjectId(), StartActivity.this);
                         if (radioButton.isSelected()){
                             SDKFileManager.saveUserCode(user.getObjectId(), StartActivity.this);
@@ -145,10 +152,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     }catch (Exception e2){
                         Log.d("TAG", e2.getMessage());
                     }
-                    //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
-                    //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
-                }else{
-                    Toast.makeText(StartActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toasty.Toasty(StartActivity.this, "登陆失败");
                 }
             }
         });
