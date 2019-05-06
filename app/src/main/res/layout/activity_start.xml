@@ -23,7 +23,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:text="没有账户？/注册"
-        android:textColor="@color/smssdk_lv_item_divider" />
+        android:textColor="@color/grey" />
 
     <RadioButton
         android:id="@+id/radio_button"
@@ -33,7 +33,7 @@
         android:layout_alignParentBottom="true"
         android:layout_weight="1"
         android:text="记住密码?"
-        android:textColor="@color/smssdk_lv_item_divider" />
+        android:textColor="@color/grey" />
 
     <Button
         android:id="@+id/login"
@@ -67,7 +67,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="191dp"
         android:hint="用户名"
-        android:textColor="@color/smssdk_white"
+        android:textColor="@color/white"
         android:textColorHint="#bfffffff" />
 
     <EditText
@@ -78,7 +78,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-191dp"
         android:hint="密码"
-        android:textColor="@color/smssdk_white"
+        android:textColor="@color/white"
         android:textColorHint="#bfffffff" />
 
 

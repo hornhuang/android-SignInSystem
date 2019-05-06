@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.joker.signinsystem.forums.activities.EditArticalActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorAccent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/cancel"
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="?actionBarSize"
+                    android:src="@drawable/cancel"
+                    android:paddingEnd="30dp"
+                    android:paddingTop="15sp"
+                    android:paddingBottom="15sp"
+                    android:scaleType="fitXY"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/publish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:gravity="center"
+                    android:text="发布"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="20dp"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <EditText
+            android:id="@+id/edit_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:background="@color/white"
+            android:textSize="19sp"
+            android:gravity="center_vertical"
+            android:hint="添加标题"
+            android:minLines="1"
+            android:maxLines="2"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/lidevidebackground"/>
+
+        <EditText
+            android:id="@+id/edit_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:background="@color/white"
+            android:textSize="17sp"
+            android:gravity="start|left"
+            android:hint="在这里添加文字"
+            android:minLines="5"
+            android:maxLines="15"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/lidevidebackground"/>
+
+        <ImageView
+            android:id="@+id/edit_image"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            android:src="@drawable/add_photo"
+            android:scaleType="fitXY"/>
+
+    </LinearLayout>
+
+</ScrollView>

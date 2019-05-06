@@ -16,6 +16,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/artical_image"
             android:layout_width="match_parent"
             android:layout_height="200dp" />
 
@@ -27,12 +28,21 @@
             <TextView
                 android:id="@+id/artical_title"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:textSize="19sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:gravity="center_vertical"/>
 
             <TextView
                 android:id="@+id/artical_context"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:textSize="17sp"
+                android:textColor="@color/grey"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:gravity="center_vertical" />
 
         </LinearLayout>
 

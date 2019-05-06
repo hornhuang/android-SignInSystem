@@ -2,6 +2,8 @@ package com.example.joker.signinsystem;
 
 import android.app.Application;
 
+import cn.bmob.v3.Bmob;
+
 /**
  * Application 类
  * 用途 信息传递的桥梁
@@ -16,11 +18,13 @@ import android.app.Application;
  * */
 public class App extends Application {
 
+    private final String APPID = "bd4814e57ed9c8f00aa0d119c5676cf9";
     private String userId;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        Bmob.initialize(this,APPID);
     }
 
     public String getUserId() {

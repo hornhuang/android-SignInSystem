@@ -31,6 +31,7 @@ import com.example.joker.signinsystem.activities.MainActivity;
 import com.example.joker.signinsystem.activities.StartActivity;
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.User;
+import com.example.joker.signinsystem.forums.activities.ForumActivity;
 import com.example.joker.signinsystem.utils.MyDate;
 import com.example.joker.signinsystem.utils.Toasty;
 import com.nestia.biometriclib.BiometricPromptManager;
@@ -316,7 +317,7 @@ public class Personal extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.chat:
-
+                ForumActivity.actionStart((AppCompatActivity) getActivity());
                 Toast.makeText(getActivity(),"尚未推出敬请期待",Toast.LENGTH_SHORT).show();
                 break;
 
