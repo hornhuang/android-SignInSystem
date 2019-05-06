@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.Artical;
 import com.example.joker.signinsystem.bmobmanager.AvatarLoader;
+import com.example.joker.signinsystem.forums.activities.ForumDetailActivity;
 import com.example.joker.signinsystem.utils.Toasty;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class ArticalAdapter extends RecyclerView.Adapter<ArticalAdapter.ViewHoul
         viewHoulder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toasty.Toasty((AppCompatActivity) context, "点击了");
+                ForumDetailActivity.actionStart((AppCompatActivity) context);
             }
         });
     }

@@ -24,6 +24,7 @@ import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.activities.BaseActivity;
 import com.example.joker.signinsystem.activities.MainActivity;
 import com.example.joker.signinsystem.baseclasses.Artical;
+import com.example.joker.signinsystem.baseclasses.User;
 import com.example.joker.signinsystem.utils.SDKFileManager;
 import com.example.joker.signinsystem.utils.Toasty;
 
@@ -49,6 +50,7 @@ public class EditArticalActivity extends BaseActivity {
     private ImageView mArticalImage;
     private String path;
     private Artical artical;
+    private String objectId;// 提交后生的 ObjectId 用于上传时命名图片
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,10 +105,12 @@ public class EditArticalActivity extends BaseActivity {
             artical = new Artical();
             artical.setArticalTitleText(mEditTitle.getText().toString());
             artical.setArticalContextText(mEditContent.getText().toString());
+            artical.setLinkUser(BmobUser.getCurrentUser(User.class));
             artical.save(new SaveListener<String>() {
                 @Override
                 public void done(String s, BmobException e) {
                     if (e == null){
+                        objectId = s;
                         loadfile();
                     }else {
                         Toasty.Toasty(EditArticalActivity.this, "发布失败" + e.getMessage());
@@ -169,7 +173,7 @@ public class EditArticalActivity extends BaseActivity {
         Bitmap bitmap=BitmapFactory.decodeFile(picPath, o);
         bitmap=Bitmap.createScaledBitmap(bitmap, 400, 400, false);
         File root= getExternalCacheDir();
-        File pic=new File(root,"test.jpg");
+        File pic=new File(root,objectId + ".jpg");
         try {
             FileOutputStream fos=new FileOutputStream(pic);
             bitmap.compress(Bitmap.CompressFormat.JPEG,50,fos);

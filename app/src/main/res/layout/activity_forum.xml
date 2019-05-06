@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lidevidebackground"
     tools:context="com.example.joker.signinsystem.forums.activities.ForumActivity">
 
     <LinearLayout
@@ -56,10 +57,11 @@
                 android:layout_height="wrap_content">
 
                 <android.support.v7.widget.RecyclerView
-                    android:paddingTop="?actionBarSize"
                     android:id="@+id/artical_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:paddingTop="?attr/actionBarSize"
+                    android:clipToPadding="false"/>
 
             </android.support.v4.widget.SwipeRefreshLayout>
 
