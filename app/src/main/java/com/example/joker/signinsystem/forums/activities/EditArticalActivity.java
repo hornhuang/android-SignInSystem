@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -23,6 +24,7 @@ import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.activities.BaseActivity;
 import com.example.joker.signinsystem.activities.MainActivity;
 import com.example.joker.signinsystem.baseclasses.Artical;
+import com.example.joker.signinsystem.baseclasses.User;
 import com.example.joker.signinsystem.utils.SDKFileManager;
 import com.example.joker.signinsystem.utils.Toasty;
 
@@ -36,6 +38,7 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadFileListener;
 
 public class EditArticalActivity extends BaseActivity {
 
@@ -46,6 +49,8 @@ public class EditArticalActivity extends BaseActivity {
     private EditText mEditContent;
     private ImageView mArticalImage;
     private String path;
+    private Artical artical;
+    private String objectId;// 提交后生的 ObjectId 用于上传时命名图片
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,19 +99,56 @@ public class EditArticalActivity extends BaseActivity {
     }
 
     private void publish(){
-        Artical artical = new Artical();
-        artical.setArticalTitleText(mEditTitle.getText().toString());
-        artical.setArticalContextText(mEditContent.getText().toString());
-        artical.setArticalImageFile(new BmobFile(imageFactory(path)));
+        if (path.equals("")){
+            Toasty.Toasty(EditArticalActivity.this, "必须添加图片");
+        }else {
+            artical = new Artical();
+            artical.setArticalTitleText(mEditTitle.getText().toString());
+            artical.setArticalContextText(mEditContent.getText().toString());
+            artical.setLinkUser(BmobUser.getCurrentUser(User.class));
+            artical.save(new SaveListener<String>() {
+                @Override
+                public void done(String s, BmobException e) {
+                    if (e == null){
+                        objectId = s;
+                        loadfile();
+                    }else {
+                        Toasty.Toasty(EditArticalActivity.this, "发布失败" + e.getMessage());
+                    }
+                }
+            });
 
-        artical.update(SDKFileManager.getObjectId(EditArticalActivity.this), new UpdateListener() {
+        }
+    }
+
+    private void loadfile(){
+        final BmobFile bmobFile = new BmobFile(imageFactory(path));
+        bmobFile.uploadblock(new UploadFileListener() {
+
             @Override
             public void done(BmobException e) {
-                if (e == null){
-                    Toasty.Toasty(EditArticalActivity.this, "发布成功");
-                }else {
-                    Toasty.Toasty(EditArticalActivity.this, "发布失败");
+                if(e==null){
+                    artical.setArticalImageFile(bmobFile);
+                    artical.update(new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if (e == null) {
+                                Toasty.Toasty(EditArticalActivity.this, "发布成功");
+                                finish();
+                            } else {
+                                Toasty.Toasty(EditArticalActivity.this, "发布失败" + e.getMessage());
+                            }
+                        }
+                    });
+                    //bmobFile.getFileUrl()--返回的上传文件的完整地址
+                }else{
+                    Toasty.Toasty(EditArticalActivity.this, "发布失败" + e.getMessage());
                 }
+            }
+
+            @Override
+            public void onProgress(Integer value) {
+                // 返回的上传进度（百分比）
             }
         });
     }
@@ -131,7 +173,7 @@ public class EditArticalActivity extends BaseActivity {
         Bitmap bitmap=BitmapFactory.decodeFile(picPath, o);
         bitmap=Bitmap.createScaledBitmap(bitmap, 400, 400, false);
         File root= getExternalCacheDir();
-        File pic=new File(root,"test.jpg");
+        File pic=new File(root,objectId + ".jpg");
         try {
             FileOutputStream fos=new FileOutputStream(pic);
             bitmap.compress(Bitmap.CompressFormat.JPEG,50,fos);

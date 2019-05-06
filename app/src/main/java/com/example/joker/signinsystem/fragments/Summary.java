@@ -38,7 +38,6 @@ import cn.bmob.v3.listener.FindListener;
 public class Summary extends Fragment{
 
     private List<User> userList = new ArrayList<>();
-    public static String APPID = "bd4814e57ed9c8f00aa0d119c5676cf9";
     private RecyclerView mUserListViews;
     private SwipeRefreshLayout mRefreshLayout;
     private SearchView mSearch;
@@ -59,8 +58,6 @@ public class Summary extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view= inflater.inflate(R.layout.fragment_summary , container, false);
-        //第二：默认初始化
-        Bmob.initialize(getActivity(),APPID);
 
         iniViews(view);
         iniReFleshLayout();

@@ -7,6 +7,7 @@ public class CommentsArticals {
     private UUID mCommentId;
     private int commentImageId;
     private String commentText;
+    private User linkUser;
 
     public CommentsArticals(){
         mCommentId = UUID.randomUUID();
@@ -36,4 +37,11 @@ public class CommentsArticals {
         this.commentText = commentText;
     }
 
+    public User getLinkUser() {
+        return linkUser;
+    }
+
+    public void setLinkUser(User linkUser) {
+        this.linkUser = linkUser;
+    }
 }

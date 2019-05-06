@@ -55,7 +55,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_start);
-        Bmob.initialize(this, "bd4814e57ed9c8f00aa0d119c5676cf9");
 
         iniViews();
 //

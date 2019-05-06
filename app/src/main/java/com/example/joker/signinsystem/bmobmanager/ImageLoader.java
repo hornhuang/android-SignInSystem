@@ -18,6 +18,7 @@ public class ImageLoader extends Handler {
     private ImageView mImageView;
     private String mUrl;
     private Bitmap mBitmap;
+    private ViewTreeObserver vto;
 
     public ImageLoader(ImageView imageView, String url) {
         mImageView = imageView;
@@ -58,7 +59,7 @@ public class ImageLoader extends Handler {
             }.start();
         }else {
             if(mImageView.getMeasuredWidth()==0) {
-                final ViewTreeObserver vto = mImageView.getViewTreeObserver();
+                vto = mImageView.getViewTreeObserver();
                 vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
                     public void onGlobalLayout() {

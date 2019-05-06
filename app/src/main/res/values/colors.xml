@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#de4037</color>
     <color name="colorAccent">#de4037</color>
 
+    <color name="circle_border_color">#477aac</color>
     <color name="lidevidebackground">#f3f3f3</color> <!--分割线 -->
     <color name="white">#FFFFFF</color> <!--白色 -->
     <color name="ivory">#FFFFF0</color> <!--象牙色 -->

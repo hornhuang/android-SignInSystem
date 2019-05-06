@@ -134,6 +134,9 @@ public class Personal extends Fragment {
                  if (isRunning){
                      biometricIdentifyCallback.onCancel();
                  }else {
+                     IntentFilter myIntentFilter = new IntentFilter();
+                     myIntentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+                     getActivity().registerReceiver(mwifiBroadcastReceiver,myIntentFilter);
                      start();
                  }
              }
@@ -318,7 +321,6 @@ public class Personal extends Fragment {
         switch (item.getItemId()){
             case R.id.chat:
                 ForumActivity.actionStart((AppCompatActivity) getActivity());
-                Toast.makeText(getActivity(),"尚未推出敬请期待",Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.logOut:

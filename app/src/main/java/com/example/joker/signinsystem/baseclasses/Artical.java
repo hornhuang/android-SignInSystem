@@ -14,6 +14,7 @@ public class Artical extends BmobObject {
     private String articalTitleText;
     private String articalContextText;
     private List<CommentsArticals> articalComments;
+    private User linkUser;
 
     public Artical(){
         mId = UUID.randomUUID();
@@ -65,5 +66,13 @@ public class Artical extends BmobObject {
 
     public void setArticalImageFile(BmobFile articalImageFile) {
         this.articalImageFile = articalImageFile;
+    }
+
+    public User getLinkUser() {
+        return linkUser;
+    }
+
+    public void setLinkUser(User linkUser) {
+        this.linkUser = linkUser;
     }
 }

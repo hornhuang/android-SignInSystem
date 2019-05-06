@@ -7,14 +7,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.Artical;
 import com.example.joker.signinsystem.baseclasses.User;
 import com.example.joker.signinsystem.forums.adapters.ArticalAdapter;
+import com.example.joker.signinsystem.utils.Toasty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,19 +29,20 @@ import cn.bmob.v3.listener.FindListener;
 
 public class ForumActivity extends AppCompatActivity {
 
-    private String APPID = "bd4814e57ed9c8f00aa0d119c5676cf9";
     private RecyclerView recyclerView;
     private List<Artical> articalList;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FloatingActionButton mWriteButton;
+    private ArticalAdapter adapter;
 
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-                ArticalAdapter adapter = new ArticalAdapter(articalList);
-                recyclerView.setAdapter(adapter);
-                swipeRefreshLayout.setRefreshing(false);
+            adapter = new ArticalAdapter(articalList);
+            recyclerView.setAdapter(adapter);
+            swipeRefreshLayout.setRefreshing(false);
+            Toasty.Toasty(ForumActivity.this, "更新成功" + articalList.size());
 //            }
         }
     };
@@ -48,9 +52,8 @@ public class ForumActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
 
-        Bmob.initialize(this, APPID);
-
         iniViews();
+        getData();
 
     }
 
@@ -59,13 +62,8 @@ public class ForumActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.artical_swipe_layout);
         mWriteButton = findViewById(R.id.write);
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                getData();
-            }
-        });
+        iniRecycler();
+        iniSwipeReflesh();
 
         mWriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +72,25 @@ public class ForumActivity extends AppCompatActivity {
             }
         });
 
-        ArticalAdapter adapter = new ArticalAdapter(getData());
+    }
+
+    private void iniRecycler(){
+        articalList = new ArrayList<>();
+        adapter = new ArticalAdapter(articalList);
         recyclerView.setAdapter(adapter);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(manager);
+    }
+
+    private void iniSwipeReflesh(){
+        swipeRefreshLayout.setProgressViewOffset(false, 200, 400);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                getData();
+            }
+        });
     }
 
     /*
@@ -83,23 +98,22 @@ public class ForumActivity extends AppCompatActivity {
      */
     public List<Artical> getData(){
         articalList = new ArrayList<>();
-        BmobQuery<Artical> bmobQuery = new BmobQuery<>();
-        bmobQuery.findObjects(new FindListener<Artical>() {
-
-            @Override
-            public void done(List<Artical> list, BmobException e) {
-                if (e == null) {
-                    articalList = list;
-                    Message message = handler.obtainMessage();
-                    message.obj = 0;
-                    handler.sendMessage(message);
-                }
-                else {
-                    Toast.makeText(ForumActivity.this,e.getErrorCode(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-        });
+        BmobQuery<Artical> query = new BmobQuery<>();
+        query.setLimit(8).setSkip(0).order("-createdAt")
+                .findObjects(new FindListener<Artical>() {
+                    @Override
+                    public void done(List<Artical> object, BmobException e) {
+                        if (e == null) {
+                            articalList.clear();
+                            articalList.addAll(object);
+                            Message message = handler.obtainMessage();
+                            message.obj = 0;
+                            handler.sendMessage(message);
+                        } else {
+                            Toasty.Toasty(ForumActivity.this, "失败，请检查网络" + e.getMessage());
+                        }
+                    }
+                });
         return articalList;
     }
 

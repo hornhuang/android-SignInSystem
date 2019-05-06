@@ -55,7 +55,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends BaseActivity {
 
-    public static String APPID = "bd4814e57ed9c8f00aa0d119c5676cf9";
     private User user;// 获取登录成功后的本地用户信息
     private CircleImageView mUserimageView;
     private TextView mUserName;
@@ -107,31 +106,14 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //第二：默认初始化
-        Bmob.initialize(this, APPID);
         //底部选择碎片切换
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         //Toolbar代替ActionBar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // 登录用户 获得当前用户
-        String userId = SDKFileManager.getObjectId(this);
-        BmobQuery<User> bmobQuery = new BmobQuery<>();
-        bmobQuery.getObject(userId, new QueryListener<User>() {
-            @Override
-            public void done(User object, BmobException e) {
-                if (e == null) {
-                    user = BmobUser.getCurrentUser(User.class);
-                    iniSideView();
-                    //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
-                } else {
-                    Toast.makeText(MainActivity.this, "登录过期，请重新登录" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainActivity.this, StartActivity.class));
-                    finish();
-                }
-            }
-        });
+        user = BmobUser.getCurrentUser(User.class);
+        iniSideView();
     }
 
     /*
