@@ -8,6 +8,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
+    app:layout_constraintCircleRadius="7dp"
     app:cardElevation="0dp">
 
     <LinearLayout
@@ -29,6 +30,7 @@
                 android:id="@+id/artical_title"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:text="标题"
                 android:textSize="19sp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
@@ -38,6 +40,7 @@
                 android:id="@+id/artical_context"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:text="内容"
                 android:textSize="17sp"
                 android:textColor="@color/grey"
                 android:paddingLeft="10dp"
