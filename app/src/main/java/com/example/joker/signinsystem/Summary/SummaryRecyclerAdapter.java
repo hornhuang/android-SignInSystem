@@ -118,4 +118,20 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         }
     }
 
+    /**
+     * 增加数据
+     */
+    public void addData(int position, User user) {
+        userList.add(position, user);
+        notifyItemInserted(position);//注意这里
+    }
+
+    /**
+     * 移除数据
+     */
+    public void removeData(int position) {
+        userList.remove(position);
+        notifyItemRemoved(position);//注意这里
+    }
+
 }

@@ -55,12 +55,19 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_start);
 
         iniViews();
-//
-//        if (!SDKFileManager.getSavedCode(this).toString().equals("")){
-//            Toast.makeText(this, "欢迎回来 ～",Toast.LENGTH_SHORT).show();
-//            startActivity(new Intent(this, MainActivity.class));
-//            finish();
-//        }
+
+        if (!SDKFileManager.getAccount(this).equals("")){
+            radioButton.setChecked(true);
+            radioButton.setSelected(true);
+            ((TextView)et_login_user).setText(SDKFileManager.getAccount(this));
+            ((TextView)et_login_password).setText(SDKFileManager.getPassword(this));
+        }
+
+        if (BmobUser.isLogin()){
+            MainActivity.actionStart(StartActivity.this);
+            Toast.makeText(this, "欢迎回来 ～",Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     /*
@@ -95,7 +102,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.login:
                 if (!isClick){// 避免重复点击
-                    isClick = true;
                     logIn();
                 }
                 break;
@@ -111,9 +117,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    /*
-    检查信息是否完整并登录
-     */
+    // 检查信息是否完整并登录
     private void logIn(){
         String user_name = et_login_user.getText().toString();
         String user_password = et_login_password.getText().toString().trim();
@@ -122,13 +126,15 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(StartActivity.this, "账号或密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        loginByAccount(user_name, user_password); // 使用BmobSDK提供的登录功能
+        loginByAccount(user_name, user_password);// 使用BmobSDK提供的登录功能
+        isClick = true;
+        radioButton.setClickable(false);
     }
 
     /**
      * 账号密码登录
      */
-    public void loginByAccount(String account, String password) {
+    public void loginByAccount(final String account, final String password) {
         //此处替换为你的用户名密码
         BmobUser.loginByAccount(account, password, new LogInListener<User>() {
 
@@ -138,11 +144,13 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     MyToast.makeToast(StartActivity.this, "登录成功");
                     try {
                         user = BmobUser.getCurrentUser(User.class);
-                        SDKFileManager.saveObjectId(user.getObjectId(), StartActivity.this);
+                        SDKFileManager.savePassword(user.getObjectId(), StartActivity.this);
                         if (radioButton.isSelected()){
-                            SDKFileManager.saveUserCode(user.getObjectId(), StartActivity.this);
+                            SDKFileManager.saveAccount(account, StartActivity.this);
+                            SDKFileManager.savePassword(password, StartActivity.this);
                         }else {
-                            SDKFileManager.saveUserCode("", StartActivity.this);
+                            SDKFileManager.saveAccount("", StartActivity.this);
+                            SDKFileManager.savePassword("", StartActivity.this);
                         }
                         finish();
                         MainActivity.actionStart(StartActivity.this);
@@ -151,6 +159,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     }
                 } else {
                     MyToast.makeToast(StartActivity.this, "登陆失败");
+                    isClick = false;
+                    radioButton.setClickable(true);
                 }
             }
         });

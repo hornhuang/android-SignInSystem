@@ -75,6 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_login_user"
         android:layout_centerHorizontal="true"
+        android:password="true"
         android:layout_marginTop="-191dp"
         android:hint="密码"
         android:textColor="@color/white"

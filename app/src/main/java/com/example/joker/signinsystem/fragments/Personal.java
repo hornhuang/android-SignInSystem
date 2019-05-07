@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.Objects;
 
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -240,9 +241,7 @@ public class Personal extends Fragment {
         }
     }
 
-    /*
-    重置 user 的时间
-     */
+    // 重置 user 的时间
     private void reSetUser(){
         switch (user.getmYesturdayFlag()){
             case 1:
@@ -324,7 +323,7 @@ public class Personal extends Fragment {
                 break;
 
             case R.id.logOut:
-                saveCode();
+                BmobUser.logOut();
                 startActivity(new Intent(getActivity(), StartActivity.class));
                 getActivity().finish();
                 break;
@@ -334,32 +333,6 @@ public class Personal extends Fragment {
 
         }
         return true;
-    }
-
-    /*
-     保存密码操作
-     */
-    private void saveCode(){
-        String objectId = "";
-        FileOutputStream out = null;
-        BufferedWriter writer = null;
-        try {
-            out = getActivity().openFileOutput("userdata", Context.MODE_PRIVATE);
-            writer = new BufferedWriter(new OutputStreamWriter(out));
-            writer.write(objectId);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (writer != null){
-                    writer.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override

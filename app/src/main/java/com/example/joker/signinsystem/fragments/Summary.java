@@ -150,6 +150,8 @@ public class Summary extends Fragment{
                 if (e == null) {
                     userList.clear();
                     userList.addAll(sort(list));
+                    mUserTotalList = new ArrayList<>();
+                    mUserTotalList.addAll(userList);
                     new AriticalImageLoader(recyclerAdapter, userList, mRefreshLayout).userLoad();
                 }
                 else {

@@ -20,74 +20,15 @@ import java.io.OutputStreamWriter;
  */
 public class SDKFileManager {
 
-
-
-    /*
-    读取密码操作
-    判断是否保存密码
-     */
-    public static String getObjectId(AppCompatActivity activity){
-        FileInputStream in = null;
-        BufferedReader reader = null;
-        StringBuffer context = new StringBuffer();
-        try {
-            in = activity.openFileInput("data");
-            reader = new BufferedReader(new InputStreamReader(in));
-            String line = "";
-            while ((line = reader.readLine()) != null){
-                context.append(line);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null){
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return context.toString();
-    }
-
     /*
     保存密码操作
     判断是否保存密码
      */
-    public static void saveObjectId(String objectId, AppCompatActivity activity){
+    public static void saveAccount(String objectId, AppCompatActivity activity){
         FileOutputStream out = null;
         BufferedWriter writer = null;
         try {
-            out = activity.openFileOutput("data", Context.MODE_PRIVATE);
-            writer = new BufferedWriter(new OutputStreamWriter(out));
-            writer.write(objectId);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (writer != null){
-                    writer.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /*
-    保存密码操作
-    判断是否保存密码
-     */
-    public static void saveUserCode(String objectId, AppCompatActivity activity){
-        FileOutputStream out = null;
-        BufferedWriter writer = null;
-        try {
-            out = activity.openFileOutput("userdata", Context.MODE_PRIVATE);
+            out = activity.openFileOutput("account", Context.MODE_PRIVATE);
             writer = new BufferedWriter(new OutputStreamWriter(out));
             writer.write(objectId);
         } catch (FileNotFoundException e) {
@@ -108,12 +49,12 @@ public class SDKFileManager {
     /*
     读取用户名
      */
-    public static String getSavedCode(AppCompatActivity activity){
+    public static String getAccount(AppCompatActivity activity){
         FileInputStream in = null;
         BufferedReader reader = null;
         StringBuffer context = new StringBuffer();
         try {
-            in = activity.openFileInput("userdata");
+            in = activity.openFileInput("account");
             reader = new BufferedReader(new InputStreamReader(in));
             String line = "";
             while ((line = reader.readLine()) != null){
@@ -135,4 +76,60 @@ public class SDKFileManager {
         return context.toString();
     }
 
+    /*
+    保存密码操作
+    判断是否保存密码
+     */
+    public static void savePassword(String objectId, AppCompatActivity activity){
+        FileOutputStream out = null;
+        BufferedWriter writer = null;
+        try {
+            out = activity.openFileOutput("password", Context.MODE_PRIVATE);
+            writer = new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(objectId);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (writer != null){
+                    writer.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /*
+    读取密码操作
+    判断是否保存密码
+     */
+    public static String getPassword(AppCompatActivity activity){
+        FileInputStream in = null;
+        BufferedReader reader = null;
+        StringBuffer context = new StringBuffer();
+        try {
+            in = activity.openFileInput("password");
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = reader.readLine()) != null){
+                context.append(line);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null){
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return context.toString();
+    }
 }

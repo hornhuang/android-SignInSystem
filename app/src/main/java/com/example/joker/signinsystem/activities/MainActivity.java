@@ -106,13 +106,16 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //底部选择碎片切换
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         //Toolbar代替ActionBar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         user = BmobUser.getCurrentUser(User.class);
+
         iniSideView();
     }
 
@@ -129,28 +132,7 @@ public class MainActivity extends BaseActivity {
         mUserMotto.setOnClickListener(this);
         mArticleLayout.setOnClickListener(this);
 
-        mPerson = new Personal();
-        mRanking = new Ranking();
-        mSummary = new Summary();
-        fragmentManager = getSupportFragmentManager();
-        mContent = mRanking;
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.fragment, mContent).commit();
-        navigation.setSelectedItemId(R.id.navigation_home);
-
-        new Thread(){
-            @Override
-            public void run() {
-                while (user == null){
-                    try {
-                        sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-        };
+        iniFragment();
 
         mUserName.setText(user.getName());//
         if (user.getImageFile() == null){
@@ -163,6 +145,17 @@ public class MainActivity extends BaseActivity {
         }else {
             mUserMotto.setText(user.getMotto());
         }
+    }
+
+    private void iniFragment(){
+        mPerson = new Personal();
+        mRanking = new Ranking();
+        mSummary = new Summary();
+        fragmentManager = getSupportFragmentManager();
+        mContent = mRanking;
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.fragment, mContent).commit();
+        navigation.setSelectedItemId(R.id.navigation_home);
     }
 
     /**
@@ -215,9 +208,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    /*
-    更换侧拉框头像
-     */
+    // 更换侧拉框头像
     private void changeHeadImage(){
         if(ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
@@ -394,7 +385,7 @@ public class MainActivity extends BaseActivity {
                     Toast.makeText(MainActivity.this, "用户名更新成功", Toast.LENGTH_SHORT).show();
                     mUserName.setText(name);
                 } else {
-                    MyToast.makeToast(MainActivity.this, "用户名更新成功");
+                    MyToast.makeToast(MainActivity.this, "用户名更新失败，请检查网络");
                 }
             }
         });
@@ -412,7 +403,7 @@ public class MainActivity extends BaseActivity {
                     Toast.makeText(MainActivity.this, "座右铭更新成功", Toast.LENGTH_SHORT).show();
                     mUserMotto.setText(motto);
                 } else {
-
+                    MyToast.makeToast(MainActivity.this, "用户名更新失败，请检查网络");
                 }
             }
         });
@@ -426,7 +417,7 @@ public class MainActivity extends BaseActivity {
         return builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MainActivity.this,"you click '确定' button ",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this,"you click '确定' button ",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -439,7 +430,7 @@ public class MainActivity extends BaseActivity {
         return builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MainActivity.this,"you click 'no' button ",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this,"you click 'no' button ",Toast.LENGTH_SHORT).show();
                 return;
             }
         });
