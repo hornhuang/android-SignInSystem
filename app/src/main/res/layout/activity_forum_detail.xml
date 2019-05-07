@@ -98,6 +98,7 @@
                     android:id="@+id/artical_context"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:lineSpacingExtra="8dp"
                     android:text="@string/person_intro" />
 

@@ -76,7 +76,7 @@ public class SuperImageLoader {
                         artical.setArticlePhoto(getPicture(artical.getArticalImageFile().getUrl()));
                     }
                     Message message = handler.obtainMessage();
-                    message.what = 0x0;
+                    message.what = flag;
                     handler.sendMessage(message);
                     try {
                         sleep(100);

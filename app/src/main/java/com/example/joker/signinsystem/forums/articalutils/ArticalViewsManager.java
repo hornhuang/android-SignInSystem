@@ -19,11 +19,12 @@ public class ArticalViewsManager {
 
     // 对文章详情的真是信息进行导入
     public static void iniForumDetailViews(Artical artical, final ForumDetailActivity activity){
+        new SuperImageLoader(activity.getmIvPlaceholder(), artical).articalLoad();
         new AvatarLoader(activity.getmIvPlaceholder(), artical.getArticalImageFile()).loadByFile();
         activity.getmArticalTitleText().setText(artical.getArticalTitleText());
         activity.getmArticalContentText().setText(artical.getArticalContextText());
 
-        //查找Person表里面id为6b6c11c537的数据
+        // 查找
         BmobQuery<User> bmobQuery = new BmobQuery<User>();
         bmobQuery.getObject(artical.getmWriterId(), new QueryListener<User>() {
             @Override
