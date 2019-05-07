@@ -8,13 +8,13 @@ Android SignIn System
 
 ## Screenshots
 >排行与动态搜索
-<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg" width="360" height="640">
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/S90507-20523056.gif" width="360" height="640">
 >论坛
-<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg" width="360" height="640">
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/A4405890037B725F22C6BD429744C039.jpg" width="360" height="640">
 >发文
-<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg" width="360" height="640">
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/8F1FC89069AD3CAF0F88EE08A0ECCA64.jpg" width="360" height="640">
 >我的文章
-<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg" width="360" height="640">
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/BE093CCD620E9DBA2D261A5B2C1EE945.jpg" width="360" height="640">
 >数据统计
 <img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg" width="360" height="640">
 >签到界面
