@@ -15,6 +15,7 @@ import android.view.View;
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.Artical;
 import com.example.joker.signinsystem.baseclasses.User;
+import com.example.joker.signinsystem.bmobmanager.pictures.AriticalImageLoader;
 import com.example.joker.signinsystem.forums.adapters.ArticalAdapter;
 import com.example.joker.signinsystem.utils.MyToast;
 
@@ -97,53 +98,18 @@ public class MyArticalActivity extends AppCompatActivity {
                         public void done(List<Artical> object, BmobException e) {
                             if (e == null) {
                                 articalList.clear();
-                                setBitmap(object, object.size());
+                                articalList.addAll(object);
+                                new AriticalImageLoader(adapter, articalList, swipeRefreshLayout).articalLoad();
+//                                setBitmap(object);
                             } else {
                                 MyToast.makeToast(MyArticalActivity.this, "失败，请检查网络" + e.getMessage());
                             }
                         }
                     });
+        }else {
+            MyToast.makeToast(MyArticalActivity.this, "请先登录");
         }
         return articalList;
-    }
-
-    private void setBitmap(final List<Artical> articleList, final int size){
-        new Thread(){
-            @Override
-            public void run() {
-                for (int i = 0 ; i < articleList.size() ; i++) {
-                    Artical artical = articleList.get(i);
-                    artical.setArticlePhoto(getPicture(artical.getArticalImageFile().getUrl()));
-                    articalList.add(artical);
-                    Message message = handler.obtainMessage();
-                    message.obj = 0;
-                    handler.sendMessage(message);
-                    try {
-                        sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
-    }
-
-    public Bitmap getPicture(String path){
-        Bitmap bm = null;
-        try{
-            URL url = new URL(path);
-            URLConnection connection = url.openConnection();
-            connection.connect();
-            InputStream inputStream = connection.getInputStream();
-            bm = BitmapFactory.decodeStream(inputStream);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return bm;
     }
 
     public static void actionStart(AppCompatActivity activity){

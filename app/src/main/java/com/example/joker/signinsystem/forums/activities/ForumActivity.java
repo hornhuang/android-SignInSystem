@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.Artical;
+import com.example.joker.signinsystem.bmobmanager.pictures.AriticalImageLoader;
 import com.example.joker.signinsystem.forums.adapters.ArticalAdapter;
 import com.example.joker.signinsystem.utils.MyToast;
 
@@ -30,21 +31,9 @@ public class ForumActivity extends AppCompatActivity {
     private ArticalAdapter adapter;
 
     private RecyclerView recyclerView;
-
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private FloatingActionButton mWriteButton;
-
-
-    Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            adapter.notifyDataSetChanged();
-            swipeRefreshLayout.setRefreshing(false);
-            MyToast.makeToast(ForumActivity.this, "更新成功" + articalList.size());
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +95,7 @@ public class ForumActivity extends AppCompatActivity {
                         if (e == null) {
                             articalList.clear();
                             articalList.addAll(object);
-                            Message message = handler.obtainMessage();
-                            message.obj = 0;
-                            handler.sendMessage(message);
+                            new AriticalImageLoader(adapter, articalList, swipeRefreshLayout).articalLoad();
                         } else {
                             MyToast.makeToast(ForumActivity.this, "失败，请检查网络" + e.getMessage());
                         }

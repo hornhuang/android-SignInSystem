@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.joker.signinsystem.baseclasses.User;
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.Summary.SummaryRecyclerAdapter;
+import com.example.joker.signinsystem.bmobmanager.pictures.AriticalImageLoader;
 import com.example.joker.signinsystem.managers.ListContentMate;
 
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class Summary extends Fragment{
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mUserListViews.setAdapter(new SummaryRecyclerAdapter(userList));
+                mRefreshLayout.setRefreshing(true);
                 getData();
             }
         });
@@ -89,10 +90,9 @@ public class Summary extends Fragment{
     private void iniRecyclerView(){
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mUserListViews.setLayoutManager(manager);
-        DefaultItemAnimator defaultItemAnimator = new DefaultItemAnimator();
-        defaultItemAnimator.setAddDuration(1000);
-        defaultItemAnimator.setRemoveDuration(1000);
-        mUserListViews.setItemAnimator(defaultItemAnimator);
+        userList = new ArrayList<>();
+        recyclerAdapter = new SummaryRecyclerAdapter(getData());
+        mUserListViews.setAdapter(recyclerAdapter);
     }
 
     /*
@@ -142,25 +142,20 @@ public class Summary extends Fragment{
     从 Bmob 获得所有用户信息
      */
     public List<User> getData(){
-        userList = new ArrayList<>();
         BmobQuery<User> bmobQuery = new BmobQuery<User>();
         bmobQuery.findObjects(new FindListener<User>() {
 
             @Override
             public void done(List<User> list, BmobException e) {
                 if (e == null) {
-                    mUserTotalList = new ArrayList<>();
-                    userList = sort(list);
-                    mUserTotalList.addAll(userList);
-                    Message message = handler.obtainMessage();
-                    message.obj = 0;
-                    handler.sendMessage(message);
+                    userList.clear();
+                    userList.addAll(sort(list));
+                    new AriticalImageLoader(recyclerAdapter, userList, mRefreshLayout).userLoad();
                 }
                 else {
-                    Toast.makeText(getActivity(),e.getErrorCode(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), e.getErrorCode(), Toast.LENGTH_SHORT).show();
                 }
             }
-
         });
         return userList;
     }
