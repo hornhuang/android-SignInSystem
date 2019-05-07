@@ -23,14 +23,12 @@ import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.activities.BaseActivity;
 import com.example.joker.signinsystem.baseclasses.Artical;
 import com.example.joker.signinsystem.baseclasses.User;
-import com.example.joker.signinsystem.utils.MyLog;
 import com.example.joker.signinsystem.utils.MyToast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
@@ -38,9 +36,10 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
-public class EditArticalActivity extends BaseActivity {
+public class ForumEditActivity extends BaseActivity {
 
-    private String APPID = "bd4814e57ed9c8f00aa0d119c5676cf9";
+    private User user;
+
     private ImageView mCacel;
     private TextView mPublish;
     private EditText mEditTitle;
@@ -55,13 +54,13 @@ public class EditArticalActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_artical);
 
-        Bmob.initialize(this, APPID);
+        user = BmobUser.getCurrentUser(User.class);
 
         iniViews();
     }
 
     public static void actionStart(AppCompatActivity activity){
-        Intent intent = new Intent(activity, EditArticalActivity.class);
+        Intent intent = new Intent(activity, ForumEditActivity.class);
         activity.startActivity(intent);
     }
 
@@ -98,12 +97,13 @@ public class EditArticalActivity extends BaseActivity {
 
     private void publish(){
         if (path.equals("")){
-            MyToast.makeToast(EditArticalActivity.this, "必须添加图片");
+            MyToast.makeToast(ForumEditActivity.this, "必须添加图片");
         }else {
             if (BmobUser.isLogin()){
                 artical = new Artical();
                 artical.setArticalTitleText(mEditTitle.getText().toString());
                 artical.setArticalContextText(mEditContent.getText().toString());
+                artical.setmWriterId(user.getObjectId());
                 artical.setLinkUser(BmobUser.getCurrentUser(User.class));
                 artical.save(new SaveListener<String>() {
                     @Override
@@ -112,12 +112,12 @@ public class EditArticalActivity extends BaseActivity {
                             objectId = s;
                             loadfile();
                         }else {
-                            MyToast.makeToast(EditArticalActivity.this, "发布失败" + e.getMessage());
+                            MyToast.makeToast(ForumEditActivity.this, "发布失败" + e.getMessage());
                         }
                     }
                 });
             }else {
-                MyToast.makeToast(EditArticalActivity.this, "请先登录");
+                MyToast.makeToast(ForumEditActivity.this, "请先登录");
             }
         }
     }
@@ -134,16 +134,16 @@ public class EditArticalActivity extends BaseActivity {
                         @Override
                         public void done(BmobException e) {
                             if (e == null) {
-                                MyToast.makeToast(EditArticalActivity.this, "发布成功");
+                                MyToast.makeToast(ForumEditActivity.this, "发布成功");
                                 finish();
                             } else {
-                                MyToast.makeToast(EditArticalActivity.this, "发布失败" + e.getMessage());
+                                MyToast.makeToast(ForumEditActivity.this, "发布失败" + e.getMessage());
                             }
                         }
                     });
                     //bmobFile.getFileUrl()--返回的上传文件的完整地址
                 }else{
-                    MyToast.makeToast(EditArticalActivity.this, "发布失败" + e.getMessage());
+                    MyToast.makeToast(ForumEditActivity.this, "发布失败" + e.getMessage());
                 }
             }
 
@@ -155,9 +155,9 @@ public class EditArticalActivity extends BaseActivity {
     }
 
     private void loadImage(){
-        if(ContextCompat.checkSelfPermission(EditArticalActivity.this,
+        if(ContextCompat.checkSelfPermission(ForumEditActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(EditArticalActivity.this,new String[]{
+            ActivityCompat.requestPermissions(ForumEditActivity.this,new String[]{
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
             },1);
         }
@@ -204,7 +204,7 @@ public class EditArticalActivity extends BaseActivity {
                         options.inSampleSize = 1;
                         Bitmap bitmap = BitmapFactory.decodeFile(path,options);
                         mArticalImage.setImageBitmap(bitmap);
-                        Toast.makeText(EditArticalActivity.this,path,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForumEditActivity.this,path,Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

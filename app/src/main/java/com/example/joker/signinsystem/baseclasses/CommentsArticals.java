@@ -8,31 +8,39 @@ import cn.bmob.v3.datatype.BmobFile;
 
 public class CommentsArticals {
 
-    private UUID mCommentId;
-    private int commentImageId;
     private String commentText;
-    private User linkUser;
     private BmobFile comtentImageFile;
     private Bitmap contentBitmap;
 
+    private User linkUser;
+    private String mWriterId;
+
     public CommentsArticals(){
-        mCommentId = UUID.randomUUID();
+
     }
 
-    public UUID getmCommentId() {
-        return mCommentId;
+    public BmobFile getComtentImageFile() {
+        return comtentImageFile;
     }
 
-    public void setmCommentId(UUID mCommentId) {
-        this.mCommentId = mCommentId;
+    public void setComtentImageFile(BmobFile comtentImageFile) {
+        this.comtentImageFile = comtentImageFile;
     }
 
-    public int getCommentImageId() {
-        return commentImageId;
+    public Bitmap getContentBitmap() {
+        return contentBitmap;
     }
 
-    public void setCommentImageId(int commentImageId) {
-        this.commentImageId = commentImageId;
+    public void setContentBitmap(Bitmap contentBitmap) {
+        this.contentBitmap = contentBitmap;
+    }
+
+    public String getmWriterId() {
+        return mWriterId;
+    }
+
+    public void setmWriterId(String mWriterId) {
+        this.mWriterId = mWriterId;
     }
 
     public String getCommentText() {

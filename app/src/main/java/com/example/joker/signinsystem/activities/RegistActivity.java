@@ -1,6 +1,7 @@
 package com.example.joker.signinsystem.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -11,18 +12,22 @@ import android.widget.Toast;
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.User;
 
+import java.util.Objects;
+
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
 public class RegistActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText et_regist_user;
-    EditText et_regist_password;
-    EditText et_regist_fullname;
-    EditText et_regist_group;
-    EditText et_regist_telephone;
-    Button bt_regist_save,bt_regist_cancel;
 
+    private Toolbar toolbar;
+
+    private EditText et_regist_user;
+    private EditText et_regist_password;
+    private EditText et_regist_fullname;
+    private EditText et_regist_group;
+    private EditText et_regist_telephone;
+    private Button bt_regist_save,bt_regist_cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,11 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_regist);
 
+        iniviews();
+        iniToolbar();
+    }
+
+    private void iniviews(){
         et_regist_user= (EditText)findViewById(R.id.et_regist_user);
         et_regist_password= (EditText) findViewById(R.id.et_regist_password);
         et_regist_fullname = (EditText) findViewById(R.id.et_regist_fullname);
@@ -37,10 +47,23 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
         et_regist_telephone = (EditText) findViewById(R.id.et_regist_telephone);
         bt_regist_save= (Button) findViewById(R.id.bt_regist_save);// 组册按钮
         bt_regist_cancel= (Button) findViewById(R.id.bt_regist_cancel);
+        toolbar = findViewById(R.id.tool_bar);
 
         bt_regist_save.setOnClickListener(this);
         bt_regist_cancel.setOnClickListener(this);
+    }
 
+    private void iniToolbar(){
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();//返回
+            }
+        });
     }
 
     @Override

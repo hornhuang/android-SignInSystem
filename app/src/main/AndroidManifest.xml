@@ -37,8 +37,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".forums.activities.MyArticalActivity"></activity>
-        <activity android:name=".forums.activities.EditArticalActivity" />
+        <activity android:name=".activities.UserDetailActivity"></activity>
+        <activity android:name=".forums.activities.MyForumActivity" />
+        <activity android:name=".forums.activities.ForumEditActivity" />
         <activity android:name=".forums.activities.ForumDetailActivity" />
         <activity android:name=".forums.activities.ForumActivity" />
         <activity
@@ -60,7 +61,7 @@
         <activity android:name=".activities.MobileLoad" /> <!-- BmobProvider Bmob需要 -->
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="com.example.sht.homework.BmobContentProvider"></provider>
+            android:authorities="com.example.sht.homework.BmobContentProvider" />
     </application>
 
 </manifest>

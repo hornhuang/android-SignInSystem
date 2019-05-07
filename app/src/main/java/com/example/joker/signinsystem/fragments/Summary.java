@@ -1,13 +1,11 @@
 package com.example.joker.signinsystem.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -15,19 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joker.signinsystem.baseclasses.User;
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.Summary.SummaryRecyclerAdapter;
-import com.example.joker.signinsystem.bmobmanager.pictures.AriticalImageLoader;
+import com.example.joker.signinsystem.bmobmanager.pictures.SuperImagesLoader;
 import com.example.joker.signinsystem.managers.ListContentMate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
@@ -134,7 +130,7 @@ public class Summary extends Fragment{
         textView.setHintTextColor(
                 ContextCompat.getColor(
                         getContext(),
-                        R.color.gray)
+                        R.color.lidevidebackground)
         );
     }
 
@@ -152,7 +148,7 @@ public class Summary extends Fragment{
                     userList.addAll(sort(list));
                     mUserTotalList = new ArrayList<>();
                     mUserTotalList.addAll(userList);
-                    new AriticalImageLoader(recyclerAdapter, userList, mRefreshLayout).userLoad();
+                    new SuperImagesLoader(recyclerAdapter, userList, mRefreshLayout).userLoad();
                 }
                 else {
                     Toast.makeText(getActivity(), e.getErrorCode(), Toast.LENGTH_SHORT).show();

@@ -1,8 +1,6 @@
 package com.example.joker.signinsystem.forums.activities;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,16 +8,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.Artical;
-import com.example.joker.signinsystem.bmobmanager.pictures.AriticalImageLoader;
+import com.example.joker.signinsystem.bmobmanager.pictures.SuperImagesLoader;
 import com.example.joker.signinsystem.forums.adapters.ArticalAdapter;
 import com.example.joker.signinsystem.utils.MyToast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -27,13 +27,14 @@ import cn.bmob.v3.listener.FindListener;
 
 public class ForumActivity extends AppCompatActivity {
 
-    private List<Artical> articalList;
-    private ArticalAdapter adapter;
-
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private Toolbar toolbar;
 
     private FloatingActionButton mWriteButton;
+
+    private List<Artical> articalList;
+    private ArticalAdapter adapter;
+    private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +42,18 @@ public class ForumActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forum);
 
         iniViews();
-
+        iniRecycler();
+        iniSwipeReflesh();
+        inifloatButton();
+        iniToolbar();
     }
 
     private void iniViews(){
         recyclerView = findViewById(R.id.artical_recycler);
         swipeRefreshLayout = findViewById(R.id.artical_swipe_layout);
         mWriteButton = findViewById(R.id.write);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        iniRecycler();
-        iniSwipeReflesh();
-        inifloatButton();
     }
 
     private void iniRecycler(){
@@ -77,7 +79,20 @@ public class ForumActivity extends AppCompatActivity {
         mWriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditArticalActivity.actionStart(ForumActivity.this);
+                ForumEditActivity.actionStart(ForumActivity.this);
+            }
+        });
+    }
+
+    private void iniToolbar(){
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();//返回
             }
         });
     }
@@ -95,7 +110,7 @@ public class ForumActivity extends AppCompatActivity {
                         if (e == null) {
                             articalList.clear();
                             articalList.addAll(object);
-                            new AriticalImageLoader(adapter, articalList, swipeRefreshLayout).articalLoad();
+                            new SuperImagesLoader(adapter, articalList, swipeRefreshLayout).articalLoad();
                         } else {
                             MyToast.makeToast(ForumActivity.this, "失败，请检查网络" + e.getMessage());
                         }

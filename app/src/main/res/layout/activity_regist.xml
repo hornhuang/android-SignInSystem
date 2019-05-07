@@ -10,20 +10,13 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize">
+        android:layout_height="?actionBarSize"
+        android:theme="@style/Widget.AppCompat.Toolbar">
 
         <android.support.v7.widget.Toolbar
+            android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="?actionBarSize"
-                android:layout_height="?actionBarSize"
-                android:paddingEnd="28dp"
-                android:paddingTop="14dp"
-                android:paddingBottom="14dp"
-                android:src="@drawable/left"
-                android:scaleType="fitXY"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -31,8 +24,7 @@
                 android:gravity="center_vertical"
                 android:text="注册"
                 android:textColor="@color/white"
-                android:textSize="25dp"
-                android:textStyle="bold" />
+                android:textSize="25dp" />
 
         </android.support.v7.widget.Toolbar>
 

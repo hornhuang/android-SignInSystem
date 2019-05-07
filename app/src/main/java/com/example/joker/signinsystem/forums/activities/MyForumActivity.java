@@ -1,52 +1,38 @@
 package com.example.joker.signinsystem.forums.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.joker.signinsystem.R;
 import com.example.joker.signinsystem.baseclasses.Artical;
 import com.example.joker.signinsystem.baseclasses.User;
-import com.example.joker.signinsystem.bmobmanager.pictures.AriticalImageLoader;
+import com.example.joker.signinsystem.bmobmanager.pictures.SuperImagesLoader;
 import com.example.joker.signinsystem.forums.adapters.ArticalAdapter;
 import com.example.joker.signinsystem.utils.MyToast;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class MyArticalActivity extends AppCompatActivity {
+public class MyForumActivity extends AppCompatActivity {
+
+    private Toolbar toolbar;
 
     private List<Artical> articalList;
     private ArticalAdapter adapter;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-
-    Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            adapter.notifyDataSetChanged();
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +40,28 @@ public class MyArticalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_artical);
 
         iniViews();
+        iniRecycler();
+        iniSwipeReflesh();
+        iniToolbar();
     }
 
     private void iniViews(){
         recyclerView = findViewById(R.id.artical_recycler);
         swipeRefreshLayout = findViewById(R.id.artical_swipe_layout);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+    }
 
-        iniRecycler();
-        iniSwipeReflesh();
+    private void iniToolbar(){
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();//返回
+            }
+        });
     }
 
     private void iniRecycler(){
@@ -99,21 +99,21 @@ public class MyArticalActivity extends AppCompatActivity {
                             if (e == null) {
                                 articalList.clear();
                                 articalList.addAll(object);
-                                new AriticalImageLoader(adapter, articalList, swipeRefreshLayout).articalLoad();
+                                new SuperImagesLoader(adapter, articalList, swipeRefreshLayout).articalLoad();
 //                                setBitmap(object);
                             } else {
-                                MyToast.makeToast(MyArticalActivity.this, "失败，请检查网络" + e.getMessage());
+                                MyToast.makeToast(MyForumActivity.this, "失败，请检查网络" + e.getMessage());
                             }
                         }
                     });
         }else {
-            MyToast.makeToast(MyArticalActivity.this, "请先登录");
+            MyToast.makeToast(MyForumActivity.this, "请先登录");
         }
         return articalList;
     }
 
     public static void actionStart(AppCompatActivity activity){
-        Intent intent = new Intent(activity, MyArticalActivity.class);
+        Intent intent = new Intent(activity, MyForumActivity.class);
         activity.startActivity(intent);
     }
 }

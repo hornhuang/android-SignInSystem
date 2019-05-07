@@ -32,7 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.joker.signinsystem.R;
-import com.example.joker.signinsystem.forums.activities.MyArticalActivity;
+import com.example.joker.signinsystem.forums.activities.MyForumActivity;
 import com.example.joker.signinsystem.fragments.Personal;
 import com.example.joker.signinsystem.fragments.Ranking;
 import com.example.joker.signinsystem.fragments.Summary;
@@ -198,7 +198,7 @@ public class MainActivity extends BaseActivity {
                 break;
 
             case R.id.my_article:
-                MyArticalActivity.actionStart(MainActivity.this);
+                MyForumActivity.actionStart(MainActivity.this);
                 break;
 
             default:

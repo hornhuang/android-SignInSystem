@@ -148,7 +148,7 @@ public class ForumDetailActivity extends BaseActivity {
             @Override
             public void done(Artical object, BmobException e) {
                 if(e==null){
-                    ArticalViewsManager.iniViews(object, ForumDetailActivity.this);
+                    ArticalViewsManager.iniForumDetailViews(object, ForumDetailActivity.this);
                 }else{
                     MyToast.makeToast(ForumDetailActivity.this,"失败,请检查网络：" + e.getMessage());
                 }

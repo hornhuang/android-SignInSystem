@@ -19,7 +19,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
-public class AriticalImageLoader {
+public class SuperImagesLoader {
 
     private ArticalAdapter articalAdapter;
     private List<Artical> articalList;
@@ -43,13 +43,13 @@ public class AriticalImageLoader {
         }
     };
 
-    public AriticalImageLoader(ArticalAdapter adapter, List<Artical> articals, SwipeRefreshLayout swipeRefreshLayout){// size 只用于区分 重载
+    public SuperImagesLoader(ArticalAdapter adapter, List<Artical> articals, SwipeRefreshLayout swipeRefreshLayout){// size 只用于区分 重载
         this.articalList = articals;
         this.articalAdapter = adapter;
         this.swipeRefreshLayout = swipeRefreshLayout;
     }
 
-    public AriticalImageLoader(SummaryRecyclerAdapter adapter, List<User> users, SwipeRefreshLayout swipeRefreshLayout){
+    public SuperImagesLoader(SummaryRecyclerAdapter adapter, List<User> users, SwipeRefreshLayout swipeRefreshLayout){
         this.userList = users;
         this.summaryRecyclerAdapter = adapter;
         this.swipeRefreshLayout = swipeRefreshLayout;

@@ -10,25 +10,27 @@ import cn.bmob.v3.datatype.BmobFile;
 
 public class Artical extends BmobObject {
 
-    private UUID mId;//用于识别LostItem对象的Id,在构造方法中已经初始化
     private int articalImageId;
     private BmobFile articalImageFile;
     private Bitmap articlePhoto;
     private String articalTitleText;
     private String articalContextText;
+
     private List<CommentsArticals> articalComments;
+
     private User linkUser;
+    private String mWriterId;//用于识别LostItem对象的Id,在构造方法中已经初始化
 
     public Artical(){
-        mId = UUID.randomUUID();
+
     }
 
-    public UUID getmId() {
-        return mId;
+    public String getmWriterId() {
+        return mWriterId;
     }
 
-    public void setmId(UUID mId) {
-        this.mId = mId;
+    public void setmWriterId(String mWriterId) {
+        this.mWriterId = mWriterId;
     }
 
     public int getArticalImageId() {

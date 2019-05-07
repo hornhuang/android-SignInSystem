@@ -1,51 +1,40 @@
 package com.example.joker.signinsystem.activities;
 
-import android.content.Intent;
 import android.net.http.EventHandler;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 
 import com.example.joker.signinsystem.R;
 import com.mob.MobSDK;
 
-import org.json.JSONObject;
+import java.util.Objects;
 
 
 public class MobileLoad extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "WholeWorld";
-    EditText mEditTextPhoneNumber;
-    EditText mEditTextCode;
-    Button mButtonGetCode;
-    Button mButtonLogin;
 
-    EventHandler eventHandler;
-    String strPhoneNumber;
+    private Toolbar toolbar;
+
+    private EditText mEditTextPhoneNumber;
+    private EditText mEditTextCode;
+    private Button mButtonGetCode;
+    private Button mButtonLogin;
+
+    private EventHandler eventHandler;
+    private String strPhoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_load);
 
-
-
-        mEditTextPhoneNumber = (EditText) findViewById(R.id.phone_number);
-        mEditTextCode = (EditText) findViewById(R.id.verification_code);
-        mButtonGetCode = (Button) findViewById(R.id.button_send_verification_code);
-        mButtonLogin = (Button) findViewById(R.id.button_login);
-
-        mButtonGetCode.setOnClickListener(this);
-        mButtonLogin.setOnClickListener(this);
-
+        iniViews();
+        iniToolbar();
 //        MobSDK.init(this, "2839cb4b272a6", "cbfe853cb76be819d9349911b9d9a720");
         MobSDK.init(this);
 
@@ -72,9 +61,35 @@ public class MobileLoad extends AppCompatActivity implements View.OnClickListene
 //        MobSDK.registerEventHandler(eventHandler);
     }
 
+    private void iniViews(){
+        mEditTextPhoneNumber = (EditText) findViewById(R.id.phone_number);
+        mEditTextCode = (EditText) findViewById(R.id.verification_code);
+        mButtonGetCode = (Button) findViewById(R.id.button_send_verification_code);
+        mButtonLogin = (Button) findViewById(R.id.button_login);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        mButtonGetCode.setOnClickListener(this);
+        mButtonLogin.setOnClickListener(this);
+    }
+
+    private void iniToolbar(){
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();//返回
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
 
+        }
     }
 
 //
