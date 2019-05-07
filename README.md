@@ -7,9 +7,18 @@ Android SignIn System
 <a href='https://f-droid.org/repository/browse/?fdid=naman14.timber'><img alt='Get it on F-Droid' src='https://guardianproject.info/wp-content/uploads/2014/07/logo-fdroid.png' height=60px/></a>
 
 ## Screenshots
-
+>排行与动态搜索
 <img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg" width="360" height="640">
-
+>论坛
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg" width="360" height="640">
+>发文
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg" width="360" height="640">
+>我的文章
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg" width="360" height="640">
+>数据统计
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg" width="360" height="640">
+>签到界面
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg" width="360" height="640">
 ## Credits
 
 * [okHttp](https://github.com/square/okhttp)
