@@ -10,7 +10,7 @@
 <a href='https://f-droid.org/repository/browse/?fdid=naman14.timber'><img alt='Get it on F-Droid' src='https://guardianproject.info/wp-content/uploads/2014/07/logo-fdroid.png' height=60px/></a>
 
 ## 排行与动态搜索
-！[效果如下]（https://github.com/FishInWater-1999/android-SignInSystem/blob/master/S90507-20523056.gif）
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/S90507-20523056.gif" width="360" height="640">
 
 ## 论坛
 <img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/A4405890037B725F22C6BD429744C039.jpg" width="360" height="640">
