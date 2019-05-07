@@ -8,8 +8,7 @@ Android SignIn System
 
 ## Screenshots
 >排行与动态搜索
-！[]（https://github.com/FishInWater-1999/android-SignInSystem/blob/master/S90507-20523056.gif）
-<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/S90507-20523056.gif" width="360" height="640">
+！[效果如下]（https://github.com/FishInWater-1999/android-SignInSystem/blob/master/S90507-20523056.gif）
 >论坛
 <img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/A4405890037B725F22C6BD429744C039.jpg" width="360" height="640">
 >发文
