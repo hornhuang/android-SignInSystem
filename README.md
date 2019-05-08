@@ -5,9 +5,7 @@
 
 >附加功能：动态发布，发布协会动态，方便查看。
 
-<a href='https://play.google.com/store/apps/details?id=naman14.timber&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height=90px/></a>
 
-<a href='https://f-droid.org/repository/browse/?fdid=naman14.timber'><img alt='Get it on F-Droid' src='https://guardianproject.info/wp-content/uploads/2014/07/logo-fdroid.png' height=60px/></a>
 
 ## 排行与动态搜索
 <img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/S90507-20523056.gif" width="360" height="640">
