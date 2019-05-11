@@ -35,4 +35,11 @@
         2013年10月20日，由欢瑞世纪出品，明道工作室制作，孙骁骁、张翰、郑爽、乔任梁、江语晨等主演的电视剧《胜女的代价2》在湖南卫视第一周播剧场收官。2013年12月6日由林心如、袁弘、孙骁骁等主演的古装巨制《秀丽江山之长歌行》杀青。同年与黄宗泽、戚薇等主演《少年神探狄仁杰》。
         2015年，主演《新济公活佛》中的单元剧《驭夫环》。</string>
 
+    <!--GPS-->
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="gpsNotifyMsg">当前应用需要打开定位功能。\n\n请点击\"设置\"-\"定位服务\"-打开定位功能。</string>
+    <string name="setting">设置</string>
+    <string name="cancel">取消</string>
+
 </resources>

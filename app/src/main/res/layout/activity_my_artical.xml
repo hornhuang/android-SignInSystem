@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/lidevidebackground"
-    tools:context="com.example.joker.signinsystem.forums.activities.MyForumActivity">
+    tools:context="com.example.sht.homework.forums.activities.MyForumActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"

@@ -147,6 +147,6 @@
         android:src="@mipmap/app_icon"
         app:civ_border_color="@color/circle_border_color"
         app:civ_border_width="2dp"
-        app:layout_behavior="com.example.joker.signinsystem.coordinator.AvatarImageBehavior" />
+        app:layout_behavior="com.example.sht.homework.coordinator.AvatarImageBehavior" />
 
 </android.support.design.widget.CoordinatorLayout>
