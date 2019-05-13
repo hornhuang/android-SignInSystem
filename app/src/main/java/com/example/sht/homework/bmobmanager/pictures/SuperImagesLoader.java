@@ -56,12 +56,13 @@ public class SuperImagesLoader {
 
 
     public void articalLoad(){
-        new Thread(){
-            @Override
-            public void run() {
-                for (int i = 0 ; i < articalList.size() ; i++) {
-                    if (articalList.get(i).getArticalImageFile() != null){
-                        articalList.get(i).setArticlePhoto(getPicture(articalList.get(i).getArticalImageFile().getUrl()));
+        for (int i = 0 ; i < articalList.size() ; i++) {
+            final Artical artical = articalList.get(i);
+            new Thread(){
+                @Override
+                public void run() {
+                    if (artical.getArticalImageFile() != null){
+                        artical.setArticlePhoto(getPicture(artical.getArticalImageFile().getUrl()));
                     }
                     Message message = handler.obtainMessage();
                     message.what = 0x0;
@@ -72,17 +73,18 @@ public class SuperImagesLoader {
                         e.printStackTrace();
                     }
                 }
-            }
-        }.start();
+            }.start();
+        }
     }
 
     public void userLoad(){
-        new Thread(){
-            @Override
-            public void run() {
-                for (int i = 0 ; i < userList.size() ; i++) {
-                    if (userList.get(i).getImageFile() != null){
-                        userList.get(i).setHeadIcon(getPicture(userList.get(i).getImageFile().getUrl()));
+        for (int i = 0 ; i < userList.size() ; i++) {
+            final User user = userList.get(i);
+            new Thread(){
+                @Override
+                public void run() {
+                    if (user.getImageFile() != null){
+                        user.setHeadIcon(getPicture(user.getImageFile().getUrl()));
                     }
                     Message message = handler.obtainMessage();
                     message.what = 020;
@@ -93,8 +95,8 @@ public class SuperImagesLoader {
                         e.printStackTrace();
                     }
                 }
-            }
-        }.start();
+            }.start();
+        }
     }
 
     public Bitmap getPicture(String path){

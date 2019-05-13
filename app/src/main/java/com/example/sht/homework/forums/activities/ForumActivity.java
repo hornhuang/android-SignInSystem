@@ -101,7 +101,6 @@ public class ForumActivity extends AppCompatActivity {
     从 Bmob 获得所有用户信息
      */
     public List<Artical> getData(){
-        articalList = new ArrayList<>();
         BmobQuery<Artical> query = new BmobQuery<>();
         query.setLimit(8).setSkip(0).order("-createdAt")
                 .findObjects(new FindListener<Artical>() {
