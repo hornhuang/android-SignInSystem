@@ -1,9 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refleshlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sht.homework.activities.UserDetailActivity">
+    android:background="@color/white"
+    tools:context=".activities.bases.UserDetailActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_image"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginLeft="15sp"
+                    android:layout_marginRight="15sp"/>
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="7sp"
+                    android:textSize="25sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/user_motto"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:textSize="13sp"
+                android:layout_margin="5dp"
+                android:layout_marginTop="5sp"
+                android:paddingStart="12dp"
+                android:paddingEnd="17dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="@color/lidevidebackground"/>
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="50dp"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>

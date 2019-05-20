@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     sourceSets {
@@ -112,4 +114,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
 
 //    implementation 'jp.wasabeef:recyclerview-animators:3.0.0'// recyclerview 动画
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

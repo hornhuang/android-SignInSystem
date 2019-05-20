@@ -42,17 +42,6 @@ public class Summary extends Fragment{
     private List<User> mUserTotalList;
     private SummaryRecyclerAdapter recyclerAdapter;
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            if((Integer)msg.obj==0){
-                recyclerAdapter = new SummaryRecyclerAdapter(userList);
-                mUserListViews.setAdapter(recyclerAdapter);
-                mRefreshLayout.setRefreshing(false);
-            }
-        }
-    };
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view= inflater.inflate(R.layout.fragment_summary , container, false);
@@ -91,9 +80,7 @@ public class Summary extends Fragment{
         mUserListViews.setAdapter(recyclerAdapter);
     }
 
-    /*
-    SearchView 文字变化 动态匹配
-     */
+    // SearchView 文字变化 动态匹配
     private void iniSearch(){
         setTextColor();
 
@@ -114,9 +101,7 @@ public class Summary extends Fragment{
         });
     }
 
-    /*
-    设置 SearchView 文字颜色
-     */
+    // 设置 SearchView 文字颜色
     private void setTextColor(){
         EditText textView = (EditText) mSearch
                 .findViewById(
@@ -134,9 +119,7 @@ public class Summary extends Fragment{
         );
     }
 
-    /*
-    从 Bmob 获得所有用户信息
-     */
+    // 从 Bmob 获得所有用户信息
     public List<User> getData(){
         BmobQuery<User> bmobQuery = new BmobQuery<User>();
         bmobQuery.findObjects(new FindListener<User>() {

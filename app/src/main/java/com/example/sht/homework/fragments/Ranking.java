@@ -31,6 +31,8 @@ import com.github.mikephil.charting.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobUser;
+
 public class Ranking extends Fragment {
 
     private User user;
@@ -46,10 +48,9 @@ public class Ranking extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ranking, container, false);
 
-        user = ((MainActivity) getActivity()).getUser();
+        user = BmobUser.getCurrentUser(User.class);
         initView(view);
         iniRefleshFunction();
         initData();
@@ -57,8 +58,8 @@ public class Ranking extends Fragment {
     }
 
     private void initView(View view) {
-        bc = (BarChart) view.findViewById(R.id.bar_chart);
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.chart_reflesh);
+        bc = view.findViewById(R.id.bar_chart);
+        refreshLayout = view.findViewById(R.id.chart_reflesh);
     }
 
     private void iniRefleshFunction(){
@@ -73,7 +74,6 @@ public class Ranking extends Fragment {
 
     private void initData() {
         refreshLayout.setRefreshing(true);
-//        bc.setFitBars(true);
         bc.setExtraOffsets(24f,48f,24f,24f);
         setDescription("实验室个人自习时间统计表");
         setLegend();
@@ -123,7 +123,6 @@ public class Ranking extends Fragment {
                 return (int) value + "";
             }
         };
-//        axisLeft.setValueFormatter((ValueFormatter) iAxisValueFormatter);
         // 右侧Y轴
         bc.getAxisRight().setEnabled(false); // 不启用
     }
@@ -136,14 +135,6 @@ public class Ranking extends Fragment {
         xAxis.setAxisMinimum(0f); // 最小值-0.3f，为了使左侧留出点空间
         xAxis.setGranularity(0.75f); // 间隔尺寸1
         xAxis.setTextSize(14f); // 文本大小14
-//        xAxis.setTypeface(Typeface.DEFAULT_BOLD); // 加粗字体
-        IAxisValueFormatter iAxisValueFormatter = new IAxisValueFormatter() { // 自定义值格式
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return 9 - (int) value + "0后";
-            }
-        };
-//        xAxis.setValueFormatter((ValueFormatter)iAxisValueFormatter);
     }
 
     /*
@@ -159,34 +150,13 @@ public class Ranking extends Fragment {
         yVals1.add(new BarEntry(6f, user.getmSaturdayTime()) );
         yVals1.add(new BarEntry(7f, user.getmSundayTime())   );
 
-//        final List<BarEntry> yVals2 = new ArrayList<>();
-//        yVals2.add(new BarEntry(1f, 245));
-//        yVals2.add(new BarEntry(2f, 520));
-//        yVals2.add(new BarEntry(3f, 504));
-//        yVals2.add(new BarEntry(4f, 517));
-//        yVals2.add(new BarEntry(5f, 186));
-//        yVals2.add(new BarEntry(6f, 286));
-//        yVals2.add(new BarEntry(7f, 686));
-
         BarDataSet barDataSet1 = new BarDataSet(yVals1, "自习时间");
         barDataSet1.setValueTextColor(getResources().getColor(R.color.colorPrimary));
         barDataSet1.setColor(getResources().getColor(R.color.colorPrimary));
         barDataSet1.setValueTextSize(14f);
-//        IValueFormatter iValueFormatter = new IValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-//                return new DecimalFormat("##.0").format(value / (yVals2.get((int) entry.getX()).getY() + value) * 100) + "%";
-//            }
-//        };
-//        barDataSet1.setValueFormatter((ValueFormatter)iValueFormatter);
-
-//        BarDataSet barDataSet2 = new BarDataSet(yVals2, "无违章");
-//        barDataSet2.setColor(R.color.dodgerblue);
-//        barDataSet2.setDrawValues(false);
 
         List<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add(barDataSet1);
-//        dataSets.add(barDataSet2);
 
         BarData bardata = new BarData(dataSets);
         bardata.setBarWidth(0.5f);

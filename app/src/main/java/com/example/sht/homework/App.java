@@ -2,7 +2,11 @@ package com.example.sht.homework;
 
 import android.app.Application;
 
+import com.example.sht.homework.baseclasses.User;
+
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.BmobUser;
 
 /**
  * Application 类
@@ -19,7 +23,6 @@ import cn.bmob.v3.Bmob;
 public class App extends Application {
 
     private final String APPID = "bd4814e57ed9c8f00aa0d119c5676cf9";
-    private String userId;
 
     @Override
     public void onCreate() {
@@ -27,11 +30,7 @@ public class App extends Application {
         Bmob.initialize(this,APPID);
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public static String getCurrentUserId() {
+        return BmobUser.getCurrentUser(User.class).getObjectId();
     }
 }

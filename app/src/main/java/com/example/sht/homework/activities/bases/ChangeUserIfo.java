@@ -1,4 +1,4 @@
-package com.example.sht.homework.activities;
+package com.example.sht.homework.activities.bases;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

@@ -57,21 +57,17 @@ public class SuperImagesLoader {
 
     public void articalLoad(){
         for (int i = 0 ; i < articalList.size() ; i++) {
-            final Artical artical = articalList.get(i);
+            final int flag = i;
             new Thread(){
                 @Override
                 public void run() {
+                    Artical artical = articalList.get(flag);
                     if (artical.getArticalImageFile() != null){
                         artical.setArticlePhoto(getPicture(artical.getArticalImageFile().getUrl()));
                     }
                     Message message = handler.obtainMessage();
                     message.what = 0x0;
                     handler.sendMessage(message);
-                    try {
-                        sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                 }
             }.start();
         }
@@ -79,21 +75,17 @@ public class SuperImagesLoader {
 
     public void userLoad(){
         for (int i = 0 ; i < userList.size() ; i++) {
-            final User user = userList.get(i);
+            final int flag = i;
             new Thread(){
                 @Override
                 public void run() {
+                    User user = userList.get(flag);
                     if (user.getImageFile() != null){
                         user.setHeadIcon(getPicture(user.getImageFile().getUrl()));
                     }
                     Message message = handler.obtainMessage();
                     message.what = 020;
                     handler.sendMessage(message);
-                    try {
-                        sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                 }
             }.start();
         }

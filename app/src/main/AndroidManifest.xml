@@ -27,7 +27,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.example.sht.homework.App"
+        android:name=".App"
         android:allowBackup="true"
         android:appComponentFactory="任意字符"
         android:icon="@mipmap/app_icon"
@@ -37,13 +37,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name="com.example.sht.homework.activities.UserDetailActivity"></activity>
-        <activity android:name="com.example.sht.homework.forums.activities.MyForumActivity" />
-        <activity android:name="com.example.sht.homework.forums.activities.ForumEditActivity" />
-        <activity android:name="com.example.sht.homework.forums.activities.ForumDetailActivity" />
-        <activity android:name="com.example.sht.homework.forums.activities.ForumActivity" />
+        <activity android:name=".activities.bases.UserDetailActivity"></activity>
+        <activity android:name=".forums.activities.MyForumActivity" />
+        <activity android:name=".forums.activities.ForumEditActivity" />
+        <activity android:name=".forums.activities.ForumDetailActivity" />
+        <activity android:name=".forums.activities.ForumActivity" />
         <activity
-            android:name="com.example.sht.homework.activities.StartActivity"
+            android:name=".activities.StartActivity"
             android:label="亿签">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,13 +52,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.sht.homework.activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/title_activity_main" />
-        <activity android:name="com.example.sht.homework.activities.ChangeUserIfo" />
-        <activity android:name="com.example.sht.homework.activities.ChatActivity" />
-        <activity android:name="com.example.sht.homework.activities.RegetPassword" />
-        <activity android:name="com.example.sht.homework.activities.RegistActivity" />
-        <activity android:name="com.example.sht.homework.activities.MobileLoad" /> <!-- BmobProvider Bmob需要 -->
+        <activity android:name=".activities.bases.ChangeUserIfo" />
+        <activity android:name=".activities.bases.ChatActivity" />
+        <activity android:name=".activities.RegetPassword" />
+        <activity android:name=".activities.RegistActivity" />
+        <activity android:name=".activities.MobileLoad" /> <!-- BmobProvider Bmob需要 -->
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.example.sht.homework.BmobContentProvider" />

@@ -2,7 +2,7 @@ package com.example.sht.homework.forums.articalutils;
 
 import com.example.sht.homework.baseclasses.Artical;
 import com.example.sht.homework.baseclasses.User;
-import com.example.sht.homework.bmobmanager.AvatarLoader;
+import com.example.sht.homework.bmobmanager.picture.AvatarLoader;
 import com.example.sht.homework.bmobmanager.pictures.SuperImageLoader;
 import com.example.sht.homework.forums.activities.ForumDetailActivity;
 import com.example.sht.homework.utils.MyToast;

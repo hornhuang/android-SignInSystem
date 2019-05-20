@@ -58,7 +58,7 @@ public class SuperImageLoader {
 
     public SuperImageLoader(ImageView imageView, Artical artical){
         this.imageView = imageView;
-        this.artical = artical;;
+        this.artical = artical;
         this.flag = 2;
     }
 
@@ -94,14 +94,14 @@ public class SuperImageLoader {
                     if (user.getImageFile() != null){
                         user.setHeadIcon(getPicture(user.getImageFile().getUrl()));
                     }
-                    Message message = handler.obtainMessage();
-                    message.what = flag;
-                    handler.sendMessage(message);
                     try {
                         sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    Message message = handler.obtainMessage();
+                    message.what = flag;
+                    handler.sendMessage(message);
             }
         }.start();
     }

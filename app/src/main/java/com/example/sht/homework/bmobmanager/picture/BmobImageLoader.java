@@ -1,4 +1,4 @@
-package com.example.sht.homework.bmobmanager;
+package com.example.sht.homework.bmobmanager.picture;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

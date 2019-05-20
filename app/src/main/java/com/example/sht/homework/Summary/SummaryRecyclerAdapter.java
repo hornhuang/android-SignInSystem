@@ -3,24 +3,25 @@ package com.example.sht.homework.Summary;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sht.homework.R;
+import com.example.sht.homework.activities.bases.UserDetailActivity;
 import com.example.sht.homework.baseclasses.User;
-import com.example.sht.homework.bmobmanager.AvatarLoader;
+import com.example.sht.homework.bmobmanager.picture.AvatarLoader;
 
 import java.util.List;
 
 public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecyclerAdapter.UserViewHolder> {
-    /*
-    列表成员
-     */
+
+    private static int num = 0;// 用于标记排名，<3 前三名加奖杯挂件
+
     private List<User> userList ;
     private Context context;
 
@@ -63,11 +64,10 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder userViewHolder, int i) {
         final User user = userList.get(i);
-        // userViewHolder.head_icon =
         userViewHolder.user_name.setText(user.getFullname());
         userViewHolder.user_group.setText(user.getGroup());
-        if (i<3){
-            switchMedal(userViewHolder, i);
+        if (num<3){
+            switchMedal(userViewHolder, num);
         }
 
         if (user.getMotto() == null){// 判断座右铭是否存在
@@ -84,9 +84,10 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         userViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "You Click " + user.getName(), Toast.LENGTH_SHORT).show();
+                UserDetailActivity.Companion.anctionStart((AppCompatActivity) context, user.getObjectId());
             }
         });
+        num ++;
     }
 
     @Override
