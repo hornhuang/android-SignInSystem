@@ -9,11 +9,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.sht.homework.R;
 import com.example.sht.homework.baseclasses.Artical;
-import com.example.sht.homework.bmobmanager.pictures.SuperImagesLoader;
+import com.example.sht.homework.utils.bmobmanager.pictures.SuperImagesLoader;
 import com.example.sht.homework.forums.adapters.ArticalAdapter;
 import com.example.sht.homework.utils.MyToast;
 
@@ -86,7 +87,7 @@ public class ForumActivity extends AppCompatActivity {
 
     private void iniToolbar(){
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("论坛");
         Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -97,9 +98,18 @@ public class ForumActivity extends AppCompatActivity {
         });
     }
 
-    /*
-    从 Bmob 获得所有用户信息
-     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    // 从 Bmob 获得所有用户信息
     public List<Artical> getData(){
         BmobQuery<Artical> query = new BmobQuery<>();
         query.setLimit(8).setSkip(0).order("-createdAt")

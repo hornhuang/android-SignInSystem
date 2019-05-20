@@ -9,20 +9,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.DisplayMetrics
-import android.util.Log
+import android.view.MenuItem
 import android.view.WindowManager
-import cn.bmob.v3.BmobQuery
-import cn.bmob.v3.BmobUser
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.QueryListener
 import com.example.sht.homework.R
 import com.example.sht.homework.baseclasses.User
-import com.example.sht.homework.bmobmanager.SingleObject
-import com.example.sht.homework.bmobmanager.picture.FinalImageLoader
+import com.example.sht.homework.utils.bmobmanager.SingleObject
+import com.example.sht.homework.utils.bmobmanager.picture.FinalImageLoader
 import com.example.sht.homework.utils.MyLog
-import com.example.sht.homework.utils.MyToast
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -40,31 +33,42 @@ class UserDetailActivity : AppCompatActivity() {
     private var objectId:String = ""
     private var itemUser:User ?= null
 
+    private var handler:Handler = object : Handler(){
+        override fun handleMessage(msg: Message?) {
+            iniUser()
+            iniChart()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
 
         objectId = intent.getStringExtra("objectId")
-        MyLog.Log(this.toString())
-//        itemUser = SingleObject().getUser(this, objectId, itemUser)
-
-        getUser()
+        SingleObject.getUser(this, objectId)
+//        getUser()
+        iniToolbar()
     }
 
-    fun getUser() {
-        val bmobQuery = BmobQuery<User>()
-        bmobQuery.getObject(objectId, object : QueryListener<User>() {
-            override fun done(`object`: User, e: BmobException?) {
-                if (e == null) {
-                    itemUser = `object`
-                    iniUser()
-                    iniChart()
-                    MyToast.makeToast(this@UserDetailActivity, "查询成功")
-                } else {
-                    MyToast.makeToast(this@UserDetailActivity, "查询失败：" + e.message)
-                }
+    private fun iniToolbar(){
+        this.setSupportActionBar(toolbar)
+        val mToolbar = supportActionBar
+        mToolbar!!.title = "空间"//这个在mainfest文件也可以直接定义
+        mToolbar.setDisplayHomeAsUpEnabled(true)//设置返回按钮
+        mToolbar.setHomeButtonEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item!!.itemId){
+            android.R.id.home -> {
+                finish()
+                return true
             }
-        })
+            else -> {
+                return false
+            }
+        }
+        return false
     }
 
     companion object {
@@ -72,7 +76,6 @@ class UserDetailActivity : AppCompatActivity() {
         fun anctionStart(activity:AppCompatActivity, objectId:String){
             var intent = Intent()
             intent.setClass(activity,UserDetailActivity::class.java)
-            MyLog.Log(objectId)
             intent.putExtra("objectId", objectId)
             activity.startActivity(intent)
         }
@@ -80,7 +83,7 @@ class UserDetailActivity : AppCompatActivity() {
     }
 
     private fun iniUser(){
-        if (itemUser!!.imageFile.equals(null)){
+        if (itemUser!!.imageFile == null){
             user_image.setImageResource(R.mipmap.app_icon)
         }else{
             FinalImageLoader(user_image, itemUser!!.imageFile).loadSmall()
@@ -153,9 +156,7 @@ class UserDetailActivity : AppCompatActivity() {
         xAxis.textSize = 14f // 文本大小14
     }
 
-    /*
-    重置途中数据
-     */
+    // 重置途中数据
     private fun setChartData() {
         val yVals1 = ArrayList<BarEntry>()
         yVals1.add(BarEntry(1f, itemUser!!.getmMondatTime().toFloat()))
@@ -178,6 +179,16 @@ class UserDetailActivity : AppCompatActivity() {
         bardata.barWidth = 0.5f
 
         bc.data = bardata
+    }
+
+    fun getHandler():Handler{
+        return handler
+    }
+
+    fun setItemUser(currentUser:User){
+        itemUser = currentUser
+        MyLog.Log("111--"+currentUser!!.equals(null).toString())
+        MyLog.Log("222--"+itemUser!!.equals(null).toString())
     }
 
 }

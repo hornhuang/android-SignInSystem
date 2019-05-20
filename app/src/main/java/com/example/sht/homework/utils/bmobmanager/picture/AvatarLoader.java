@@ -1,4 +1,4 @@
-package com.example.sht.homework.bmobmanager.picture;
+package com.example.sht.homework.utils.bmobmanager.picture;
 
 import android.widget.ImageView;
 

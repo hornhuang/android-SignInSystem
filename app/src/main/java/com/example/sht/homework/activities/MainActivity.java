@@ -35,13 +35,12 @@ import android.widget.Toast;
 
 import com.example.sht.homework.R;
 import com.example.sht.homework.activities.bases.ChangeUserIfo;
-import com.example.sht.homework.bmobmanager.picture.FinalImageLoader;
+import com.example.sht.homework.utils.bmobmanager.picture.FinalImageLoader;
 import com.example.sht.homework.forums.activities.MyForumActivity;
 import com.example.sht.homework.fragments.Personal;
 import com.example.sht.homework.fragments.Ranking;
 import com.example.sht.homework.fragments.Summary;
 import com.example.sht.homework.baseclasses.User;
-import com.example.sht.homework.bmobmanager.picture.AvatarLoader;
 import com.example.sht.homework.utils.MyToast;
 
 import java.io.File;
@@ -145,7 +144,7 @@ public class MainActivity extends BaseActivity {
         if (user.getImageFile() == null){
             mUserimageView.setImageResource(R.mipmap.app_icon);
         }else {
-            new FinalImageLoader(mUserimageView, user.getImageFile());
+            new FinalImageLoader(mUserimageView, user.getImageFile()).loadSmall();
         }
         if (user.getMotto() == null){
             mUserMotto.setText("该同学很懒，啥也没留下");

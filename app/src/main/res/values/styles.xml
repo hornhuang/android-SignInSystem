@@ -8,8 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
         <!--&lt;!&ndash; 添加这一句， 即可改变toolbar menu 图标的颜色&ndash;&gt;-->
         <item name="android:textColorSecondary">@color/white</item>
-        <!--&lt;!&ndash;toolbar标题文字颜色&ndash;&gt;-->
-        <!--<item name="android:textColorPrimary">@color/white</item>-->
+        <!--Toolbar 返回按钮颜色-->
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="UserDetailActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--Toolbar 字体颜色-->
+        <item name="android:textColorPrimary">@color/white</item>
+        <!--&lt;!&ndash; 添加这一句， 即可改变toolbar menu 图标的颜色&ndash;&gt;-->
+        <item name="android:textColorSecondary">@color/white</item>
+        <!--Toolbar 返回按钮颜色-->
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
     <!-- Base application theme. -->

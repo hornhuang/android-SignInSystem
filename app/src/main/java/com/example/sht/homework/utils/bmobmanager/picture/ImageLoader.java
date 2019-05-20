@@ -1,4 +1,4 @@
-package com.example.sht.homework.bmobmanager.picture;
+package com.example.sht.homework.utils.bmobmanager.picture;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -77,10 +77,6 @@ public class ImageLoader extends Handler {
     }
 
     private void adjustViewHeight(){
-//        ViewGroup.LayoutParams params=mImageView.getLayoutParams();
-//        float ratio = (float) mBitmap.getHeight() / mBitmap.getWidth();
-//        params.height = (int) (mImageView.getMeasuredWidth() * ratio);
-//        params.width=mImageView.getMeasuredWidth();
         mImageView.setImageBitmap(mBitmap);
     }
 

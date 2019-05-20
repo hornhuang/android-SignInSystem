@@ -1,8 +1,6 @@
 package com.example.sht.homework.fragments;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,7 +16,6 @@ import android.widget.Toast;
 import com.example.sht.homework.baseclasses.User;
 import com.example.sht.homework.R;
 import com.example.sht.homework.Summary.SummaryRecyclerAdapter;
-import com.example.sht.homework.bmobmanager.pictures.SuperImagesLoader;
 import com.example.sht.homework.managers.ListContentMate;
 
 import java.util.ArrayList;
@@ -57,16 +54,18 @@ public class Summary extends Fragment{
 
     private void iniViews(View view){
         mRefreshLayout = view.findViewById(R.id.refreshLayout);// 下拉刷新
-        mUserListViews = (RecyclerView) view.findViewById(R.id.listview);// 初始化加载信息
+        mUserListViews = view.findViewById(R.id.listview);// 初始化加载信息
         mSearch = view.findViewById(R.id.search);
     }
 
     private void iniReFleshLayout(){
         mRefreshLayout.setProgressViewOffset(false, 200, 400);
+        mRefreshLayout.setRefreshing(true);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mRefreshLayout.setRefreshing(true);
+                recyclerAdapter.reSetNum();
                 getData();
             }
         });
@@ -129,9 +128,8 @@ public class Summary extends Fragment{
                 if (e == null) {
                     userList.clear();
                     userList.addAll(sort(list));
-                    mUserTotalList = new ArrayList<>();
-                    mUserTotalList.addAll(userList);
-                    new SuperImagesLoader(recyclerAdapter, userList, mRefreshLayout).userLoad();
+                    recyclerAdapter.notifyDataSetChanged();
+                    mRefreshLayout.setRefreshing(false);
                 }
                 else {
                     Toast.makeText(getActivity(), e.getErrorCode(), Toast.LENGTH_SHORT).show();
@@ -141,9 +139,7 @@ public class Summary extends Fragment{
         return userList;
     }
 
-    /*
-    对 List 进行排序
-     */
+    // 对 List 进行排序
     private List<User> sort(List<User> mList){
         for (int i = 0 ; i < mList.size() ; i ++ ){
             for (int j = 1 ; j < mList.size() ; j++){

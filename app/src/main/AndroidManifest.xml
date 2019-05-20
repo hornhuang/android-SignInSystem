@@ -37,7 +37,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".activities.bases.UserDetailActivity"></activity>
+        <activity android:name=".activities.bases.UserDetailActivity"
+            android:theme="@style/UserDetailActivityTheme"/>
         <activity android:name=".forums.activities.MyForumActivity" />
         <activity android:name=".forums.activities.ForumEditActivity" />
         <activity android:name=".forums.activities.ForumDetailActivity" />

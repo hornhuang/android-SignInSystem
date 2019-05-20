@@ -14,16 +14,19 @@ import android.widget.TextView;
 import com.example.sht.homework.R;
 import com.example.sht.homework.activities.bases.UserDetailActivity;
 import com.example.sht.homework.baseclasses.User;
-import com.example.sht.homework.bmobmanager.picture.AvatarLoader;
+import com.example.sht.homework.utils.MyLog;
+import com.example.sht.homework.utils.bmobmanager.picture.FinalImageLoader;
 
 import java.util.List;
 
 public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecyclerAdapter.UserViewHolder> {
 
-    private static int num = 0;// 用于标记排名，<3 前三名加奖杯挂件
+    private int num = 0;// 用于标记排名，<3 前三名加奖杯挂件
 
     private List<User> userList ;
     private Context context;
+    private User user;
+    private boolean flag = true;
 
     static class UserViewHolder extends RecyclerView.ViewHolder{
         /*
@@ -34,6 +37,8 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         private TextView user_name;
         private TextView user_group;
         private TextView user_motto;
+
+        private String objectId;
 
         /*
         构造 item
@@ -62,14 +67,16 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserViewHolder userViewHolder, int i) {
-        final User user = userList.get(i);
+    public void onBindViewHolder(@NonNull final UserViewHolder userViewHolder, int i) {
+        user = userList.get(i);
         userViewHolder.user_name.setText(user.getFullname());
         userViewHolder.user_group.setText(user.getGroup());
         if (num<3){
             switchMedal(userViewHolder, num);
+            num ++;
+        }else {
+            userViewHolder.rank_icon.setImageBitmap(null);
         }
-
         if (user.getMotto() == null){// 判断座右铭是否存在
             userViewHolder.user_motto.setText("该同学很懒，啥也没留下");
         }else {
@@ -78,16 +85,16 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         if (user.getImageFile() == null){
             userViewHolder.head_icon.setImageResource(R.mipmap.app_icon);
         }else {
-            new AvatarLoader(userViewHolder.head_icon, user).load();
+            new FinalImageLoader(userViewHolder.head_icon, user.getImageFile()).loadSmall();
         }
+        userViewHolder.objectId = user.getObjectId();
 
         userViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserDetailActivity.Companion.anctionStart((AppCompatActivity) context, user.getObjectId());
+                UserDetailActivity.Companion.anctionStart((AppCompatActivity) context, userViewHolder.objectId);
             }
         });
-        num ++;
     }
 
     @Override
@@ -95,28 +102,28 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         return userList.size();
     }
 
-    /*
-    排名前三名 加 金银铜 挂件
-     */
+    // 排名前三名 加 金银铜 挂件
     private void switchMedal(UserViewHolder userViewHolder, int rank){
         switch (rank){
             case 0:
                 userViewHolder.rank_icon.setImageResource(R.drawable.medal_gold);
-                break;
+                return ;
 
             case 1:
                 userViewHolder.rank_icon.setImageResource(R.drawable.medal_silver);
-                break;
+                return ;
 
             case 2:
                 userViewHolder.rank_icon.setImageResource(R.drawable.medal_bronze);
-                break;
+                return ;
 
             default:
 
-                break;
+                return ;
 
         }
+
+
     }
 
     /**
@@ -133,6 +140,11 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
     public void removeData(int position) {
         userList.remove(position);
         notifyItemRemoved(position);//注意这里
+    }
+
+    public void reSetNum(){
+        flag = true;
+        num = 0;
     }
 
 }

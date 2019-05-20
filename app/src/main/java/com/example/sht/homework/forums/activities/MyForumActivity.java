@@ -12,7 +12,7 @@ import android.view.View;
 import com.example.sht.homework.R;
 import com.example.sht.homework.baseclasses.Artical;
 import com.example.sht.homework.baseclasses.User;
-import com.example.sht.homework.bmobmanager.pictures.SuperImagesLoader;
+import com.example.sht.homework.utils.bmobmanager.pictures.SuperImagesLoader;
 import com.example.sht.homework.forums.adapters.ArticalAdapter;
 import com.example.sht.homework.utils.MyToast;
 

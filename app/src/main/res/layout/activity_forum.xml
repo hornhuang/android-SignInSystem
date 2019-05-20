@@ -32,14 +32,6 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="论坛"
-                            android:textSize="20sp"
-                            android:textColor="@color/white"
-                            android:gravity="center_vertical"/>
-
                         <android.support.v7.widget.SearchView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"

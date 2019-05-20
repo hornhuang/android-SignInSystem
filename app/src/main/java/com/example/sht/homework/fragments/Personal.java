@@ -121,7 +121,7 @@ public class Personal extends Fragment {
 
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        getActivity().registerReceiver(mwifiBroadcastReceiver,myIntentFilter);
+//        getActivity().registerReceiver(mwifiBroadcastReceiver,myIntentFilter);
 
         mManager = BiometricPromptManager.from(getActivity());
         begin = view.findViewById(R.id.begin);
