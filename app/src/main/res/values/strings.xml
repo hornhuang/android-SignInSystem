@@ -13,11 +13,18 @@
     <!--首页侧拉框-->
     <string name="side_functions_theme">选择主题</string>
     <string name="side_functions_my_article">我的动态</string>
+    <string name="side_functions_my_version_control">版本更新</string>
 
     <!--底部分类-->
     <string name="fragment_signIn">签到</string>
     <string name="fragment_survey">概况</string>
     <string name="fragment_ranking">排行</string>
+
+    <!--四种图片更新-->
+    <string name="auto_update">auto_update</string>
+    <string name="check_update">check_update</string>
+    <string name="download_silent">download_silent</string>
+    <string name="delete_apk">delete_apk</string>
 
     <string name="person_name">孙骁骁</string>
     <string name="person_title">演员</string>

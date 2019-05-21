@@ -42,6 +42,7 @@ import com.example.sht.homework.fragments.Ranking;
 import com.example.sht.homework.fragments.Summary;
 import com.example.sht.homework.baseclasses.User;
 import com.example.sht.homework.utils.MyToast;
+import com.example.sht.homework.version.VersionControlActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,6 +53,7 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
+import cn.bmob.v3.update.BmobUpdateAgent;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends BaseActivity {
@@ -63,6 +65,7 @@ public class MainActivity extends BaseActivity {
     private TextView mUserName;
     private TextView mUserMotto;
     private LinearLayout mArticleLayout;
+    private LinearLayout mVersionLayout;
 
     private Bitmap bitmap;//从相册获得图片
     private BottomNavigationView navigation;
@@ -133,10 +136,13 @@ public class MainActivity extends BaseActivity {
         mUserName = findViewById(R.id.user_name);
         mUserMotto = findViewById(R.id.user_motto);
         mArticleLayout = findViewById(R.id.my_article);
+        mVersionLayout = findViewById(R.id.version_update);
+
         mUserimageView.setOnClickListener(this);
         mUserName.setOnClickListener(this);
         mUserMotto.setOnClickListener(this);
         mArticleLayout.setOnClickListener(this);
+        mVersionLayout.setOnClickListener(this);
 
         iniFragment();
 
@@ -201,6 +207,10 @@ public class MainActivity extends BaseActivity {
 
             case R.id.my_theme:
                 // do 。。。 ();
+                break;
+
+            case R.id.version_update:
+                VersionControlActivity.anctionStart(MainActivity.this);
                 break;
 
             case R.id.my_article:

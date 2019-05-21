@@ -37,8 +37,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".activities.bases.UserDetailActivity"
-            android:theme="@style/UserDetailActivityTheme"/>
+        <activity android:name=".version.VersionControlActivity"></activity>
+
+        <meta-data
+            android:name="BMOB_CHANNEL"
+            android:value="Channel ID" />
+
+        <activity
+            android:name=".activities.bases.UserDetailActivity"
+            android:theme="@style/UserDetailActivityTheme" />
         <activity android:name=".forums.activities.MyForumActivity" />
         <activity android:name=".forums.activities.ForumEditActivity" />
         <activity android:name=".forums.activities.ForumDetailActivity" />
@@ -60,9 +67,17 @@
         <activity android:name=".activities.RegetPassword" />
         <activity android:name=".activities.RegistActivity" />
         <activity android:name=".activities.MobileLoad" /> <!-- BmobProvider Bmob需要 -->
+        <activity
+            android:name="cn.bmob.v3.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="com.example.sht.homework.BmobContentProvider" />
+            android:authorities="com.example.sht.homework.BmobContentProvider">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
