@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.mob.sdk'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.mob.sdk'// 添加插件
+
 
 android {
     sourceSets {
@@ -22,7 +23,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-//        useLibrary 'org.apache.http.legacy'
     }
     useLibrary 'org.apache.http.legacy'
 
@@ -34,49 +34,18 @@ repositories {
     }
 }
 
+// 在MobSDK的扩展中注册SMSSDK的相关信息
 MobSDK {
     appKey "d580ad56b4b5"
     appSecret "7fcae59a62342e7e2759e9e397c82bdd"
 
-    ShareSDK {
-        //平台配置信息
-        devInfo {
-            SinaWeibo {
-                appKey "568898243"
-                appSecret "38a4f8204cc784f81f9f0daaf31e02e3"
-                callbackUri "http://www.sharesdk.cn"
-                shareByAppClient false
-            }
-            Wechat {
-                appId "wx4868b35061f87885"
-                appSecret "64020361b8ec4c99936c0e3999a9f249"
-            }
-            QQ {
-                appId "100371282"
-                appKey "aed9b0303e3ed1e27bae87c33761161d"
-                shareByAppClient true
-            }
-            Facebook {
-                appKey "1412473428822331"
-                appSecret "a42f4f3f867dc947b9ed6020c2e93558"
-                callbackUri "https://mob.com"
-            }
-        }
+    SMSSDK {
+        //默认使用GUI，若不使用GUI，通过以下开关关闭
+        //gui false
+        //若使用GUI的自动填充验证码功能，需打开此设置
+        //autoSMS true
     }
-
 }
-
-//// 强制让所有第三方类库支持本版本'28.0.0-alpha3'
-//configurations.all {
-//    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-//        def requested = details.requested
-//        if (requested.group == 'com.android.support') {
-//            if (!requested.name.startsWith("multidex")) {
-//                details.useVersion '28.0.0-alpha3'
-//            }
-//        }
-//    }
-//}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -113,6 +82,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
 
-//    implementation 'jp.wasabeef:recyclerview-animators:3.0.0'// recyclerview 动画
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
