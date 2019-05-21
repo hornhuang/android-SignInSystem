@@ -43,8 +43,11 @@ public class MobileLoad extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_load);
 
-        MobSDK.init(this);
-        EventHandler eventHandler = new EventHandler(){       // 操作回调
+        iniViews();
+        iniToolbar();
+
+        MobSDK.init(this,"12279ce0cf646","46d8f076d89a1ac9448d4325add1531e");
+        EventHandler eventHandler = new EventHandler(){     // 操作回调
             @Override
             public void afterEvent(int event, int result, Object data) {
                 Message msg = new Message();
@@ -55,9 +58,6 @@ public class MobileLoad extends AppCompatActivity implements View.OnClickListene
             }
         };
         SMSSDK.registerEventHandler(eventHandler);     // 注册回调接口
-
-        iniViews();
-        iniToolbar();
     }
 
     private void iniViews(){
@@ -89,13 +89,11 @@ public class MobileLoad extends AppCompatActivity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.button_send_verification_code:
                 if (!TextUtils.isEmpty(mEditTextPhoneNumber.getText())) {
-                    if (mEditTextPhoneNumber.getText().length() == 11) {
+                    if (mEditTextPhoneNumber.getText().toString().length() == 11) {
                         phoneNumber = mEditTextPhoneNumber.getText().toString();
                         SMSSDK.getVerificationCode("86", phoneNumber); // 发送验证码给号码的 phoneNumber 的手机
                         mEditTextCode.requestFocus();
-                        Toast.makeText(this, "已发送验证码", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         Toast.makeText(this, "请输入完整的电话号码", Toast.LENGTH_SHORT).show();
                         mEditTextPhoneNumber.requestFocus();
                     }
@@ -110,7 +108,7 @@ public class MobileLoad extends AppCompatActivity implements View.OnClickListene
                     if (mEditTextCode.getText().length() == 4) {
                         verificationCode = mEditTextCode.getText().toString();
                         SMSSDK.submitVerificationCode("86", phoneNumber, verificationCode);
-                        Toast.makeText(this, "验证成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "验证中。。。", Toast.LENGTH_SHORT).show();
                         flag = false;
                     } else {
                         Toast.makeText(this, "请输入完整的验证码", Toast.LENGTH_SHORT).show();
@@ -147,6 +145,7 @@ public class MobileLoad extends AppCompatActivity implements View.OnClickListene
                     Toast.makeText(MobileLoad.this, "验证码已发送", Toast.LENGTH_SHORT).show();
                 } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                     // 返回支持发送验证码的国家列表
+                    Toast.makeText(MobileLoad.this, "国家列表", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 // 如果操作失败

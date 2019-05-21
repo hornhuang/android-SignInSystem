@@ -43,6 +43,7 @@
             android:id="@+id/phone_number"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:hint="请输入你的手机号码"
             android:inputType="phone"
             android:layout_gravity="center"/>
@@ -71,6 +72,7 @@
             android:id="@+id/verification_code"
             android:layout_width="230dp"
             android:layout_height="50dp"
+            android:layout_marginStart="10dp"
             android:hint="请输入你的验证码"
             android:inputType="number" />
 
@@ -80,7 +82,7 @@
             android:layout_height="match_parent"
             android:background="#00000000"
             android:text="获取验证码"
-            android:textColor="#ffde4037"/>
+            android:textColor="@color/colorAccent"/>
 
     </LinearLayout>
 
@@ -95,7 +97,7 @@
         android:id="@+id/button_login"
         android:text="登    录"
         android:textSize="16sp"
-        android:textColor="#ffffffff"
+        android:textColor="@color/white"
         android:layout_width="340dp"
         android:layout_height="40dp"
         android:background="@drawable/shape_button"

@@ -47,59 +47,52 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/et_regist_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:hint="组别"
-                    android:theme="@style/BottomNavigationTheme"
-                    android:textColorHint="@color/grey"
-                    tools:layout_editor_absoluteX="81dp"
-                    tools:layout_editor_absoluteY="226dp" />
-
-                <EditText
-                    android:id="@+id/et_regist_telephone"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:hint="电话"
-                    android:theme="@style/BottomNavigationTheme"
-                    android:textColorHint="@color/grey"
-                    tools:layout_editor_absoluteX="81dp"
-                    tools:layout_editor_absoluteY="226dp" />
-
-                <EditText
                     android:id="@+id/et_regist_user"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
-                    android:hint="用户名"
+                    android:hint="用户名（ 学号/真名 ）"
                     android:theme="@style/BottomNavigationTheme"
-                    android:textColorHint="@color/grey"
-                    tools:layout_editor_absoluteX="81dp"
-                    tools:layout_editor_absoluteY="226dp" />
-
-                <EditText
-                    android:id="@+id/et_regist_fullname"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:hint="姓名"
-                    android:theme="@style/BottomNavigationTheme"
-                    android:textColorHint="@color/grey"
-                    tools:layout_editor_absoluteX="81dp"
-                    tools:layout_editor_absoluteY="226dp" />
+                    android:textColorHint="@color/grey"/>
 
                 <EditText
                     android:id="@+id/et_regist_password"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
-                    android:layout_marginBottom="183dp"
                     android:hint="密码"
                     android:theme="@style/BottomNavigationTheme"
-                    android:textColorHint="@color/grey"
-                    tools:layout_editor_absoluteX="82dp"
-                    tools:layout_editor_absoluteY="157dp" />
+                    android:textColorHint="@color/grey" />
 
-                <View
+                <EditText
+                    android:id="@+id/et_regist_password_again"
                     android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"/>
+                    android:layout_height="?actionBarSize"
+                    android:hint="再次输入密码"
+                    android:theme="@style/BottomNavigationTheme"
+                    android:textColorHint="@color/grey"/>
+
+                <EditText
+                    android:id="@+id/et_regist_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:hint="组别"
+                    android:theme="@style/BottomNavigationTheme"
+                    android:textColorHint="@color/grey" />
+
+                <EditText
+                    android:id="@+id/et_regist_telephone"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:hint="电话（ 用于找回密码 ）"
+                    android:theme="@style/BottomNavigationTheme"
+                    android:textColorHint="@color/grey" />
+
+                <EditText
+                    android:id="@+id/et_regist_fullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:hint="昵称"
+                    android:theme="@style/BottomNavigationTheme"
+                    android:textColorHint="@color/grey" />
 
             </LinearLayout>
 
