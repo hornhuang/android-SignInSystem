@@ -1,6 +1,17 @@
 package com.example.sht.homework.version;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.Manifest;
@@ -11,30 +22,63 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.BmobDialogButtonListener;
 import cn.bmob.v3.listener.BmobUpdateListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.bmob.v3.update.UpdateResponse;
 import cn.bmob.v3.update.UpdateStatus;
 
 import com.example.sht.homework.R;
+import com.example.sht.homework.baseclasses.Update;
+import com.example.sht.homework.utils.MyLog;
+import com.example.sht.homework.utils.MyToast;
 
 public class VersionControlActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final int REQUEST_AUTO = 1001;
-    private static final int REQUEST_CHECK = 1002;
-    private static final int REQUEST_SILENT = 1003;
-    private static final int REQUEST_DELETE = 1004;
+    private int mProgress;
+    private String url, code1, text;
+    private int code;
+    private boolean mIsCancel;
+    private Context mContext = VersionControlActivity.this;
+    private String mSavePath, mVersion_name;
 
-    private UpdateResponse updateResponse;
+    private ProgressBar mProgressBar;
+    private Dialog mDownloadDialog;
 
+    // 接收消息
+    private Handler mUpdateProgressHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    // 设置进度条
+                    mProgressBar.setProgress(mProgress);
+                    break;
+                case 2:
+                    // 隐藏当前下载对话框
+                    mDownloadDialog.dismiss();
+                    // 安装 APK 文件
+                    installAPK();
+            }
+        };
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,46 +86,6 @@ public class VersionControlActivity extends AppCompatActivity implements View.On
 
         iniViews();
 
-//        ButterKnife.bind(this);
-//        //TODO 初始化，当控制台表出现后，注释掉此句
-//        BmobUpdateAgent.initAppVersion();
-        //TODO 设置仅WiFi环境更新
-        BmobUpdateAgent.setUpdateOnlyWifi(false);
-        //TODO 设置更新监听器
-        BmobUpdateAgent.setUpdateListener(new BmobUpdateListener() {
-
-            @Override
-            public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
-                BmobException e = updateInfo.getException();
-                if (e == null) {
-                    updateResponse = updateInfo;
-                    Toast.makeText(VersionControlActivity.this, "检测更新返回：" + updateInfo.version + "-" + updateInfo.path, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(VersionControlActivity.this, "检测更新返回：" + e.getMessage() + "(" + e.getErrorCode() + ")", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        //TODO 设置对话框监听器
-        BmobUpdateAgent.setDialogListener(new BmobDialogButtonListener() {
-
-            @Override
-            public void onClick(int status) {
-                switch (status) {
-                    case UpdateStatus.Update:
-                        Toast.makeText(VersionControlActivity.this, "点击了立即更新按钮", Toast.LENGTH_SHORT).show();
-                        break;
-                    case UpdateStatus.NotNow:
-                        Toast.makeText(VersionControlActivity.this, "点击了以后再说按钮", Toast.LENGTH_SHORT).show();
-                        break;
-                    case UpdateStatus.Close:
-                        Toast.makeText(VersionControlActivity.this, "点击了对话框关闭按钮", Toast.LENGTH_SHORT).show();
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        });
     }
 
     private void iniViews(){
@@ -96,89 +100,163 @@ public class VersionControlActivity extends AppCompatActivity implements View.On
         deleteUpdate.setOnClickListener(this);
     }
 
-
-    /**
-     * 检查权限
-     *
-     * @param requestCode
-     */
-    public void checkStoragePermissions(int requestCode) {
-        List<String> permissions = new ArrayList<>();
-        int permissionCheckWrite = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permissionCheckWrite != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-        int permissionCheckRead = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (permissionCheckRead != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-        }
-        if (permissions.size() > 0) {
-            String[] missions = new String[]{};
-            ActivityCompat.requestPermissions(this, permissions.toArray(missions), requestCode);
-        } else {
-            switch (requestCode) {
-                case REQUEST_AUTO:
-                    BmobUpdateAgent.update(this);
-                    break;
-                case REQUEST_CHECK:
-                    BmobUpdateAgent.forceUpdate(this);
-                    break;
-                case REQUEST_SILENT:
-                    BmobUpdateAgent.silentUpdate(this);
-                    break;
-                case REQUEST_DELETE:
-                    BmobUpdateAgent.deleteResponse(updateResponse);
-                    break;
-                default:
-                    break;
+    //查询单条数据
+    public void querySingleData() {
+        BmobQuery<Update> bmobQuery = new BmobQuery<>();
+        bmobQuery.getObject("xDzXVVVq", new QueryListener<Update>() {
+            @Override
+            public void done(Update object, BmobException e) {
+                if (e == null) {
+                    url = object.getapkUrl();
+                    code1 = object.getCode();
+                    text = object.getText();
+                    System.out.println("APK更新地址：" + url);
+                    System.out.println("版本号：" + code1);
+                    System.out.println("更新内容" + text);
+                    MyToast.makeToast(VersionControlActivity.this, "正在检测版本更新");
+                    check(code1);
+                } else {
+                    MyToast.makeToast(VersionControlActivity.this, "检测失败：" + e.getMessage() + "," + e.getErrorCode());
+                }
             }
+        });
+    }
+
+    //判断版本大小
+    public void check(String code1) {
+        code = APKVersionCodeUtils.getVersionCode(this) ;
+        int i = Integer.valueOf(code1);
+        if (i > code) {
+            showDialog();
         }
     }
 
-    /**
-     * 检查授权结果
-     *
-     * @param grantResults
-     * @return
-     */
-    public boolean checkResults(int[] grantResults) {
-        if (grantResults == null || grantResults.length < 1) {
-            return false;
-        }
-        for (int result : grantResults) {
-            if (result == PackageManager.PERMISSION_DENIED) {
-                return false;
-            }
-        }
-        return true;
+    private void showDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setIcon(R.drawable.ic_launcher_background)//设置标题的图片
+                .setTitle("检查到新版本")//设置对话框的标题
+                .setMessage(text)//设置对话框的内容
+                //设置对话框的按钮
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(MainActivity.this, "点击了取消按钮", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("更新", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(MainActivity.this, "点击了确定的按钮", Toast.LENGTH_SHORT).show();
+                        //postUrl(url);
+                        mIsCancel=false;
+                        //展示对话框
+                        showDownloadDialog(url);
+                        dialog.dismiss();
+                    }
+                }).create();
+        dialog.show();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case REQUEST_AUTO:
-                if (checkResults(grantResults)) {
-                    BmobUpdateAgent.update(this);
+    // 显示正在下载对话框
+    protected void showDownloadDialog(String url) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("下载中");
+        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_progress, null);
+        mProgressBar = view.findViewById(R.id.id_progress);
+        builder.setView(view);
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 隐藏当前对话框
+                dialog.dismiss();
+                // 设置下载状态为取消
+                mIsCancel = true;
+            }
+        });
+
+        mDownloadDialog = builder.create();
+        mDownloadDialog.show();
+
+        // 下载文件
+        downloadAPK();
+    }
+
+    // 开启新线程下载apk文件
+    private void downloadAPK() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+                        String sdPath = Environment.getExternalStorageDirectory() + "/";
+                        // 文件保存路径
+                        mSavePath = sdPath;
+
+                        File dir = new File(mSavePath);
+                        if (!dir.exists()){
+                            dir.mkdir();
+                        }
+                        // 下载文件
+                        HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+                        conn.connect();
+                        InputStream is = conn.getInputStream();
+                        int length = conn.getContentLength();
+                        mVersion_name = "app_debug.apk";
+                        File apkFile = new File(mSavePath, mVersion_name);
+                        MyLog.Log("path---"+apkFile.getPath());
+                        FileOutputStream fos = new FileOutputStream(apkFile);
+
+                        int count = 0;
+                        byte[] buffer = new byte[1024];
+                        while (!mIsCancel){
+                            int numread = is.read(buffer);
+                            count += numread;
+                            // 计算进度条的当前位置
+                            mProgress = (int) (((float)count/length) * 100);
+                            // 更新进度条
+                            mUpdateProgressHandler.sendEmptyMessage(1);
+
+                            // 下载完成
+                            if (numread < 0){
+                                mUpdateProgressHandler.sendEmptyMessage(2);
+                                break;
+                            }
+                            fos.write(buffer, 0, numread);
+                        }
+                        fos.close();
+                        is.close();
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
-                break;
-            case REQUEST_CHECK:
-                if (checkResults(grantResults)) {
-                    BmobUpdateAgent.forceUpdate(this);
-                }
-                break;
-            case REQUEST_SILENT:
-                if (checkResults(grantResults)) {
-                    BmobUpdateAgent.silentUpdate(this);
-                }
-                break;
-            case REQUEST_DELETE:
-                if (checkResults(grantResults)) {
-                    BmobUpdateAgent.deleteResponse(updateResponse);
-                }
-                break;
-            default:
-                break;
+            }
+        }).start();
+    }
+
+    /*
+     * 下载到本地后执行安装
+     */
+    protected void installAPK() {
+        File apkFile = new File(mSavePath, mVersion_name);
+        if (!apkFile.exists()){
+            return;
+        }
+        if(Build.VERSION.SDK_INT>=24) {//判读版本是否在7.0以上
+            Uri apkUri = FileProvider.getUriForFile(mContext, "com.example.sht.homework.BmobContentProvider", apkFile);//在AndroidManifest中的android:authorities值
+            MyLog.Log(apkUri.getPath());
+            Intent install = new Intent(Intent.ACTION_VIEW);
+            install.addCategory(Intent.CATEGORY_DEFAULT);
+            install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
+            install.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            mContext.startActivity(install);
+        } else{
+            Intent install = new Intent(Intent.ACTION_VIEW);
+            install.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
+            install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(install);
         }
     }
 
@@ -186,16 +264,16 @@ public class VersionControlActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_auto_update:
-                checkStoragePermissions(REQUEST_AUTO);
+                querySingleData();
                 break;
             case R.id.btn_check_update:
-                checkStoragePermissions(REQUEST_CHECK);
+
                 break;
             case R.id.btn_download_silent:
-                checkStoragePermissions(REQUEST_SILENT);
+
                 break;
             case R.id.btn_delete_apk:
-                checkStoragePermissions(REQUEST_DELETE);
+
                 break;
             default:
                 break;

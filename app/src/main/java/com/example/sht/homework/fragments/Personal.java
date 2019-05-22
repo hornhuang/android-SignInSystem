@@ -121,9 +121,9 @@ public class Personal extends Fragment {
 
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-//        getActivity().registerReceiver(mwifiBroadcastReceiver,myIntentFilter);
+        getActivity().registerReceiver(mwifiBroadcastReceiver,myIntentFilter);// 会报错但删了 会奔溃
 
-        mManager = BiometricPromptManager.from(getActivity());
+//        mManager = BiometricPromptManager.from(getActivity());// 没有指纹就会崩溃
         begin = view.findViewById(R.id.begin);
         begin.setOnClickListener(new View.OnClickListener() {
              @Override

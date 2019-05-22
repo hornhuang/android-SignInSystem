@@ -18,6 +18,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+    signingConfigs {
+        release {
+            v2SigningEnabled false
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
