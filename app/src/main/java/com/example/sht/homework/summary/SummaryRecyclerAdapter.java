@@ -1,4 +1,4 @@
-package com.example.sht.homework.Summary;
+package com.example.sht.homework.summary;
 
 
 import android.content.Context;
@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.example.sht.homework.R;
 import com.example.sht.homework.activities.bases.UserDetailActivity;
 import com.example.sht.homework.baseclasses.User;
-import com.example.sht.homework.utils.MyLog;
 import com.example.sht.homework.utils.bmobmanager.picture.FinalImageLoader;
 
 import java.util.List;

@@ -204,7 +204,9 @@ public class VersionControlActivity extends AppCompatActivity implements View.On
                         InputStream is = conn.getInputStream();
                         int length = conn.getContentLength();
                         mVersion_name = "app_debug.apk";
-                        File apkFile = new File(mSavePath, mVersion_name);
+                        File apkFile = new File(
+                                getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+                                mVersion_name);
                         MyLog.Log("path---"+apkFile.getPath());
                         FileOutputStream fos = new FileOutputStream(apkFile);
 
@@ -239,12 +241,17 @@ public class VersionControlActivity extends AppCompatActivity implements View.On
      * 下载到本地后执行安装
      */
     protected void installAPK() {
-        File apkFile = new File(mSavePath, mVersion_name);
+        File apkFile = new File(
+                getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+                mVersion_name);
         if (!apkFile.exists()){
             return;
         }
         if(Build.VERSION.SDK_INT>=24) {//判读版本是否在7.0以上
-            Uri apkUri = FileProvider.getUriForFile(mContext, "com.example.sht.homework.BmobContentProvider", apkFile);//在AndroidManifest中的android:authorities值
+            Uri apkUri = FileProvider.getUriForFile(
+                    getApplicationContext(),
+                    "com.example.sht.homework.BmobContentProvider",
+                    apkFile);//在AndroidManifest中的android:authorities值
             MyLog.Log(apkUri.getPath());
             Intent install = new Intent(Intent.ACTION_VIEW);
             install.addCategory(Intent.CATEGORY_DEFAULT);

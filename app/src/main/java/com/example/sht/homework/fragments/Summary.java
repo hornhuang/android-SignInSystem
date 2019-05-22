@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.sht.homework.baseclasses.User;
 import com.example.sht.homework.R;
-import com.example.sht.homework.Summary.SummaryRecyclerAdapter;
+import com.example.sht.homework.summary.SummaryRecyclerAdapter;
 import com.example.sht.homework.managers.ListContentMate;
 
 import java.util.ArrayList;

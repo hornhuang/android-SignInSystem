@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 
-import com.example.sht.homework.Summary.SummaryRecyclerAdapter;
+import com.example.sht.homework.summary.SummaryRecyclerAdapter;
 import com.example.sht.homework.baseclasses.Artical;
 import com.example.sht.homework.baseclasses.User;
 import com.example.sht.homework.forums.adapters.ArticalAdapter;

@@ -1,4 +1,4 @@
-package com.example.sht.homework.Thread;
+package com.example.sht.homework.thread;
 
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
