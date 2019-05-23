@@ -91,7 +91,7 @@ public class Summary extends Fragment{
 
             @Override
             public boolean onQueryTextChange(String s) {
-                List<User> mList = ListContentMate.mate(mUserTotalList, mSearch.getQuery().toString());
+                List<User> mList = ListContentMate.mate(mUserTotalList, s);
                 userList.clear();
                 userList.addAll(mList);
                 recyclerAdapter.notifyDataSetChanged();
@@ -128,6 +128,8 @@ public class Summary extends Fragment{
                 if (e == null) {
                     userList.clear();
                     userList.addAll(sort(list));
+                    mUserTotalList = new ArrayList<>();
+                    mUserTotalList.addAll(userList);// 仅用于搜索
                     recyclerAdapter.notifyDataSetChanged();
                     mRefreshLayout.setRefreshing(false);
                 }

@@ -1,6 +1,9 @@
 package com.example.sht.homework.managers;
 
+import android.util.Log;
+
 import com.example.sht.homework.baseclasses.User;
+import com.example.sht.homework.utils.MyLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +14,16 @@ import java.util.List;
  */
 public class ListContentMate {
 
-    public static List<User> mate(List<User> mList, String fullName){
+    public static List<User> mate(List<User> mFullList, String fullName){
+        if (fullName.equals("")){
+            return mFullList;
+        }
         List<User> newList = new ArrayList<>();
-        for (int i = 0 ; i < mList.size() ; i++){
-            if (mList.get(i).getFullname().contains(fullName)){
-                newList.add(mList.get(i));
+        for (int i = 0 ; i < mFullList.size() ; i++){
+            if (mFullList.get(i).getFullname() != null){
+                if (mFullList.get(i).getFullname().contains(fullName)){
+                    newList.add(mFullList.get(i));
+                }
             }
         }
         return newList;

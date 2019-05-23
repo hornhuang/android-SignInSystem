@@ -118,7 +118,7 @@ public class MainActivity extends BaseActivity {
 //        VersionControlActivity.anctionStart(MainActivity.this);
 
         //底部选择碎片切换
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         //Toolbar代替ActionBar
