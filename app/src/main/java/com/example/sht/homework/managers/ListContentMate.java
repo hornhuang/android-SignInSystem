@@ -1,9 +1,6 @@
 package com.example.sht.homework.managers;
 
-import android.util.Log;
-
 import com.example.sht.homework.baseclasses.User;
-import com.example.sht.homework.utils.MyLog;
 
 import java.util.ArrayList;
 import java.util.List;

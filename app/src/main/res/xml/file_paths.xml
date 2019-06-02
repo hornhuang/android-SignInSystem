@@ -2,8 +2,8 @@
 <paths>
     <external-path
         name="external"
-        path="external" />
+        path="" />
     <external-files-path
         name="Download"
-        path="Download" />
+        path="" />
 </paths>
