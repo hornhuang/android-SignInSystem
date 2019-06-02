@@ -22,4 +22,6 @@ public class BaseActivity  extends AppCompatActivity implements View.OnClickList
 
     }
 
+
+
 }
