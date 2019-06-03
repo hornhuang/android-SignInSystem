@@ -50,4 +50,7 @@
     <string name="setting">设置</string>
     <string name="cancel">取消</string>
 
+    <!--上拉刷新-->
+    <string name="slide_up_reflesh">已加载到底部\n上拉刷新</string>
+
 </resources>

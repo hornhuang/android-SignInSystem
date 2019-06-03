@@ -41,6 +41,9 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 
+/**2018.*.*
+ * Mr.Liu
+ */
 public class Personal extends Fragment {
 
     private User user ;
@@ -120,9 +123,9 @@ public class Personal extends Fragment {
 
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        getActivity().registerReceiver(mwifiBroadcastReceiver,myIntentFilter);// 会报错但删了 会奔溃
+        getActivity().registerReceiver(mwifiBroadcastReceiver,myIntentFilter);// 会报错 但删了会奔溃
 
-//        mManager = BiometricPromptManager.from(getActivity());// 没有指纹就会崩溃
+        mManager = BiometricPromptManager.from(getActivity());// 没有指纹就会崩溃
         begin = view.findViewById(R.id.begin);
         begin.setOnClickListener(new View.OnClickListener() {
              @Override

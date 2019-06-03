@@ -8,7 +8,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:background="@drawable/ripple_bg"
+    android:background="@drawable/ripple_bg_white"
     android:clickable="true"
     app:layout_constraintCircleRadius="7dp"
     app:cardElevation="0dp">
@@ -28,7 +28,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/ripple_bg"
+            android:background="@drawable/ripple_bg_white"
             android:orientation="vertical"
             android:padding="5dp">
 
