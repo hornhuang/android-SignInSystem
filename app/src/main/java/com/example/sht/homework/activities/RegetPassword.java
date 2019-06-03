@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.sht.homework.R;
 
-public class RegetPassword extends AppCompatActivity {
+public class RegetPassword extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

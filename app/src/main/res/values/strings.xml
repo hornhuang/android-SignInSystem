@@ -18,6 +18,7 @@
     <!--底部分类-->
     <string name="fragment_signIn">签到</string>
     <string name="fragment_survey">概况</string>
+    <string name="fragment_forum">论坛</string>
     <string name="fragment_ranking">排行</string>
 
     <!--四种图片更新-->

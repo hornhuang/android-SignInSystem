@@ -25,7 +25,7 @@ import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
 
 
-public class MobileLoad extends AppCompatActivity implements View.OnClickListener{
+public class MobileLoad extends BaseActivity implements View.OnClickListener{
 
     private Toolbar mToolbar;
     private EditText mEditTextPhoneNumber;

@@ -3,17 +3,22 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/personal"
         android:title="@string/fragment_signIn" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/summery"
         android:title="@string/fragment_survey" />
 
     <item
+        android:id="@+id/navigation_forum"
+        android:icon="@drawable/forum"
+        android:title="@string/fragment_forum" />
+
+    <item
         android:id="@+id/navigation_ranking"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ranking"
         android:title="@string/fragment_ranking" />
 
 </menu>

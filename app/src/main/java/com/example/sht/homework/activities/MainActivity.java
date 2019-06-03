@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.example.sht.homework.R;
 import com.example.sht.homework.activities.bases.ChangeUserIfo;
+import com.example.sht.homework.fragments.ForumFragment;
 import com.example.sht.homework.utils.bmobmanager.picture.FinalImageLoader;
 import com.example.sht.homework.forums.activities.MyForumActivity;
 import com.example.sht.homework.fragments.Personal;
@@ -75,6 +76,7 @@ public class MainActivity extends BaseActivity {
 
     private Fragment mPerson;
     private Fragment mRanking;
+    private Fragment mForum;
     private Fragment mSummary;
     private FragmentTransaction transaction;
 
@@ -101,6 +103,9 @@ public class MainActivity extends BaseActivity {
                     return true;
                 case R.id.navigation_dashboard:
                     switchContent(mRanking);
+                    return true;
+                case R.id.navigation_forum:
+                    switchContent(mForum);
                     return true;
                 case R.id.navigation_ranking:
                     switchContent(mSummary);
@@ -164,6 +169,7 @@ public class MainActivity extends BaseActivity {
     private void iniFragment(){
         mPerson = new Personal();
         mRanking = new Ranking();
+        mForum = new ForumFragment();
         mSummary = new Summary();
         fragmentManager = getSupportFragmentManager();
         mContent = mRanking;

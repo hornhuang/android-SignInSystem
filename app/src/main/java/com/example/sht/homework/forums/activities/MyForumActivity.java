@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.sht.homework.R;
+import com.example.sht.homework.activities.BaseActivity;
 import com.example.sht.homework.baseclasses.Artical;
 import com.example.sht.homework.baseclasses.User;
 import com.example.sht.homework.utils.bmobmanager.pictures.SuperImagesLoader;
@@ -25,7 +26,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
-public class MyForumActivity extends AppCompatActivity {
+public class MyForumActivity extends BaseActivity {
 
     private Toolbar toolbar;
 

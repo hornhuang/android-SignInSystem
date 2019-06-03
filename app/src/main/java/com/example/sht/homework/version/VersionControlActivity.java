@@ -46,11 +46,12 @@ import cn.bmob.v3.update.UpdateResponse;
 import cn.bmob.v3.update.UpdateStatus;
 
 import com.example.sht.homework.R;
+import com.example.sht.homework.activities.BaseActivity;
 import com.example.sht.homework.baseclasses.Update;
 import com.example.sht.homework.utils.MyLog;
 import com.example.sht.homework.utils.MyToast;
 
-public class VersionControlActivity extends AppCompatActivity implements View.OnClickListener {
+public class VersionControlActivity extends BaseActivity implements View.OnClickListener {
 
     private int mProgress;
     private String url, code1, text;

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.sht.homework.R;
+import com.example.sht.homework.activities.ActivityInterface;
 import com.example.sht.homework.activities.BaseActivity;
 import com.example.sht.homework.baseclasses.Artical;
 import com.example.sht.homework.forums.articalutils.ArticalViewsManager;
@@ -24,7 +25,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ForumDetailActivity extends BaseActivity {
+public class ForumDetailActivity extends BaseActivity implements ActivityInterface {
 
     // 控制ToolBar的变量
     private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
@@ -57,18 +58,10 @@ public class ForumDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum_detail);
-        mIvPlaceholder = (ImageView) findViewById(R.id.main_iv_placeholder);
-        mArticalTitleText = (TextView) findViewById(R.id.artical_title) ;
-        mArticalContentText = (TextView) findViewById(R.id.artical_context) ;
-        mLlTitleContainer = (LinearLayout) findViewById(R.id.main_ll_title_container);
-        mFlTitleContainer = (FrameLayout) findViewById(R.id.main_fl_title);
-        mAblAppBar = (AppBarLayout) findViewById(R.id.main_abl_app_bar);
-        mTvToolbarTitle = (TextView) findViewById(R.id.main_tv_toolbar_title);
-        mTvToolbarMotto = (TextView) findViewById(R.id.artical_writer_motto);
-        mImToolbarWriterImage = (CircleImageView) findViewById(R.id.small_photo);
-        mTbToolbar = (Toolbar) findViewById(R.id.main_tb_toolbar);
-        mTbToolbar.setTitle("");
 
+        iniViews();
+
+        mTbToolbar.setTitle("");
         objectId = getIntent().getStringExtra("objectId");
 
         // AppBar的监听
@@ -84,6 +77,21 @@ public class ForumDetailActivity extends BaseActivity {
 
         initParallaxValues(); // 自动滑动效果
         iniData(); // 导入真实信息
+        setMenuBarTransport();// 设置顶部菜单栏透明
+    }
+
+    @Override
+    public void iniViews() {
+        mIvPlaceholder = findViewById(R.id.main_iv_placeholder);
+        mArticalTitleText = findViewById(R.id.artical_title) ;
+        mArticalContentText = findViewById(R.id.artical_context) ;
+        mLlTitleContainer = findViewById(R.id.main_ll_title_container);
+        mFlTitleContainer = findViewById(R.id.main_fl_title);
+        mAblAppBar = findViewById(R.id.main_abl_app_bar);
+        mTvToolbarTitle = findViewById(R.id.main_tv_toolbar_title);
+        mTvToolbarMotto = findViewById(R.id.artical_writer_motto);
+        mImToolbarWriterImage = findViewById(R.id.small_photo);
+        mTbToolbar = findViewById(R.id.main_tb_toolbar);
     }
 
     // 设置自动滑动的动画效果

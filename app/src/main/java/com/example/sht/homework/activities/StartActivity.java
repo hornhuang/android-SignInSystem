@@ -31,7 +31,7 @@ import cn.bmob.v3.listener.LogInListener;
  *
  * @author fishinwater
  */
-public class StartActivity extends AppCompatActivity implements View.OnClickListener{
+public class StartActivity extends BaseActivity implements View.OnClickListener{
 
     /*
     数据成员

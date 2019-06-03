@@ -31,7 +31,6 @@ import com.example.sht.homework.activities.MainActivity;
 import com.example.sht.homework.activities.StartActivity;
 import com.example.sht.homework.R;
 import com.example.sht.homework.baseclasses.User;
-import com.example.sht.homework.forums.activities.ForumActivity;
 import com.example.sht.homework.utils.MyDate;
 import com.example.sht.homework.utils.MyToast;
 import com.nestia.biometriclib.BiometricPromptManager;
@@ -315,10 +314,6 @@ public class Personal extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.chat:
-                ForumActivity.actionStart((AppCompatActivity) getActivity());
-                break;
-
             case R.id.logOut:
                 BmobUser.logOut();
                 startActivity(new Intent(getActivity(), StartActivity.class));

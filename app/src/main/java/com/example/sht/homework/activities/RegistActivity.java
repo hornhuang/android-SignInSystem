@@ -17,7 +17,7 @@ import java.util.Objects;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
-public class RegistActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegistActivity extends BaseActivity implements View.OnClickListener {
 
     private Toolbar toolbar;
 
