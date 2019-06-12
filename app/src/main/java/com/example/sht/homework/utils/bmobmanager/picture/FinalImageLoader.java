@@ -77,14 +77,16 @@ public final class FinalImageLoader {
             @Override
             public void run() {
                 bitmap = getPicture(bmobFile.getUrl());
-                bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
-                Message message = handler.obtainMessage();
-                message.what = flag;
-                handler.sendMessage(message);
                 try {
                     sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                }
+                if (bitmap != null){
+                    bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
+                    Message message = handler.obtainMessage();
+                    message.what = flag;
+                    handler.sendMessage(message);
                 }
             }
         }.start();
