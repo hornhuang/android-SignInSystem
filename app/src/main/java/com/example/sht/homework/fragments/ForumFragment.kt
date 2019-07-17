@@ -24,7 +24,9 @@ import com.example.sht.homework.R
 import com.example.sht.homework.baseclasses.Artical
 import com.example.sht.homework.forums.activities.ForumEditActivity
 import com.example.sht.homework.forums.adapters.ArticalAdapter
+import com.example.sht.homework.utils.AppContext
 import com.example.sht.homework.utils.MyToast
+import com.example.sht.homework.utils.NetworkUtil
 import com.example.sht.homework.utils.bmobmanager.pictures.SuperImagesLoader
 import java.util.*
 import kotlin.collections.ArrayList
@@ -83,7 +85,12 @@ class ForumFragment : Fragment() {
         manager = LinearLayoutManager(activity)
         recyclerView!!.layoutManager = manager
         articalList = ArrayList()
-        adapter = ArticalAdapter(getData())
+        if(NetworkUtil.isNetworkAvailable(AppContext.getInstance().applicationContext)){
+            adapter = ArticalAdapter(getData())
+        }else{
+            // SQLite
+            adapter = ArticalAdapter(articalList)
+        }
         recyclerView!!.adapter = adapter
         recyclerView!!.itemAnimator = DefaultItemAnimator()
         iniRecycScrollListener()

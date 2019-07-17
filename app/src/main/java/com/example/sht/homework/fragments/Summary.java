@@ -18,6 +18,8 @@ import com.example.sht.homework.baseclasses.User;
 import com.example.sht.homework.R;
 import com.example.sht.homework.summary.SummaryRecyclerAdapter;
 import com.example.sht.homework.managers.ListContentMate;
+import com.example.sht.homework.utils.AppContext;
+import com.example.sht.homework.utils.NetworkUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,9 @@ public class Summary extends Fragment{
     private List<User> mUserTotalList;
     private SummaryRecyclerAdapter recyclerAdapter;
 
-    @Override
+    private Boolean canCache = true;// 刚开始加载时可以缓存一次，刷新之后可以再次缓存
+
+  @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view= inflater.inflate(R.layout.fragment_summary , container, false);
 
@@ -48,7 +52,6 @@ public class Summary extends Fragment{
         iniReFleshLayout();
         iniRecyclerView();
         iniSearch();
-        getData();
 
         return view;
     }
@@ -56,17 +59,17 @@ public class Summary extends Fragment{
     private void iniViews(View view){
         mRefreshLayout = view.findViewById(R.id.refreshLayout);// 下拉刷新
         mUserListViews = view.findViewById(R.id.listview);// 初始化加载信息
-        mSearch = view.findViewById(R.id.search);
+        mSearch        = view.findViewById(R.id.search);
     }
 
     private void iniReFleshLayout(){
         mRefreshLayout.setProgressViewOffset(false, 200, 400);
-        mRefreshLayout.setRefreshing(true);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mRefreshLayout.setRefreshing(true);
                 recyclerAdapter.reSetNum();
+                canCache = true;
                 getData();
             }
         });
@@ -76,7 +79,14 @@ public class Summary extends Fragment{
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mUserListViews.setLayoutManager(manager);
         userList = new ArrayList<>();
-        recyclerAdapter = new SummaryRecyclerAdapter(getData());
+
+        if (NetworkUtil.isNetworkAvailable(AppContext.getInstance().getApplicationContext())){
+            recyclerAdapter = new SummaryRecyclerAdapter(getData());
+        }else {
+            // 读取数据库缓存
+            recyclerAdapter = new SummaryRecyclerAdapter(userList);
+        }
+
         mUserListViews.setAdapter(recyclerAdapter);
     }
 
@@ -121,6 +131,7 @@ public class Summary extends Fragment{
 
     // 从 Bmob 获得所有用户信息
     public List<User> getData(){
+        mRefreshLayout.setRefreshing(true);
         BmobQuery<User> bmobQuery = new BmobQuery<User>();
         bmobQuery.findObjects(new FindListener<User>() {
 
@@ -139,6 +150,7 @@ public class Summary extends Fragment{
                 }
             }
         });
+        canCache = false;
         return userList;
     }
 

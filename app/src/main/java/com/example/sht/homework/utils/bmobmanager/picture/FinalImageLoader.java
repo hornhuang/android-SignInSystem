@@ -77,17 +77,6 @@ public final class FinalImageLoader {
             @Override
             public void run() {
                 bitmap = getPicture(bmobFile.getUrl());
-                try {
-                    sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if (bitmap != null){
-                    bitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, false);
-                    Message message = handler.obtainMessage();
-                    message.what = flag;
-                    handler.sendMessage(message);
-                }
             }
         }.start();
     }
@@ -97,15 +86,6 @@ public final class FinalImageLoader {
             @Override
             public void run() {
                 bitmap = getPicture(bmobFile.getUrl());
-                bitmap = Bitmap.createScaledBitmap(bitmap, 700, 400, false);
-                Message message = handler.obtainMessage();
-                message.what = flag;
-                handler.sendMessage(message);
-                try {
-                    sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
         }.start();
     }
@@ -119,6 +99,12 @@ public final class FinalImageLoader {
             InputStream inputStream = connection.getInputStream();
             bm = BitmapFactory.decodeStream(inputStream);
             inputStream.close();
+            if (bm != null){
+                bitmap = Bitmap.createScaledBitmap(bm, 100, 100, false);
+                Message message = handler.obtainMessage();
+                message.what = flag;
+                handler.sendMessage(message);
+            }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {

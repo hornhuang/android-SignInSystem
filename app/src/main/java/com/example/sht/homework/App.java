@@ -3,6 +3,7 @@ package com.example.sht.homework;
 import android.app.Application;
 
 import com.example.sht.homework.baseclasses.User;
+import com.example.sht.homework.utils.AppContext;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobObject;
@@ -28,6 +29,10 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Bmob.initialize(this,APPID);
+
+        if (!AppContext.isInitialized()){
+            AppContext.init(getApplicationContext());
+        }
     }
 
     public static String getCurrentUserId() {

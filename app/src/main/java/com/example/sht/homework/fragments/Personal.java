@@ -2,8 +2,10 @@ package com.example.sht.homework.fragments;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.hardware.fingerprint.FingerprintManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
@@ -14,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
@@ -42,7 +45,8 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**2018.*.*
- * Mr.Liu
+ * 指纹签到
+ * @author liujianjun
  */
 public class Personal extends Fragment {
 
@@ -68,7 +72,7 @@ public class Personal extends Fragment {
             while (true){
                 handler.post(runnable);
                 try {
-                    sleep(60000);// 没一分钟看下事件
+                    sleep(60000);// 每一分钟看下事件
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -96,7 +100,6 @@ public class Personal extends Fragment {
                 WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 String wifiSSID = wifiManager.getConnectionInfo()
                         .getSSID();
-               // Toast.makeText(context, wifiSSID+"连接成功", 1).show();
             }else{
                  if(flag){
                      flag = false;
@@ -125,7 +128,12 @@ public class Personal extends Fragment {
         myIntentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         getActivity().registerReceiver(mwifiBroadcastReceiver,myIntentFilter);// 会报错 但删了会奔溃
 
-        mManager = BiometricPromptManager.from(getActivity());// 没有指纹就会崩溃
+        FingerprintManager fingerprintManager = getContext().getSystemService(FingerprintManager.class);
+        if (fingerprintManager.hasEnrolledFingerprints()){
+            mManager = BiometricPromptManager.from(getActivity());// 没有指纹就会崩溃
+        }else {
+            jumpDialog("提示", "本机无指纹功能，无法使用签到");
+        }
         begin = view.findViewById(R.id.begin);
         begin.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -144,6 +152,18 @@ public class Personal extends Fragment {
         toolbar = view.findViewById(R.id.toolbar);
         initToolbar(toolbar, "签到", false);
         return view;
+    }
+
+    private void jumpDialog(String title, String msg){
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        dialog.setTitle(title)
+                .setMessage(msg)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        }).show();
     }
 
     private void iniViews(View view){
@@ -206,18 +226,15 @@ public class Personal extends Fragment {
                         begin.setText("开始计时"+"\n"+t.hour+":"+t.minute+":"+t.second);
                         isRunning = true;
                         thread.start();
-                        //Toast.makeText(getActivity(), "onSucceeded", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailed() {
-
                         Toast.makeText(getActivity(), "请按指纹", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(int code, String reason) {
-
                         Toast.makeText(getActivity(), "请检查网络", Toast.LENGTH_SHORT).show();
                     }
 
@@ -245,31 +262,24 @@ public class Personal extends Fragment {
         switch (user.getmYesturdayFlag()){
             case 1:
                 user.setmMondatTime(user.getmMondatTime() + time);
-//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmMondatTime() + "; 增加时间->"+time);
                 break;
             case 2:
                 user.setmTuesdayTime(user.getmTuesdayTime() + time);
-//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmTuesdayTime() + "; 增加时间->"+time);
                 break;
             case 3:
                 user.setmWednesdayTime(user.getmWednesdayTime() + time);
-//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmWednesdayTime() + "; 增加时间->"+time);
                 break;
             case 4:
                 user.setmThursdayTime(user.getmThursdayTime() + time);
-//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmThursdayTime() + "; 增加时间->"+time);
                 break;
             case 5:
                 user.setmFridayTime(user.getmFridayTime() + time);
-//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmFridayTime() + "; 增加时间->"+time);
                 break;
             case 6:
                 user.setmSaturdayTime(user.getmSaturdayTime() + time);
-//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmSaturdayTime() + "; 增加时间->" +time);
                 break;
             case 7:
                 user.setmSundayTime(user.getmSundayTime() + time);
-//                MyToast.MyToast((AppCompatActivity) getActivity(), "原先时间->" + user.getmSundayTime() + "; 增加时间->" +time);
                 break;
             default:
 
@@ -347,10 +357,6 @@ public class Personal extends Fragment {
             //网络数据刷新
         }
     }
-
-    /*
-    get()  &  set()
-     */
 
     public TextView getmTips() {
         return mTips;

@@ -36,12 +36,13 @@
                 android:id="@+id/artical_title"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="标题"
-                android:singleLine="true"
-                android:textSize="19sp"
+                android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:gravity="center_vertical"/>
+                android:singleLine="true"
+                android:text="标题"
+                android:textSize="19sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/artical_context"
