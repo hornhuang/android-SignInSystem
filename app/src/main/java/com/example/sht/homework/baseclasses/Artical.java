@@ -10,6 +10,7 @@ import cn.bmob.v3.datatype.BmobFile;
 public class Artical extends BmobObject {
 
     private int articalImageId;
+    private int commentNum;
     private BmobFile articalImageFile;
     private Bitmap articlePhoto;
     private String articalTitleText;
@@ -62,6 +63,14 @@ public class Artical extends BmobObject {
 
     public void setArticalComments(List<CommentsArticals> articalComments) {
         this.articalComments = articalComments;
+    }
+
+    public int getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
     }
 
     public BmobFile getArticalImageFile() {

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.sht.homework.baseclasses.User;
 import com.example.sht.homework.R;
+import com.example.sht.homework.sqlite.SQDao;
 import com.example.sht.homework.summary.SummaryRecyclerAdapter;
 import com.example.sht.homework.managers.ListContentMate;
 import com.example.sht.homework.utils.AppContext;
@@ -30,11 +31,13 @@ import cn.bmob.v3.listener.FindListener;
 
 /**
  * 排行榜
+ *
  * 读取所有用户信息在 RecyclerView 中显示
- * 用户通过点击每个 item 可以查看该用户细节柱状图
+ * 用户通过点击每个 item 可以查看该用户细节
  */
 public class Summary extends Fragment{
 
+    private SQDao sqDao;
     private List<User> userList = new ArrayList<>();
     private RecyclerView mUserListViews;
     private SwipeRefreshLayout mRefreshLayout;
@@ -47,6 +50,8 @@ public class Summary extends Fragment{
   @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view= inflater.inflate(R.layout.fragment_summary , container, false);
+
+        sqDao = new SQDao(getActivity());
 
         iniViews(view);
         iniReFleshLayout();
@@ -144,6 +149,7 @@ public class Summary extends Fragment{
                     mUserTotalList.addAll(userList);// 仅用于搜索
                     recyclerAdapter.notifyDataSetChanged();
                     mRefreshLayout.setRefreshing(false);
+
                 }
                 else {
                     Toast.makeText(getActivity(), e.getErrorCode(), Toast.LENGTH_SHORT).show();

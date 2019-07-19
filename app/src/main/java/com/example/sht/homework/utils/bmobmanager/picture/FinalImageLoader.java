@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.IOException;
@@ -17,6 +18,8 @@ import cn.bmob.v3.datatype.BmobFile;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public final class FinalImageLoader {
+
+    private final String TAG = "FinalImageLoader";
 
     private ImageView imageView;
     private CircleImageView circleImageView;
@@ -107,10 +110,13 @@ public final class FinalImageLoader {
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            Log.d(TAG, "MalformedURLException" + e.getMessage() + e.toString());
         } catch (IOException e) {
             e.printStackTrace();
+            Log.d(TAG, "IOException" + e.getMessage() + e.toString());
         } catch (Exception e){
             e.printStackTrace();
+            Log.d(TAG, "Exception" + e.getMessage() + e.toString());
         }
         return bm;
     }

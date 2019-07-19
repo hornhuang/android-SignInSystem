@@ -24,6 +24,7 @@ import com.example.sht.homework.R
 import com.example.sht.homework.baseclasses.Artical
 import com.example.sht.homework.forums.activities.ForumEditActivity
 import com.example.sht.homework.forums.adapters.ArticalAdapter
+import com.example.sht.homework.sqlite.SQDao
 import com.example.sht.homework.utils.AppContext
 import com.example.sht.homework.utils.MyToast
 import com.example.sht.homework.utils.NetworkUtil
@@ -35,6 +36,8 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class ForumFragment : Fragment() {
+
+    private var ordersDao: SQDao? = null
 
     private var param1: String? = null
     private var param2: String? = null
@@ -65,11 +68,14 @@ class ForumFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_forum, container, false)
+        // 获得全局 SQDao 对象
+        ordersDao = AppContext.getInstance().sqDao
 
         iniViews(view)
         iniRecycler()
         iniSwipeReflesh()
         inifloatButton()
+
         return view
     }
 
@@ -89,7 +95,7 @@ class ForumFragment : Fragment() {
             adapter = ArticalAdapter(getData())
         }else{
             // SQLite
-            adapter = ArticalAdapter(articalList)
+            adapter = ArticalAdapter(ordersDao?.getAllArticle())
         }
         recyclerView!!.adapter = adapter
         recyclerView!!.itemAnimator = DefaultItemAnimator()
@@ -159,6 +165,12 @@ class ForumFragment : Fragment() {
                         if (e == null) {
                             articalList!!.clear()
                             articalList!!.addAll(`object`)
+
+                            if (!ordersDao?.isDataExists()!!) {// 判断表中是否有数据，没有则初始化
+                                for (article in articalList!!)
+                                    ordersDao!!.insertItem(article)
+                            }
+
                             SuperImagesLoader(adapter, articalList, swipeRefreshLayout).articalLoad()
                         } else {
                             MyToast.makeToast(activity as AppCompatActivity?, "失败，请检查网络" + e.message)
