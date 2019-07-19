@@ -29,7 +29,6 @@ import com.example.sht.homework.utils.AppContext
 import com.example.sht.homework.utils.MyToast
 import com.example.sht.homework.utils.NetworkUtil
 import com.example.sht.homework.utils.bmobmanager.pictures.SuperImagesLoader
-import java.util.*
 import kotlin.collections.ArrayList
 
 private const val ARG_PARAM1 = "param1"
@@ -37,7 +36,9 @@ private const val ARG_PARAM2 = "param2"
 
 class ForumFragment : Fragment() {
 
-    private var ordersDao: SQDao? = null
+    private var sqDao: SQDao? = null
+    // 刚开始加载时可以缓存一次，刷新之后可以再次缓存
+    private var canCache: Boolean = true
 
     private var param1: String? = null
     private var param2: String? = null
@@ -69,7 +70,7 @@ class ForumFragment : Fragment() {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_forum, container, false)
         // 获得全局 SQDao 对象
-        ordersDao = AppContext.getInstance().sqDao
+        sqDao = AppContext.getInstance().sqDao
 
         iniViews(view)
         iniRecycler()
@@ -95,7 +96,8 @@ class ForumFragment : Fragment() {
             adapter = ArticalAdapter(getData())
         }else{
             // SQLite
-            adapter = ArticalAdapter(ordersDao?.getAllArticle())
+            if (sqDao?.allUsers != null)
+                adapter = ArticalAdapter(sqDao?.getAllArticles())
         }
         recyclerView!!.adapter = adapter
         recyclerView!!.itemAnimator = DefaultItemAnimator()
@@ -114,7 +116,7 @@ class ForumFragment : Fragment() {
                             kotlin.run {
                                 addData(adapter!!.realLastPosition, adapter!!.realLastPosition + PAGE_COUNT)
                             }
-                        }, 500);
+                        }, 500)
                     }
 
                     if (adapter!!.isFadeTips && lastVisibleItem + 2 == adapter!!.itemCount) {
@@ -138,6 +140,7 @@ class ForumFragment : Fragment() {
         swipeRefreshLayout!!.setProgressViewOffset(false, 200, 400)
         swipeRefreshLayout!!.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
             swipeRefreshLayout!!.isRefreshing = true
+            canCache = true
             getData()
         })
     }
@@ -166,9 +169,9 @@ class ForumFragment : Fragment() {
                             articalList!!.clear()
                             articalList!!.addAll(`object`)
 
-                            if (!ordersDao?.isDataExists()!!) {// 判断表中是否有数据，没有则初始化
-                                for (article in articalList!!)
-                                    ordersDao!!.insertItem(article)
+                            if (canCache) {
+                                sqDao?.insertAllArticles(articalList)
+                                canCache = false
                             }
 
                             SuperImagesLoader(adapter, articalList, swipeRefreshLayout).articalLoad()

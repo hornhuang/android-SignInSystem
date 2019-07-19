@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ import cn.bmob.v3.listener.FindListener;
  */
 public class Summary extends Fragment{
 
+    private final String TAG = "Summary";
+
     private SQDao sqDao;
     private List<User> userList = new ArrayList<>();
     private RecyclerView mUserListViews;
@@ -44,8 +47,8 @@ public class Summary extends Fragment{
     private SearchView mSearch;
     private List<User> mUserTotalList;
     private SummaryRecyclerAdapter recyclerAdapter;
-
-    private Boolean canCache = true;// 刚开始加载时可以缓存一次，刷新之后可以再次缓存
+    // 刚开始加载时可以缓存一次，刷新之后可以再次缓存
+    private Boolean canCache = true;
 
   @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,7 +92,8 @@ public class Summary extends Fragment{
             recyclerAdapter = new SummaryRecyclerAdapter(getData());
         }else {
             // 读取数据库缓存
-            recyclerAdapter = new SummaryRecyclerAdapter(userList);
+            if (sqDao.getAllUsers() != null)
+                recyclerAdapter = new SummaryRecyclerAdapter(sqDao.getAllUsers());
         }
 
         mUserListViews.setAdapter(recyclerAdapter);
@@ -116,7 +120,11 @@ public class Summary extends Fragment{
         });
     }
 
-    // 设置 SearchView 文字颜色
+    /**
+     * 设置 SearchView 文字颜色
+     *
+     * Set the SearchView text color
+      */
     private void setTextColor(){
         EditText textView = (EditText) mSearch
                 .findViewById(
@@ -134,7 +142,12 @@ public class Summary extends Fragment{
         );
     }
 
-    // 从 Bmob 获得所有用户信息
+    /**
+     * 从 Bmob 获得所有用户信息
+     *
+     * Get all user information from Bmob
+     * @return
+     */
     public List<User> getData(){
         mRefreshLayout.setRefreshing(true);
         BmobQuery<User> bmobQuery = new BmobQuery<User>();
@@ -150,13 +163,16 @@ public class Summary extends Fragment{
                     recyclerAdapter.notifyDataSetChanged();
                     mRefreshLayout.setRefreshing(false);
 
+                    if (canCache){
+                        Log.d(TAG,sqDao.insertAllUsers(userList) + "" + userList.size());
+                        canCache = false;
+                    }
                 }
                 else {
                     Toast.makeText(getActivity(), e.getErrorCode(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        canCache = false;
         return userList;
     }
 
