@@ -164,7 +164,8 @@ public class Summary extends Fragment{
                     mRefreshLayout.setRefreshing(false);
 
                     if (canCache){
-                        Log.d(TAG,sqDao.insertAllUsers(userList) + "" + userList.size());
+                        sqDao.refleshTable(SQDao.USER);
+                        sqDao.insertAllUsers(userList);
                         canCache = false;
                     }
                 }

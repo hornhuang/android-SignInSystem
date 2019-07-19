@@ -193,9 +193,9 @@ public class SQDao {
             database.beginTransaction();
 
             ContentValues values = new ContentValues();
-            values.put("Title", "title");
-            values.put("Content", "content");
-            values.put("CommentNum", 5);
+            values.put("Title", artical.getArticalTitleText());
+            values.put("Content", artical.getArticalContextText());
+            values.put("CommentNum", artical.getCommentNum());
             database.insertOrThrow(SQLiteHelper.TABLE_ARTICLE, null, values);
 
             database.setTransactionSuccessful();
@@ -338,6 +338,18 @@ public class SQDao {
             }
         }
         return null;
+    }
+
+    public void refleshTable(@Table String table){
+        SQLiteDatabase database ;
+
+        try{
+            database = sqLiteHelper.getWritableDatabase();
+
+            database.delete(table, null, null);
+        }catch (Exception e) {
+
+        }
     }
 
     private Artical parseArticle(Cursor cursor){

@@ -112,16 +112,16 @@ class ForumFragment : Fragment() {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     // 如果没有隐藏footView，那么最后一个条目的位置就比我们的getItemCount少1，自己可以算一下
                     if (!adapter!!.isFadeTips && lastVisibleItem + 1 == adapter!!.itemCount) {
-                        mHandler.postDelayed(Runnable {
-                            kotlin.run {
+                        mHandler.postDelayed( {
+                            run {
                                 addData(adapter!!.realLastPosition, adapter!!.realLastPosition + PAGE_COUNT)
                             }
                         }, 500)
                     }
 
                     if (adapter!!.isFadeTips && lastVisibleItem + 2 == adapter!!.itemCount) {
-                        mHandler.postDelayed(Runnable {
-                            kotlin.run {
+                        mHandler.postDelayed( {
+                            run {
                                 addData(adapter!!.realLastPosition, adapter!!.realLastPosition + PAGE_COUNT)
                             }
                         }, 500);
@@ -146,7 +146,9 @@ class ForumFragment : Fragment() {
     }
 
     private fun inifloatButton() {
-        mWriteButton!!.setOnClickListener(View.OnClickListener { ForumEditActivity.actionStart(activity as AppCompatActivity?) })
+        mWriteButton!!.setOnClickListener(View.OnClickListener {
+            ForumEditActivity.actionStart(activity as AppCompatActivity?)
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -170,6 +172,7 @@ class ForumFragment : Fragment() {
                             articalList!!.addAll(`object`)
 
                             if (canCache) {
+                                sqDao?.refleshTable(SQDao.ARTICLE)
                                 sqDao?.insertAllArticles(articalList)
                                 canCache = false
                             }
