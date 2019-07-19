@@ -23,7 +23,7 @@ import cn.bmob.v3.BmobUser;
  * */
 public class App extends Application {
 
-    private final String APPID = "d8f192d9abc1f96098c1ad7e1fc72984";
+    private final String APPID = "bd4814e57ed9c8f00aa0d119c5676cf9";
 
     @Override
     public void onCreate() {
