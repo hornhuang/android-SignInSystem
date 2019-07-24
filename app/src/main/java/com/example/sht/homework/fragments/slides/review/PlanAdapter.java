@@ -70,7 +70,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
             mDate     = itemView.findViewById(R.id.date);
             mDatePoor = itemView.findViewById(R.id.date_poor);
 
-//            mCourse.setInputType(InputType.TYPE_NULL);
+//            mCourse.setInputType(InputType.TYPE_00NULL);
         }
     }
 }
