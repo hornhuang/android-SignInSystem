@@ -144,4 +144,30 @@
         android:layout_height="1dp"
         android:background="@color/lidevidebackground"/>
 
+    <LinearLayout
+        android:id="@+id/my_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:padding="3dp"
+            android:src="@drawable/version"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10sp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/side_functions_my_review_list"
+            android:textSize="17sp"/>
+
+    </LinearLayout>
+
 </LinearLayout>

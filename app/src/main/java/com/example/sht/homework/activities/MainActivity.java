@@ -25,6 +25,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -36,6 +37,7 @@ import android.widget.Toast;
 import com.example.sht.homework.R;
 import com.example.sht.homework.activities.bases.ChangeUserIfo;
 import com.example.sht.homework.fragments.ForumFragment;
+import com.example.sht.homework.fragments.slides.ReviewListFragment;
 import com.example.sht.homework.utils.bmobmanager.picture.FinalImageLoader;
 import com.example.sht.homework.forums.activities.MyForumActivity;
 import com.example.sht.homework.fragments.Personal;
@@ -63,10 +65,12 @@ public class MainActivity extends BaseActivity {
 
     private User user;// 获取登录成功后的本地用户信息
     private CircleImageView mUserimageView;
+    private DrawerLayout mDrawerLayout;
     private TextView mUserName;
     private TextView mUserMotto;
     private LinearLayout mArticleLayout;
     private LinearLayout mVersionLayout;
+    private LinearLayout mReviewLayout;
 
     private Bitmap bitmap;//从相册获得图片
     private BottomNavigationView navigation;
@@ -78,6 +82,7 @@ public class MainActivity extends BaseActivity {
     private Fragment mRanking;
     private Fragment mForum;
     private Fragment mSummary;
+    private Fragment mReview;
     private FragmentTransaction transaction;
 
     private Handler handler = new Handler(){
@@ -120,8 +125,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        VersionControlActivity.anctionStart(MainActivity.this);
-
         //底部选择碎片切换
         navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -139,17 +142,20 @@ public class MainActivity extends BaseActivity {
     侧拉框用户个人信息设置
      */
     private void iniSideView(){
+        mDrawerLayout  = findViewById(R.id.drawer);
         mUserimageView = findViewById(R.id.user_image);
-        mUserName = findViewById(R.id.user_name);
-        mUserMotto = findViewById(R.id.user_motto);
+        mUserName      = findViewById(R.id.user_name);
+        mUserMotto     = findViewById(R.id.user_motto);
         mArticleLayout = findViewById(R.id.my_article);
         mVersionLayout = findViewById(R.id.version_update);
+        mReviewLayout  = findViewById(R.id.my_review);
 
         mUserimageView.setOnClickListener(this);
         mUserName.setOnClickListener(this);
         mUserMotto.setOnClickListener(this);
         mArticleLayout.setOnClickListener(this);
         mVersionLayout.setOnClickListener(this);
+        mReviewLayout.setOnClickListener(this);
 
         iniFragment();
 
@@ -167,10 +173,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void iniFragment(){
-        mPerson = new Personal();
+        mPerson  = new Personal();
         mRanking = new Ranking();
-        mForum = new ForumFragment();
+        mForum   = new ForumFragment();
         mSummary = new Summary();
+        mReview  = new ReviewListFragment();
         fragmentManager = getSupportFragmentManager();
         mContent = mRanking;
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -200,6 +207,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onClick(View v) {
+        mVersionLayout.setBackgroundResource(R.color.white);
+        mArticleLayout.setBackgroundResource(R.color.white);
+        mReviewLayout.setBackgroundResource(R.color.white);
         switch (v.getId()){
             case R.id.user_image:
                 changeHeadImage();
@@ -218,18 +228,24 @@ public class MainActivity extends BaseActivity {
                 break;
 
             case R.id.version_update:
+                mVersionLayout.setBackgroundResource(R.color.smssdk_gray);
                 VersionControlActivity.anctionStart(MainActivity.this);
                 break;
 
             case R.id.my_article:
+                mArticleLayout.setBackgroundResource(R.color.smssdk_gray);
                 MyForumActivity.actionStart(MainActivity.this);
                 break;
 
-            default:
-
+            case R.id.my_review:
+                mReviewLayout.setBackgroundResource(R.color.smssdk_gray);
+                switchContent(mReview);
                 break;
 
+            default:
+                break;
         }
+        mDrawerLayout.closeDrawers();
     }
 
     // 更换侧拉框头像
@@ -469,13 +485,6 @@ public class MainActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    /*
-    get() & set()
-     */
-    public User getUser(){
-        return user;
-    }
-
     /**
      * 检测GPS是否打开
      *
@@ -525,5 +534,11 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    /*
+    get() & set()
+     */
+    public User getUser(){
+        return user;
+    }
 
 }
