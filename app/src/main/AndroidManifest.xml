@@ -35,8 +35,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".version.VersionControlActivity"></activity>
-        <activity android:name=".activities.PushPlanActivity"></activity>
+        <activity android:name=".activities.WebActivity"></activity>
+        <activity android:name=".version.VersionControlActivity" />
+        <activity android:name=".activities.PushPlanActivity" />
+
         <meta-data
             android:name="BMOB_CHANNEL"
             android:value="Channel ID" />
@@ -66,10 +68,11 @@
         <activity android:name=".activities.MobileLoad" /> <!-- BmobProvider Bmob需要 -->
         <activity
             android:name="cn.bmob.v3.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <provider
-            android:authorities="com.example.sht.homework.fileProvider"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.sht.homework.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -85,7 +88,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

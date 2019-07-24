@@ -34,7 +34,7 @@ import com.example.sht.homework.activities.MainActivity;
 import com.example.sht.homework.activities.StartActivity;
 import com.example.sht.homework.R;
 import com.example.sht.homework.baseclasses.User;
-import com.example.sht.homework.utils.MyDate;
+import com.example.sht.homework.utils.Dater;
 import com.example.sht.homework.utils.MyToast;
 import com.nestia.biometriclib.BiometricPromptManager;
 
@@ -174,7 +174,7 @@ public class Personal extends Fragment {
     }
 
     private void matchYesterDayFlag(){
-        if (MyDate.getWeekOfDate() != user.getmYesturdayFlag()){
+        if (Dater.getWeekOfDate() != user.getmYesturdayFlag()){
             switch (user.getmYesturdayFlag()){
                 case 1:
                     user.setmMondatTime(0);
@@ -201,7 +201,7 @@ public class Personal extends Fragment {
 
                     break;
             }
-            user.setmYesturdayFlag(MyDate.getWeekOfDate());
+            user.setmYesturdayFlag(Dater.getWeekOfDate());
         }
     }
 
