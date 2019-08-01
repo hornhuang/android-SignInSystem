@@ -62,6 +62,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends BaseActivity {
 
     private final int GPS_REQUEST_CODE = 10;
+    private final int REQUEST_CODE_FINE_GPS = 2;
 
     private User user;// 获取登录成功后的本地用户信息
     private CircleImageView mUserimageView;
@@ -134,7 +135,6 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         user = BmobUser.getCurrentUser(User.class);
 
-        openGPSSettings();
         iniSideView();
     }
 
@@ -408,7 +408,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case GPS_REQUEST_CODE:
                 //做需要做的事情，比如再次检测是否打开GPS了 或者定位
-                openGPSSettings();
+//                openGPSSettings();
                 break;
 
             default:
@@ -485,54 +485,55 @@ public class MainActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    /**
-     * 检测GPS是否打开
-     *
-     * @return
-     */
-    private boolean checkGPSIsOpen() {
-        boolean isOpen;
-        LocationManager locationManager = (LocationManager) this
-                .getSystemService(Context.LOCATION_SERVICE);
-        isOpen = locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER);
-        return isOpen;
-    }
-
-    /**
-     * 跳转GPS设置
-     */
-    private void openGPSSettings() {
-        if (checkGPSIsOpen()) {
-//            initLocation(); //自己写的定位方法
-        } else {
-            //没有打开则弹出对话框
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.notifyTitle)
-                    .setMessage(R.string.gpsNotifyMsg)
-                    // 拒绝, 退出应用
-                    .setNegativeButton(R.string.cancel,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    finish();
-                                }
-                            })
-
-                    .setPositiveButton(R.string.setting,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    //跳转GPS设置界面
-                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                    startActivityForResult(intent, GPS_REQUEST_CODE);
-                                }
-                            })
-
-                    .setCancelable(false)
-                    .show();
-
-        }
-    }
+//    /**
+//     * 检测GPS是否打开
+//     *
+//     * @return
+//     */
+//    private boolean checkGPSIsOpen() {
+//        boolean isOpen;
+//        LocationManager locationManager = (LocationManager) this
+//                .getSystemService(Context.LOCATION_SERVICE);
+//        isOpen = locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER);
+//        return isOpen;
+//    }
+//
+//    /**
+//     * 跳转GPS设置
+//     */
+//    private void openGPSSettings() {
+//        if (checkGPSIsOpen()) {
+////            initLocation(); //自己写的定位方法
+//        } else {
+//            //没有打开则弹出对话框
+//            new AlertDialog.Builder(this)
+//                    .setTitle(R.string.notifyTitle)
+//                    .setMessage(R.string.gpsNotifyMsg)
+//                    // 拒绝, 退出应用
+//                    .setNegativeButton(R.string.cancel,
+//                            new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+////                                    finish();
+//                                    MyToast.makeToast(MainActivity.this, "无法使用该功能");
+//                                }
+//                            })
+//
+//                    .setPositiveButton(R.string.setting,
+//                            new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    //跳转GPS设置界面
+//                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//                                    startActivityForResult(intent, GPS_REQUEST_CODE);
+//                                }
+//                            })
+//
+//                    .setCancelable(false)
+//                    .show();
+//
+//        }
+//    }
 
     /*
     get() & set()

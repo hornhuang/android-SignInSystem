@@ -1,19 +1,23 @@
 package com.example.sht.homework.fragments;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.fingerprint.FingerprintManager;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -30,10 +34,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sht.homework.activities.BaseActivity;
 import com.example.sht.homework.activities.MainActivity;
 import com.example.sht.homework.activities.StartActivity;
 import com.example.sht.homework.R;
 import com.example.sht.homework.baseclasses.User;
+import com.example.sht.homework.utils.AppContext;
 import com.example.sht.homework.utils.Dater;
 import com.example.sht.homework.utils.MyToast;
 import com.nestia.biometriclib.BiometricPromptManager;
@@ -49,6 +55,8 @@ import cn.bmob.v3.listener.UpdateListener;
  * @author liujianjun
  */
 public class Personal extends Fragment {
+
+    private final int GPS_REQUEST_CODE = 10;
 
     private User user ;
     private Button begin;
@@ -131,26 +139,28 @@ public class Personal extends Fragment {
         FingerprintManager fingerprintManager = getContext().getSystemService(FingerprintManager.class);
         if (fingerprintManager.hasEnrolledFingerprints()){
             mManager = BiometricPromptManager.from(getActivity());// 没有指纹就会崩溃
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    10);
         }else {
             jumpDialog("提示", "本机无指纹功能，无法使用签到");
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    10);
         }
         begin = view.findViewById(R.id.begin);
         begin.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                 if (isRunning){
-                     biometricIdentifyCallback.onCancel();
-                 }else {
-                     IntentFilter myIntentFilter = new IntentFilter();
-                     myIntentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-                     getActivity().registerReceiver(mwifiBroadcastReceiver,myIntentFilter);
-                     start();
-                 }
+                 openGPSSettings();
              }
          });
 
         toolbar = view.findViewById(R.id.toolbar);
         initToolbar(toolbar, "签到", false);
+
         return view;
     }
 
@@ -360,5 +370,76 @@ public class Personal extends Fragment {
 
     public TextView getmTips() {
         return mTips;
+    }
+
+    /**
+     * 检测GPS是否打开
+     *
+     * @return
+     */
+    private boolean checkGPSIsOpen() {
+        final LocationManager locationManager = (LocationManager) AppContext.getInstance().getApplicationContext()
+                .getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)||!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    /**
+     * 跳转GPS设置
+     */
+    private void openGPSSettings() {
+        if (checkGPSIsOpen()) {
+            if (isRunning){
+                biometricIdentifyCallback.onCancel();
+            }else {
+                IntentFilter myIntentFilter = new IntentFilter();
+                myIntentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+                getActivity().registerReceiver(mwifiBroadcastReceiver,myIntentFilter);
+                start();
+            }
+        } else {
+            //没有打开则弹出对话框
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.notifyTitle)
+                    .setMessage(R.string.gpsNotifyMsg)
+                    // 拒绝, 退出应用
+                    .setNegativeButton(R.string.cancel,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+//                                    finish();
+                                    MyToast.makeToast(getActivity(), "无法使用该功能");
+                                }
+                            })
+
+                    .setPositiveButton(R.string.setting,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //跳转GPS设置界面
+                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                    startActivityForResult(intent, GPS_REQUEST_CODE);
+                                }
+                            })
+
+                    .setCancelable(false)
+                    .show();
+
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case GPS_REQUEST_CODE:
+                openGPSSettings();
+                break;
+            default:
+                break;
+        }
     }
 }

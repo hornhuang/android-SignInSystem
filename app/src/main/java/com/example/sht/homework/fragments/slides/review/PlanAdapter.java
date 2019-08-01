@@ -41,7 +41,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolder> {
         final Plan plan = mList.get(i);
         viewHolder.mCourse.setText(plan.getCourse());
         viewHolder.mDate.setText(Dater.getYMDString(plan.getDate()));
-        String str = "距离首次学习："+Dater.getDiscrepantDays(plan.getDate(), new Date())+"天";
+        String str = "距离首次学习："+ Dater.getDiscrepantDays(plan.getDate(), new Date())+"天";
         viewHolder.mDatePoor.setText(str);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
