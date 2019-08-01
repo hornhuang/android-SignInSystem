@@ -136,27 +136,19 @@ public class Personal extends Fragment {
         myIntentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         getActivity().registerReceiver(mwifiBroadcastReceiver,myIntentFilter);// 会报错 但删了会奔溃
 
-        FingerprintManager fingerprintManager = getContext().getSystemService(FingerprintManager.class);
-        if (fingerprintManager.hasEnrolledFingerprints()){
-            mManager = BiometricPromptManager.from(getActivity());// 没有指纹就会崩溃
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION},
-                    10);
-        }else {
-            jumpDialog("提示", "本机无指纹功能，无法使用签到");
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION},
-                    10);
-        }
         begin = view.findViewById(R.id.begin);
         begin.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                 openGPSSettings();
+                 FingerprintManager fingerprintManager = getContext().getSystemService(FingerprintManager.class);
+                 if (fingerprintManager.hasEnrolledFingerprints()){
+                     mManager = BiometricPromptManager.from(getActivity());// 没有指纹就会崩溃
+                     openGPSSettings();
+                 }else {
+                     jumpDialog("提示", "本机无指纹功能，无法使用签到");
+                 }
              }
-         });
+        });
 
         toolbar = view.findViewById(R.id.toolbar);
         initToolbar(toolbar, "签到", false);

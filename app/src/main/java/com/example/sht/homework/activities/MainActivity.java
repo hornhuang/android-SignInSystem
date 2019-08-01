@@ -135,6 +135,11 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         user = BmobUser.getCurrentUser(User.class);
 
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION},
+                REQUEST_CODE_FINE_GPS);
+
         iniSideView();
     }
 
