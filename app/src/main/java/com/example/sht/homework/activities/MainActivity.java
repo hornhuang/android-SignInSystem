@@ -38,6 +38,7 @@ import com.example.sht.homework.R;
 import com.example.sht.homework.activities.bases.ChangeUserIfo;
 import com.example.sht.homework.fragments.ForumFragment;
 import com.example.sht.homework.fragments.slides.ReviewListFragment;
+import com.example.sht.homework.utils.ImageLoader;
 import com.example.sht.homework.utils.bmobmanager.picture.FinalImageLoader;
 import com.example.sht.homework.forums.activities.MyForumActivity;
 import com.example.sht.homework.fragments.Personal;
@@ -166,7 +167,8 @@ public class MainActivity extends BaseActivity {
 
         mUserName.setText(user.getName());//
         if (user.getImageFile() == null){
-            mUserimageView.setImageResource(R.mipmap.app_icon);
+            ImageLoader.loadBitmapByResId(R.mipmap.app_icon, mUserimageView);
+//            mUserimageView.setImageResource();
         }else {
             new FinalImageLoader(mUserimageView, user.getImageFile()).loadSmall();
         }

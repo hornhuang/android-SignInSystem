@@ -1,9 +1,15 @@
 package com.example.sht.homework;
 
 import android.app.Application;
+import android.graphics.Bitmap;
+import android.util.LruCache;
 
 import com.example.sht.homework.baseclasses.User;
 import com.example.sht.homework.utils.AppContext;
+import com.example.sht.homework.utils.ImageLoader;
+import com.example.sht.homework.utils.LruCacheHelper;
+
+import java.util.BitSet;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobObject;
@@ -24,6 +30,8 @@ import cn.bmob.v3.BmobUser;
 public class App extends Application {
 
     private final String APPID = "bd4814e57ed9c8f00aa0d119c5676cf9";
+    // 生成图片缓存
+    private static LruCache<String, Bitmap> mLruCache;
 
     @Override
     public void onCreate() {
@@ -33,7 +41,18 @@ public class App extends Application {
         if (!AppContext.isInitialized()){
             AppContext.init(getApplicationContext());
         }
-        
+        int maxMemory = Math.round(Runtime.getRuntime().maxMemory() / 8);
+        if (!LruCacheHelper.isCreated()) {
+            LruCacheHelper.create(maxMemory);
+        }
+    }
+
+    public static LruCache<String, Bitmap> getBitmapLruCache() {
+        if (mLruCache == null) {
+            int maxMemory = Math.round(Runtime.getRuntime().maxMemory() / 1024);
+            mLruCache = LruCacheHelper.create(maxMemory);
+        }
+        return mLruCache;
     }
 
     public static String getCurrentUserId() {

@@ -204,7 +204,7 @@ public class ForumEditActivity extends BaseActivity {
                         cursor.close();
 
                         try {
-                            Bitmap bitmap = ImageLoader.decodeSampleBitmapFromFile(path, mArticalImage);
+                            Bitmap bitmap = ImageLoader.decodeSampleBitmap(path, mArticalImage);
                             mArticalImage.setImageBitmap(bitmap);
                         }catch (NullPointerException e){
                             Toast.makeText(ForumEditActivity.this,"该文件不存在",Toast.LENGTH_SHORT).show();

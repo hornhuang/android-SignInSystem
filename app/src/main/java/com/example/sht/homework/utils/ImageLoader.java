@@ -2,11 +2,14 @@ package com.example.sht.homework.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.widget.ImageView;
 
 import io.reactivex.annotations.NonNull;
 
 public class ImageLoader {
+    // 图片默认压缩为该大小
+    private final static int VIEW_SIZE = 100;
 
     /**
      * 获得适合土坯啊显示的 Options
@@ -14,10 +17,17 @@ public class ImageLoader {
      * @param path 图片路径
      * @return
      */
-    public static BitmapFactory.Options getCompatibleOptions(String path) {
+    public static <T> BitmapFactory.Options getCompatibleOptions(T path) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, options);
+        if (path.getClass().equals(String.class)){
+            String s = path.toString();
+            BitmapFactory.decodeFile(s, options);
+        } else if (path.getClass().equals(Integer.class)){
+            int a = Integer.valueOf(path.toString());
+            BitmapFactory.decodeResource(AppContext.getInstance().getApplicationContext().getResources(), a, options);
+        }
+
         return options;
     }
 
@@ -30,6 +40,9 @@ public class ImageLoader {
      */
     public static int calculateSampleSize(BitmapFactory.Options options,
                                           int reqWidth, int reqHeight) {
+        if (reqHeight == 0 || reqWidth == 0){
+            reqHeight = reqWidth = VIEW_SIZE;
+        }
         final int width  = options.outWidth;
         final int height = options.outHeight;
         // round() 方法可把一个数字舍入为最接近的整数。
@@ -44,15 +57,21 @@ public class ImageLoader {
         return inSampleSize;
     }
 
-    public static Bitmap decodeSampleBitmapFromFile(String path,@NonNull ImageView imageView) throws NullPointerException{
-        if (path == null) {
-            throw new NullPointerException("图片路径不能为空");
-        }
+    public static <T> Bitmap decodeSampleBitmap(@NonNull T path,@NonNull ImageView imageView) throws NullPointerException{
         BitmapFactory.Options options = getCompatibleOptions(path);
-        Sise sise = getViewSize(imageView);
+        Sise sise = new Sise(imageView.getWidth(), imageView.getHeight());
         options.inSampleSize = calculateSampleSize(options, sise.viewWidth, sise.viewHeight);
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(path, options);
+        Bitmap bitmap;
+        if (path.getClass().equals(String.class)) {
+            bitmap = BitmapFactory.decodeFile(path.toString(), options);
+        }else if (path.getClass().equals(Integer.class)) {
+            bitmap = BitmapFactory.decodeResource(AppContext.getInstance().getApplicationContext().getResources(),
+                    Integer.valueOf(path.toString()));
+        }else {
+            throw new NullPointerException("path 参数必须为 Integer 或 String 类型");
+        }
+        return bitmap;
     }
 
     /**
@@ -64,6 +83,9 @@ public class ImageLoader {
     private static Sise getViewSize(@NonNull ImageView imageView) {
         int width  = imageView.getWidth();
         int height = imageView.getHeight();
+        if (width > 1 || height > 1) {
+            width = height = VIEW_SIZE;
+        }
         return new Sise(width, height);
     }
 
@@ -74,6 +96,34 @@ public class ImageLoader {
         Sise(int width, int height) {
             viewWidth  = width;
             viewHeight = height;
+        }
+    }
+
+    public static void loadBitmapByResId(Integer resId, ImageView imageView) {
+        String key = resId.toString();
+        Bitmap bitmap = LruCacheHelper.getBitmapFromCache(key);
+        if (bitmap == null) {
+            BitmapTask task = new BitmapTask(imageView);
+            task.execute(resId);
+        }else {
+            imageView.setImageBitmap(bitmap);
+        }
+    }
+
+    static class BitmapTask extends AsyncTask<Integer, Void, Bitmap> {
+
+        private ImageView imageView;
+
+        public BitmapTask(ImageView img) {
+            this.imageView = img;
+        }
+
+        @Override
+        protected Bitmap doInBackground(Integer... classes) {
+            Bitmap bitmap = decodeSampleBitmap(classes[0],
+                    imageView);
+            LruCacheHelper.addBitmapToCache(String.valueOf(classes[0]), bitmap);
+            return bitmap;
         }
     }
 }

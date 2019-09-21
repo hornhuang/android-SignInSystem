@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.sht.homework.R;
 import com.example.sht.homework.activities.bases.UserDetailActivity;
 import com.example.sht.homework.baseclasses.User;
+import com.example.sht.homework.utils.ImageLoader;
 import com.example.sht.homework.utils.bmobmanager.picture.FinalImageLoader;
 
 import java.util.List;
@@ -82,7 +83,7 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
             userViewHolder.user_motto.setText(user.getMotto());
         }
         if (user.getImageFile() == null){
-            userViewHolder.head_icon.setImageResource(R.mipmap.app_icon);
+            ImageLoader.loadBitmapByResId(R.mipmap.app_icon, userViewHolder.head_icon);
         }else {
             new FinalImageLoader(userViewHolder.head_icon, user.getImageFile()).loadSmall();
         }
