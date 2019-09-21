@@ -1,6 +1,6 @@
 # SignInSystem
 
-<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/S90507-20523056.gif" width="360" height="640">
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/app/src/main/res/mipmap-mdpi/app_icon.png" width="60" height="60">
 
 > Android SignIn System
 >该 App 是一款基于 Bmob 后端云实现的，主题签到 App 主要用于协会的签到事物，通过 Wi-Fi 连接到实验室，并在后台对路由器的 Mac 进行配对，指纹配对成功后能够进行签到，当签到时间结束后提交到云端并更新在线时间。
