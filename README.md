@@ -1,11 +1,22 @@
 # SignInSystem
 
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/S90507-20523056.gif" width="360" height="640">
+
 > Android SignIn System
 >该 App 是一款基于 Bmob 后端云实现的，主题签到 App 主要用于协会的签到事物，通过 Wi-Fi 连接到实验室，并在后台对路由器的 Mac 进行配对，指纹配对成功后能够进行签到，当签到时间结束后提交到云端并更新在线时间。
 
 >附加功能：动态发布，发布协会动态，方便查看。
 
-
+- 基于Bomob实现注册、登录。 
+- 实现用户列表查看。
+- 短信验证码登录服务。
+- 基于wifi识别的签到。
+- 基于指纹识别的确认签到。
+- 在线时间排行。
+- 日在线时间统计。
+- 发布动态。
+- 我的动态。
+- 所有动态。
 
 ## 排行与动态搜索
 <img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/S90507-20523056.gif" width="360" height="640">
@@ -34,21 +45,26 @@
 * [circleimageview](https://github.com/hdodenhof/CircleImageView)
 * [glide](https://github.com/bumptech/glide)
 
-## License
+## LICENSE
 
->(c) 2019 Fish In Water 
+MIT License
 
->实现本项目，主要用于我们协会成员进行签到。
+Copyright (c) 2019 FishInWater
 
->本版本主要功能：
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-1.基于Bomob实现注册、登录。 
-2.实现用户列表查看。
-3.短信验证码登录服务。
-4.基于wifi识别的签到。
-5.基于指纹识别的确认签到。
-6.在线时间排行。
-7.日在线时间统计。
-8.发布动态。
-9.我的动态。
-10.所有动态。
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
