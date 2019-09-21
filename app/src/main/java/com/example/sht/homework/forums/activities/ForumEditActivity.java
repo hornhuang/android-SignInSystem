@@ -23,6 +23,7 @@ import com.example.sht.homework.R;
 import com.example.sht.homework.activities.BaseActivity;
 import com.example.sht.homework.baseclasses.Artical;
 import com.example.sht.homework.baseclasses.User;
+import com.example.sht.homework.utils.ImageLoader;
 import com.example.sht.homework.utils.MyToast;
 
 import java.io.File;
@@ -38,7 +39,7 @@ import cn.bmob.v3.listener.UploadFileListener;
 
 public class ForumEditActivity extends BaseActivity {
 
-    private User user;
+    private User mUser;
 
     private ImageView mCacel;
     private TextView mPublish;
@@ -46,15 +47,17 @@ public class ForumEditActivity extends BaseActivity {
     private EditText mEditContent;
     private ImageView mArticalImage;
     private String path;
-    private Artical artical;
-    private String objectId;// 提交后生的 ObjectId 用于上传时命名图片
+    private Artical mArtical;
+    private String mObjectId;// 提交后生的 ObjectId 用于上传时命名图片
+    // 获得程序最高可使用内存
+    int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_artical);
 
-        user = BmobUser.getCurrentUser(User.class);
+        mUser = BmobUser.getCurrentUser(User.class);
 
         iniViews();
     }
@@ -100,16 +103,16 @@ public class ForumEditActivity extends BaseActivity {
             MyToast.makeToast(ForumEditActivity.this, "必须添加图片");
         }else {
             if (BmobUser.isLogin()){
-                artical = new Artical();
-                artical.setArticalTitleText(mEditTitle.getText().toString());
-                artical.setArticalContextText(mEditContent.getText().toString());
-                artical.setmWriterId(user.getObjectId());
-                artical.setLinkUser(BmobUser.getCurrentUser(User.class));
-                artical.save(new SaveListener<String>() {
+                mArtical = new Artical();
+                mArtical.setArticalTitleText(mEditTitle.getText().toString());
+                mArtical.setArticalContextText(mEditContent.getText().toString());
+                mArtical.setmWriterId(mUser.getObjectId());
+                mArtical.setLinkUser(BmobUser.getCurrentUser(User.class));
+                mArtical.save(new SaveListener<String>() {
                     @Override
                     public void done(String s, BmobException e) {
                         if (e == null){
-                            objectId = s;
+                            mObjectId = s;
                             loadfile();
                         }else {
                             MyToast.makeToast(ForumEditActivity.this, "发布失败" + e.getMessage());
@@ -129,8 +132,8 @@ public class ForumEditActivity extends BaseActivity {
             @Override
             public void done(BmobException e) {
                 if(e==null){
-                    artical.setArticalImageFile(bmobFile);
-                    artical.update(new UpdateListener() {
+                    mArtical.setArticalImageFile(bmobFile);
+                    mArtical.update(new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
                             if (e == null) {
@@ -174,7 +177,7 @@ public class ForumEditActivity extends BaseActivity {
         Bitmap bitmap=BitmapFactory.decodeFile(picPath, o);
         bitmap=Bitmap.createScaledBitmap(bitmap, 700, 400, false);
         File root= getExternalCacheDir();
-        File pic=new File(root,objectId + ".jpg");
+        File pic=new File(root, mObjectId + ".jpg");
         try {
             FileOutputStream fos=new FileOutputStream(pic);
             bitmap.compress(Bitmap.CompressFormat.JPEG,50,fos);
@@ -200,11 +203,13 @@ public class ForumEditActivity extends BaseActivity {
                         path = cursor.getString(columnIndex);  //获取照片路径
                         cursor.close();
 
-                        BitmapFactory.Options options = new BitmapFactory.Options();
-                        options.inSampleSize = 1;
-                        Bitmap bitmap = BitmapFactory.decodeFile(path,options);
-                        mArticalImage.setImageBitmap(bitmap);
-                        Toast.makeText(ForumEditActivity.this,path,Toast.LENGTH_SHORT).show();
+                        try {
+                            Bitmap bitmap = ImageLoader.decodeSampleBitmapFromFile(path, mArticalImage);
+                            mArticalImage.setImageBitmap(bitmap);
+                        }catch (NullPointerException e){
+                            Toast.makeText(ForumEditActivity.this,"该文件不存在",Toast.LENGTH_SHORT).show();
+                        }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

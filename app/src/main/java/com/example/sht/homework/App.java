@@ -33,6 +33,7 @@ public class App extends Application {
         if (!AppContext.isInitialized()){
             AppContext.init(getApplicationContext());
         }
+        
     }
 
     public static String getCurrentUserId() {

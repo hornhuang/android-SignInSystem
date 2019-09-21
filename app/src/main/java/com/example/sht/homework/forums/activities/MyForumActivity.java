@@ -49,7 +49,7 @@ public class MyForumActivity extends BaseActivity {
     private void iniViews(){
         recyclerView = findViewById(R.id.artical_recycler);
         swipeRefreshLayout = findViewById(R.id.artical_swipe_layout);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
     }
 
     private void iniToolbar(){
@@ -84,8 +84,8 @@ public class MyForumActivity extends BaseActivity {
         });
     }
 
-    /*
-    从 Bmob 获得所有用户信息
+    /**
+     * 从 Bmob 获得所有用户信息
      */
     public List<Artical> getData(){
         if (BmobUser.isLogin()) {
