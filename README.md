@@ -1,11 +1,13 @@
 # SignInSystem
 
-<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/app/src/main/res/mipmap-mdpi/app_icon.png" width="60" height="60">
+<img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/app/src/main/res/mipmap-mdpi/app_icon.png" width="60" height="60"></br>
+
+# 简介
 
 > Android SignIn System
->该 App 是一款基于 Bmob 后端云实现的，主题签到 App 主要用于协会的签到事物，通过 Wi-Fi 连接到实验室，并在后台对路由器的 Mac 进行配对，指纹配对成功后能够进行签到，当签到时间结束后提交到云端并更新在线时间。
+>该 App 是一款基于 Bmob 后端云实现的，主题签到 App 主要用于协会的签到事物，通过 Wi-Fi 连接到实验室，并在后台对路由器的 Mac 进行配对，指纹配对成功后能够进行签到，当签到时间结束后提交到云端并更新在线时间。</br>
 
->附加功能：动态发布，发布协会动态，方便查看。
+# 功能
 
 - 基于Bomob实现注册、登录。 
 - 实现用户列表查看。
@@ -18,27 +20,29 @@
 - 我的动态。
 - 所有动态。
 
-### 效果图
-#### 指纹与签到
+>附加功能：动态发布，发布协会动态，方便查看。</br>
+
+# 效果图
+## 指纹与签到
 ![指纹](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg)
 ![签到](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg)
-#### 论坛/发文/我的文章
+## 论坛/发文/我的文章
 ![论坛](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/A4405890037B725F22C6BD429744C039.jpg)
 ![发文](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/8F1FC89069AD3CAF0F88EE08A0ECCA64.jpg)
-#### 数据统计/排行/动态搜索
+## 数据统计/排行/动态搜索
 ![数据统计](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg)
-![排行](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/S90507-20523056.gif)
+![排行](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/S90507-20523056.gif)</br>
 
-## Credits
+# Credits
 
 * [okHttp](https://github.com/square/okhttp)
 * [Bmob](https://www.bmob.cn)
 * [GifView](https://github.com/Cutta/GifView)
 * [espresso](https://github.com/TonnyL/Espresso)
 * [circleimageview](https://github.com/hdodenhof/CircleImageView)
-* [glide](https://github.com/bumptech/glide)
+* [glide](https://github.com/bumptech/glide)</br>
 
-## LICENSE
+# LICENSE
 
 MIT License
 
