@@ -25,7 +25,7 @@
 # 效果图
 #### 指纹与签到
 ![指纹](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg)
-![签到](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/first_page.jpg)
+![签到](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/phonenumberlogin.jpeg)
 #### 论坛/发文/我的文章
 ![论坛](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/A4405890037B725F22C6BD429744C039.jpg)
 ![发文](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/8F1FC89069AD3CAF0F88EE08A0ECCA64.jpg)
