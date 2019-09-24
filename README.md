@@ -1,7 +1,8 @@
 # SignInSystem
 
-[中文文档](readme_cn.md "中文文档")
-[Fllow me at github](https://github.com/FishInWater-1999)
+[中文文档](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/README_cn.md)</br>
+
+[Fllow me at github](https://github.com/FishInWater-1999)</br>
 
 <img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/app/src/main/res/mipmap-mdpi/app_icon.png" width="60" height="60"></br>
 
