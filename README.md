@@ -1,6 +1,6 @@
 # SignInSystem
 
-![SdkVersion 28](https://img.shields.io/badge/Swift-2.2-orange.svg?style=flat)
+![SdkVersion 28](https://img.shields.io/badge/SdkVersion-28-orange.svg?style=flat)
 
 [中文文档](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/README_cn.md)</br>
 
