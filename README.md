@@ -1,5 +1,7 @@
 # SignInSystem
 
+[中文文档](readme_cn.md "中文文档") [Fllow me at github](https://github.com/cmzy)
+
 <img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/app/src/main/res/mipmap-mdpi/app_icon.png" width="60" height="60"></br>
 
 # 简介
