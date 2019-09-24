@@ -1,34 +1,35 @@
 # SignInSystem
 
-[中文文档](readme_cn.md "中文文档") [Fllow me at github](https://github.com/cmzy)
+[中文文档](readme_cn.md "中文文档")
+[Fllow me at github](https://github.com/FishInWater-1999)
 
 <img src="https://github.com/FishInWater-1999/android-SignInSystem/blob/master/app/src/main/res/mipmap-mdpi/app_icon.png" width="60" height="60"></br>
 
 # 简介
 
 > Android SignIn System
->该 App 是一款基于 Bmob 后端云实现的，主题签到 App 主要用于协会的签到事物，通过 Wi-Fi 连接到实验室，并在后台对路由器的 Mac 进行配对，指纹配对成功后能够进行签到，当签到时间结束后提交到云端并更新在线时间。</br>
+> This app is a Bmob back-end cloud-based, theme-to-app is primarily used for association check-in, connected to the lab via Wi-Fi, and paired with the router's Mac in the background, and fingerprint pairing is successfully checked in, submitted to the cloud at the end of the check-in time and updated online.</br>
 
 # 下载
 
-> 扫面下方二维码即可下载应用 APK
+> Please sweep the QR code below the face to download the app APK
 
 ![指纹](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/downloadapk.png)
 
 # 功能
 
-- 基于Bomob实现注册、登录。 
-- 实现用户列表查看。
-- 短信验证码登录服务。
-- 基于wifi识别的签到。
-- 基于指纹识别的确认签到。
-- 在线时间排行。
-- 日在线时间统计。
-- 发布动态。
-- 我的动态。
-- 所有动态。
+- Based on Bomob implementation registration, login. 
+- Implement stod-in view of the user list.
+- SMS verification code login service.
+- Check-in based on wifi recognition.
+- Confirmation check-in based on fingerprint identification.
+- Online time ranking.
+- Daily online time statistics.
+- Publish ingress.
+- My dynamic.
+- All dynamics.
 
->附加功能：动态发布，发布协会动态，方便查看。</br>
+> Additional features: dynamic publishing, publishing association dynamics, easy to view.</br>
 
 # 效果图
 #### 指纹与签到
