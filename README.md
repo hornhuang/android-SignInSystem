@@ -1,6 +1,11 @@
 # SignInSystem
 
-![SdkVersion 28](https://img.shields.io/badge/SdkVersion-28-orange.svg?style=flat)
+![Version 1.0.2](https://img.shields.io/badge/SdkVersion-1.0.2-orange.svg?style=flat)
+![SdkVersion 28](https://img.shields.io/badge/SdkVersion-28-green.svg?style=flat)
+![rxjava2 2.2.3](https://img.shields.io/badge/rxjava2-2.2.3-red.svg?style=flat)
+![rxandroid 2.1.0](https://img.shields.io/badge/rxandroid-2.1.0-grown.svg?style=flat)
+![okhttp3 3.12.1](https://img.shields.io/badge/okhttp3-3.12.1-blue.svg?style=flat)
+![glide 4.9.0](https://img.shields.io/badge/glide-4.9.0-green.svg?style=flat)
 
 [中文文档](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/README_cn.md)</br>
 
