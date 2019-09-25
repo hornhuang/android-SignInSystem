@@ -1,5 +1,12 @@
 # SignInSystem 中文文档
 
+![Version 1.0.2](https://img.shields.io/badge/SdkVersion-1.0.2-orange.svg?style=flat)
+![SdkVersion 28](https://img.shields.io/badge/SdkVersion-28-green.svg?style=flat)
+![rxjava2 2.2.3](https://img.shields.io/badge/rxjava2-2.2.3-red.svg?style=flat)
+![rxandroid 2.1.0](https://img.shields.io/badge/rxandroid-2.1.0-grown.svg?style=flat)
+![okhttp3 3.12.1](https://img.shields.io/badge/okhttp3-3.12.1-blue.svg?style=flat)
+![glide 4.9.0](https://img.shields.io/badge/glide-4.9.0-green.svg?style=flat)
+
 [英文文档](https://github.com/FishInWater-1999/android-SignInSystem/blob/master/README.md)</br>
 
 [Fllow me at github](https://github.com/FishInWater-1999)</br>
@@ -53,7 +60,7 @@
 * [glide](https://github.com/bumptech/glide)</br>
 
 # LICENSE
-
+```
 MIT License
 
 Copyright (c) 2019 FishInWater
@@ -75,3 +82,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
